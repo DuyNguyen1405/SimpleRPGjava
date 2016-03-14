@@ -8,23 +8,92 @@ import javax.swing.*;
 
 import character.*;
 	public class Layout extends JFrame {
-   
-	    public GridLayoutDemo(String name) {
-	        super(name);
-	        
-	    }
+		
+		private JButton b1 = new JButton("one");
+		private JButton b2 = new JButton("two");
+		private JButton up = new JButton("^");
+		private JButton down = new JButton("v");
+		private JButton left = new JButton("<");
+		private JButton right = new JButton(">");
+		private JPanel bigGrid = new JPanel();
+		private Container controls = new Container();
 	     
 
-	    public void addComponentsToPane(final Container pane) throws IOException {
-	        JButton b1 = new JButton("one");
-	        JButton b2 = new JButton("two");
-	        JButton up = new JButton("^");
-	        JButton down = new JButton("v");
-	        JButton left = new JButton("<");
-	        JButton right = new JButton(">");
-	        JPanel bigGrid = new JPanel();
+	    public JButton getB1() {
+			return b1;
+		}
+
+
+		public void setB1(JButton b1) {
+			this.b1 = b1;
+		}
+
+
+		public JButton getB2() {
+			return b2;
+		}
+
+
+		public void setB2(JButton b2) {
+			this.b2 = b2;
+		}
+
+
+		public JButton getUp() {
+			return up;
+		}
+
+
+		public void setUp(JButton up) {
+			this.up = up;
+		}
+
+
+		public JButton getDown() {
+			return down;
+		}
+
+
+		public void setDown(JButton down) {
+			this.down = down;
+		}
+
+
+		public JButton getLeft() {
+			return left;
+		}
+
+
+		public void setLeft(JButton left) {
+			this.left = left;
+		}
+
+
+		public JButton getRight() {
+			return right;
+		}
+
+
+		public void setRight(JButton right) {
+			this.right = right;
+		}
+
+
+		public Container getControls() {
+			return controls;
+		}
+
+
+		public void setControls(Container controls) {
+			this.controls = controls;
+		}
+
+
+		public void addComponentsToPane(final Container pane) throws IOException {
+	        
+	        
 	        bigGrid.setLayout(new GridLayout(5,5));
-	        Container controls = new Container();
+	        
 	        //controls.setLayout(null);
 	         
 	        //Set up components preferred size
@@ -71,6 +140,8 @@ import character.*;
 	        //map.setCharacterPosition(0, 0);
 	        map.createMap();
 	        //System.out.printl(map.words[1][4]);
+	        Controller control = new Controller();
+	        control.press(up);
 	        
 	    }
 	     
@@ -83,7 +154,8 @@ import character.*;
 	     */
 	    private static void createAndShowGUI() throws IOException {
 	        //Create and set up the window.
-	        GridLayoutDemo frame = new GridLayoutDemo("GridLayoutDemo");
+	    	Layout frame = new Layout();
+	    	frame.setTitle("Test1");
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        //Set up the content pane.
 	        frame.addComponentsToPane(frame.getContentPane());

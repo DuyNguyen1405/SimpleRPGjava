@@ -10,13 +10,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 
 public class Map {
-		
+			private String[][] words = new String[5][5];
 		    private static BufferedReader reader;
+		    
+			public String[][] getWords() {
+				return words;
+			}
+			public void setWords(String[][] words) {
+				this.words = words;
+			}
+			
 			public void createMap() throws IOException{
 		            
-				String[][] words = new String[5][5];
+					
 		            FileReader file = new FileReader("M1.txt");
 		            reader = new BufferedReader(file);
 		            String line = reader.readLine();
@@ -28,13 +39,13 @@ public class Map {
 			            	for(i=0;i<5;i++){
 			            		String[] arr = line.split(" ");
 			            		for(j=0;j<5;j++){
-//				            		if(count==arr.length) break;
+				            	
 			            			words[i][j] = arr[j];
 //				            		count++;
 			            			System.out.print(words[i][j]);
 				            		
 			            		}
-
+			            	
 			            		System.out.println();
 			            		line = reader.readLine();
 			            	}
@@ -47,6 +58,7 @@ public class Map {
 		            reader.close();
 		            //System.out.println(words[0][4]);
 		    }
+
 			
 			}
 

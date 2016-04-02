@@ -15,12 +15,16 @@ public class Controller {
     	
        	Layout layout = new Layout();
        	player player = new player();
-
+       	
     	button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)  {
                	int x = layout.getX();
                	int y = layout.getY();
-            	
+               	
+            	if(x<1) {
+            		System.out.println("Khong the di chuyen");
+            		return;
+            	}
                	//player.makeChar(x-1, y, table);
                	Object next = table.getValueAt(x-1, y);
                	table.setValueAt("o", x-1, y);

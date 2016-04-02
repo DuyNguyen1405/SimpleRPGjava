@@ -174,9 +174,8 @@ import character.*;
 	        
 	        player.makeChar(x,y,table);
 	        layout.setOldPos(player.getOldValue());
-    	        System.out.println(layout.getOldPos());
-    	    control.press(up,table);
-        	
+			System.out.println(layout.getOldPos());
+    	    control.press(up,down, left, right, table);
 	        }
 	        	
 	    

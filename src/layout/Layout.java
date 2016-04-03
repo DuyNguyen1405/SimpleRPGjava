@@ -9,19 +9,37 @@ import javax.swing.table.DefaultTableModel;
 
 import character.*;
 	public class Layout extends JFrame {
-		
-		private JButton b1 = new JButton("one");
-		private JButton b2 = new JButton("two");
-		private JButton up = new JButton("^");
-		private JButton down = new JButton("v");
-		private JButton left = new JButton("<");
-		private JButton right = new JButton(">");
-		private JPanel bigGrid = new JPanel();
-		private Container controls = new Container();
-		JTable table = new JTable();
-        private static int x = 4;
-        private static int y = 0;
-        private static Object oldPos = new Object();
+
+		private JButton b1;
+		private JButton b2;
+		private JButton up;
+		private JButton down;
+		private JButton left;
+		private JButton right;
+		private JPanel bigGrid;
+		private Container controls;
+		private JTable table;
+		private static Object oldPos;
+		private int x;
+		private int y;
+
+		public Layout(){
+			this.b1 = new JButton("A");
+			this.b2 = new JButton("B");
+			this.up = new JButton("^");
+			this.down = new JButton("v");
+			this.left = new JButton("<");
+			this.right = new JButton(">");
+
+			this.bigGrid = new JPanel();
+			this.controls = new Container();
+			this.table = new JTable();
+			this.oldPos = new Object();
+
+			this.x = 4;
+			this.y = 0;
+		}
+
 	    public Object getOldPos() {
 			return oldPos;
 		}

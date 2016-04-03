@@ -2,61 +2,95 @@ package layout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.io.IOException;
+
 import javax.swing.JTable;
 
 import character.player;
 public class Controller {
 	Object nextValue = new Object();
-
 	
-	public void press(JButton button_up, JButton button_down, JButton button_left, JButton button_right, final JTable table)  {
-    	
-       	final Layout layout = new Layout();
+	public void checkEnd(Layout layout, Object next, JTable table){
+		String check = (String) next;
+		if(check.equals("End")){
+			System.out.println("Tro choi ket thuc");
+			return;
+		}
+	}
+	public void checkNextMap(Layout layout, Object next, JTable table) throws IOException{
+		String check = (String) next;
+		Map map= new Map();
+		player player = new player();
+		if(check.substring(0,1).equals("M")){
+			check = check + ".txt";
+	        map.createMap(check);
+	        String[][] test = map.getWords();
+	        for (int i = 0; i < 5; i++) {
+	            for (int j = 0; j < 5; j++) {
+	                table.setValueAt(test[i][j], i, j);
+	            }
+	        }
+	    layout.setOldPos(table.getValueAt(4, 0));
+	    
+	    table.setValueAt("o", 4, 0);
+	    layout.setX(4);
+	    layout.setY(0);
+		}
+	}
+	public void press(Layout layout){
        	player player = new player();
-
-    	button_up.addActionListener(new ActionListener() {
+       	JTable table = layout.getTable();
+    	layout.getUp().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)  {
                	int x = layout.getX();
                	int y = layout.getY();
-
+               	
 				if (x < 1){
 					System.out.println("Khong the di chuyen");
 					return;
 				}
             	
-               	//player.makeChar(x-1, y, table);
                	Object next = table.getValueAt(x-1, y);
                	table.setValueAt("o", x-1, y);
             	layout.setX(x-1);
             	table.setValueAt(layout.getOldPos(), x, y);
             	layout.setOldPos(next);
+            	try {
+            		checkEnd(layout, next,table);
+					checkNextMap(layout, next,table);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             	
             }
         });
 
-		button_down.addActionListener(new ActionListener() {
+    	layout.getDown().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)  {
 				int x = layout.getX();
 				int y = layout.getY();
 
-				System.out.println(x);
 				if (x > 3){
 					System.out.println("Khong the di chuyen");
 					return;
 				}
-				//player.makeChar(x-1, y, table);
 				Object next = table.getValueAt(x + 1, y);
 				table.setValueAt("o", x + 1, y);
 				layout.setX(x + 1);
 				table.setValueAt(layout.getOldPos(), x, y);
 				layout.setOldPos(next);
-
+				try {
+					checkEnd(layout, next,table);
+					checkNextMap(layout, next,table);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 
-		button_left.addActionListener(new ActionListener() {
+    	layout.getLeft().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)  {
 				int x = layout.getX();
 				int y = layout.getY();
@@ -65,16 +99,22 @@ public class Controller {
 					System.out.println("Khong the di chuyen");
 					return;
 				}
-				//player.makeChar(x-1, y, table);
 				Object next = table.getValueAt(x, y - 1);
 				table.setValueAt("o", x, y - 1);
 				layout.setY(y - 1);
 				table.setValueAt(layout.getOldPos(), x, y);
 				layout.setOldPos(next);
+				try {
+					checkEnd(layout, next,table);
+					checkNextMap(layout, next,table);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 
-		button_right.addActionListener(new ActionListener() {
+    	layout.getRight().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)  {
 				int x = layout.getX();
 				int y = layout.getY();
@@ -83,33 +123,21 @@ public class Controller {
 					System.out.println("Khong the di chuyen");
 					return;
 				}
-				//player.makeChar(x-1, y, table);
 				Object next = table.getValueAt(x, y + 1);
 				table.setValueAt("o", x, y + 1);
 				layout.setY(y + 1);
 				table.setValueAt(layout.getOldPos(), x, y);
 				layout.setOldPos(next);
+				try {
+					checkEnd(layout, next,table);
+					checkNextMap(layout, next,table);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
-	
-//	public void press(JButton button,JTable table, Object oldPos)  {
-//    	
-//       	Layout layout = new Layout();
-//       	player player = new player();
-//
-//    	button.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e)  {
-//               	int x = layout.getX();
-//               	int y = layout.getY();
-//            	player.makeChar(x-1, y, table);
-//               	table.setValueAt("o", x-1, y);
-//            	layout.setX(x-1);
-//            	table.setValueAt(player.getOldValue(), x, y);
-//            	
-//            }
-//        });  
-//    }
  
  
 }

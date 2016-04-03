@@ -1,29 +1,39 @@
 package layout;
 
 	import java.awt.*;
-	import java.awt.event.*;
-import java.io.IOException;
+	import java.io.IOException;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
 import character.*;
 	public class Layout extends JFrame {
 		
-		private JButton b1 = new JButton("one");
-		private JButton b2 = new JButton("two");
-		private JButton up = new JButton("^");
-		private JButton down = new JButton("v");
-		private JButton left = new JButton("<");
-		private JButton right = new JButton(">");
-		private JPanel bigGrid = new JPanel();
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private static JButton b1 = new JButton("one");
+		private static JButton b2 = new JButton("two");
+		private static JButton up = new JButton("^");
+		private static JButton down = new JButton("v");
+		private static JButton left = new JButton("<");
+		private static JButton right = new JButton(">");
 		private Container controls = new Container();
-		JTable table = new JTable();
+		private static JTable table = new JTable();
         private static int x = 4;
         private static int y = 0;
         private static Object oldPos = new Object();
 	    public Object getOldPos() {
 			return oldPos;
+		}
+
+
+		public static JTable getTable() {
+			return table;
+		}
+
+
+		public static void setTable(JTable table) {
+			Layout.table = table;
 		}
 
 
@@ -122,9 +132,7 @@ import character.*;
 		}
 
 
-		public void addComponentsToPane(final Container pane) throws IOException, InterruptedException {
-	          Layout layout = new Layout();
-	        //bigGrid.setLayout(new GridLayout(5,5));
+		public void addComponentsToPane(final Container pane, Layout layout) throws IOException, InterruptedException {
 	  
 	        JButton b = new JButton("zxczxczxczxc");
 	        Dimension buttonSize = b.getPreferredSize();
@@ -155,13 +163,11 @@ import character.*;
 
 	        Map map= new Map();
 
-	        map.createMap();
+	        map.createMap("M1.txt");
 	        String[][] test = map.getWords();
 	        String[] column = {"0","1","2","3","4"};
-	        JTable table = new JTable(test,column);
+	        table = new JTable(test,column);
 	        
-	        
-	        JScrollPane scrollPane = new JScrollPane(table);
 	        pane.add(table);
 	        table.setSize(100, 80);
 	        size = table.getPreferredSize();
@@ -174,29 +180,19 @@ import character.*;
 	        
 	        player.makeChar(x,y,table);
 	        layout.setOldPos(player.getOldValue());
-			System.out.println(layout.getOldPos());
-    	    control.press(up,down, left, right, table);
+    	    control.press(layout);
 	        }
 	        	
 	    
 	     
 
-	    /**
-	     * Create the GUI and show it.  For thread safety,
-	     * this method is invoked from the
-	     * event dispatch thread.
-	     * @throws IOException 
-	     * @throws InterruptedException 
-	     */
 	    private static void createAndShowGUI() throws IOException, InterruptedException {
 	        //Create and set up the window.
 	    	Layout frame = new Layout();
 	    	frame.setTitle("Test");
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        //Set up the content pane.
-	        frame.addComponentsToPane(frame.getContentPane());
-	        //Display the window.
-	        Insets insets = frame.getInsets();
+	        frame.addComponentsToPane(frame.getContentPane(),frame);
 	        frame.setSize(1500,700);
 	        frame.pack();
 	        frame.setVisible(true);

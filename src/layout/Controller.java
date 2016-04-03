@@ -37,9 +37,9 @@ public class Controller {
 	    layout.setY(0);
 		}
 	}
-	public void press(Layout layout){
+	public void press(final Layout layout){
        	player player = new player();
-       	JTable table = layout.getTable();
+       	final JTable table = layout.getTable();
     	layout.getUp().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)  {
                	int x = layout.getX();

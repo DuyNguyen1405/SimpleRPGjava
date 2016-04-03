@@ -8,20 +8,20 @@ import character.*;
 	public class Layout extends JFrame {
 		
 		/**
-		 *
+		 * 
 		 */
-		private JButton b1;
-		private JButton b2;
-		private JButton up;
-		private JButton down;
-		private JButton left;
-		private JButton right;
-		private JPanel bigGrid;
+		private static JButton b1;
+		private static JButton b2;
+		private static JButton up;
+		private static JButton down;
+		private static JButton left;
+		private static JButton right;
+
 		private Container controls;
-		private JTable table;
+		private static JTable table;
 		private static Object oldPos;
-		private int x;
-		private int y;
+		private static int x;
+		private static int y;
 
 		public Layout(){
 			this.b1 = new JButton("A");
@@ -31,7 +31,6 @@ import character.*;
 			this.left = new JButton("<");
 			this.right = new JButton(">");
 
-			this.bigGrid = new JPanel();
 			this.controls = new Container();
 			this.table = new JTable();
 			this.oldPos = new Object();
@@ -39,6 +38,7 @@ import character.*;
 			this.x = 4;
 			this.y = 0;
 		}
+
 
 	    public Object getOldPos() {
 			return oldPos;
@@ -185,7 +185,7 @@ import character.*;
 	        String[][] test = map.getWords();
 	        String[] column = {"0","1","2","3","4"};
 	        table = new JTable(test,column);
-
+	        
 	        pane.add(table);
 	        table.setSize(100, 80);
 	        size = table.getPreferredSize();

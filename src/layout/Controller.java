@@ -5,15 +5,49 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JTable;
-
+import javax.swing.JOptionPane;
 import character.player;
 public class Controller {
 	Object nextValue = new Object();
 	
+	public void newGame(Layout layout,JTable table)
+	{
+		layout.getB2().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)  {
+            	Map map = new Map();
+            	layout.getUp().setEnabled(true);
+    			layout.getDown().setEnabled(true);
+    			layout.getLeft().setEnabled(true);
+    			layout.getRight().setEnabled(true);
+    	        try {
+					map.createMap("M1.txt");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    	        String[][] test = map.getWords();
+    	        for (int i = 0; i < 5; i++) {
+    	            for (int j = 0; j < 5; j++) {
+    	                table.setValueAt(test[i][j], i, j);
+    	            }
+    	        }
+    	    layout.setOldPos(table.getValueAt(4, 0));
+    	    
+    	    table.setValueAt("o", 4, 0);
+    	    layout.setX(4);
+    	    layout.setY(0);
+            }
+        });
+	}
 	public void checkEnd(Layout layout, Object next, JTable table){
 		String check = (String) next;
 		if(check.equals("End")){
 			System.out.println("Tro choi ket thuc");
+			layout.getUp().setEnabled(false);
+			layout.getDown().setEnabled(false);
+			layout.getLeft().setEnabled(false);
+			layout.getRight().setEnabled(false);
+			newGame(layout,table);
 			return;
 		}
 	}
@@ -37,9 +71,10 @@ public class Controller {
 	    layout.setY(0);
 		}
 	}
-	public void press(final Layout layout){
+	public void press(Layout layout){
        	player player = new player();
-       	final JTable table = layout.getTable();
+       	JTable table = layout.getTable();
+       	
     	layout.getUp().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)  {
                	int x = layout.getX();

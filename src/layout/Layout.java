@@ -195,7 +195,8 @@ import character.*;
 
 	        player player = new player();
 	        Controller control = new Controller();
-	        
+
+			/* TODO */
 	        player.makeChar(x,y,table);
 	        layout.setOldPos(player.getOldValue());
     	    control.press(layout);

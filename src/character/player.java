@@ -4,23 +4,18 @@ import javax.swing.JTable;
 
 import layout.*;
 
-public class player {
-	private int x;
-	private int y;
+public class player extends Character{
 	private Object oldValue;
-	public int getX() {
-		return x;
+
+	public player(String name, int hp, int mp, String symbol, Position position, Object oldValue) {
+		super(name, hp, mp, symbol, position);
+		this.oldValue = oldValue;
 	}
-	public void setX(int x) {
-		this.x = x;
+
+	public player(){
+		super();
 	}
-	public int getY() {
-		return y;
-	}
-	public void setY(int y) {
-		this.y = y;
-	}
-	
+
 	public Object getOldValue() {
 		return oldValue;
 	}

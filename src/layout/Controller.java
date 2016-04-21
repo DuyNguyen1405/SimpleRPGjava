@@ -39,35 +39,19 @@ public class Controller implements Moving{
 				int keyCode = keyEvent.getKeyCode();
 				switch (keyCode){
 					case KeyEvent.VK_UP:
-						try {
-							move(Moving.up);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+						move(Moving.up);
 						//character.move(Moving.up);
 						break;
 					case KeyEvent.VK_DOWN:
-						try {
-							move(Moving.down);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+						move(Moving.down);
 						//character.move(Moving.down);
 						break;
 					case KeyEvent.VK_LEFT:
-						try {
-							move(Moving.left);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+						move(Moving.left);
 						//character.move(Moving.left);
 						break;
 					case KeyEvent.VK_RIGHT :
-						try {
-							move(Moving.right);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+						move(Moving.right);
 						//character.move(Moving.right);
 						break;
 				}
@@ -82,23 +66,16 @@ public class Controller implements Moving{
 		this.layout.setFocusable(true);
 	}
 
-	public void move(Coordinate coordinate) throws IOException {
+	public void move(Coordinate coordinate){
 		// Toa do (x, y) cu
 		Coordinate curr = new Coordinate(character.getPosition().getX(), character.getPosition().getY());
 
 		//Toa do (x, y) moi
 		Coordinate newPos = curr.move(coordinate);
 		if (checkInMap(newPos)){
-			while (true) {
-				String currValue = (String) this.layout.getValueAt(newPos);
-				if (currValue.substring(0, 1).equals("M")) {
-					loadNewMap(String.format("%s.txt", currValue));
-					break;
-				}
+			character.move(coordinate);
+			Object currValue = this.layout.getValueAt(newPos);
 
-				character.move(coordinate);
-				break;
-			}
 		}
 	}
 
@@ -112,14 +89,14 @@ public class Controller implements Moving{
 
 		if (coo.getX() >= maxX) return false;
 		if (coo.getY() >= maxY) return false;
+
+		System.out.println("OK");
 		return true;
 	}
 
 	private void loadNewMap(String name) throws IOException {
 		this.layout.setMap(new Map(name));
 		this.character.draw(this.layout.getMap());
-		layout.remove(layout.getMap().getTable());
-		layout.add(layout.getMap().getTable());
 	}
 
 //	public void newGame()

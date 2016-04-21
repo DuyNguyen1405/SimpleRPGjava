@@ -65,7 +65,6 @@ public class Map {
 			public Object getValueAt(int row, int col) { return words[row][col]; } // Gan du lieu trong words cho table
 		};
 		this.table = new JTable(maxX, maxY);
-		this.table.setRowSelectionAllowed(false);
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				table.setValueAt(words[i][j], i, j);

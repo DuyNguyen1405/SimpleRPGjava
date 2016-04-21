@@ -16,6 +16,7 @@ public class Character {
     protected int mp;
     protected String symbol;
     protected Position position;
+    protected Controller controller;
     protected Layout layout;
 
     public Character(){
@@ -35,14 +36,6 @@ public class Character {
         this.layout = layout;
 //        this.controller = new Controller(layout, this.position);
 //        this.controller.press();
-    }
-
-    public Character(String name, int hp, int mp, String symbol, Position position) {
-        this.name = name;
-        this.hp = hp;
-        this.mp = mp;
-        this.symbol = symbol;
-        this.position = position;
     }
 
     public String getName() {
@@ -86,7 +79,9 @@ public class Character {
     }
 
     public void move(Coordinate coordinate){
-        layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY()); //Set gia tri cu vao vi tri hien tai cua player
+
+        //Set gia tri cu vao vi tri hien tai cua player
+        layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
 
         // Set lai x, y
         this.position.setX(this.position.getX() + coordinate.getX());
@@ -101,9 +96,6 @@ public class Character {
 
     public void draw(Map map){
         this.position.setSymbol((String) map.getTable().getValueAt(this.position.getX(), this.position.getY()));
-        //System.out.println(this.position.getSymbol());
-        //System.out.println(oldValue);
         map.getTable().setValueAt(this.symbol, this.position.getX(), this.position.getY());
-        //System.out.println(map.getTable().getValueAt(this.position.getX(), this.position.getY()));
     }
 }

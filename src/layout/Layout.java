@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.peer.MouseInfoPeer;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.swing.*;
 import character.*;

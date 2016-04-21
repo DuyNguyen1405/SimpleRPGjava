@@ -3,7 +3,7 @@ package character;
 /**
  * Created by j on 14/03/2016.
  */
-public class Position implements Moving{
+public class Position {
     private int x;
     private int y;
     private String symbol;

@@ -1,17 +1,15 @@
 package layout;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.peer.MouseInfoPeer;
-import java.io.IOException;
-import java.util.HashMap;
+import character.Coordinate;
+import character.Monster;
+import character.Position;
+import character.player;
 
 import javax.swing.*;
-import character.*;
-import character.Character;
+import java.awt.*;
+import java.io.IOException;
 
-public class Layout extends JFrame implements Moving{
+public class Layout extends JFrame {
 	private player player;
 	private Map map;
 
@@ -37,10 +35,7 @@ public class Layout extends JFrame implements Moving{
 		this.controls = new Container();
 
 		this.map = new Map("M1.txt"); //khoi tao map
-		this.player = new player(this);
-		Controller PlayerController = new Controller(this, player);
-		//PlayerController.press();
-		//PlayerController.setCharacter(player);
+		this.player = new player(new Controller(this, new Position(4, 0)));
 	}
 
 	public JButton getB1() {
@@ -140,7 +135,7 @@ public class Layout extends JFrame implements Moving{
 		right.setBounds(110 + insets.left, 170 + insets.bottom, size.width, size.height);
 
 
-		player.draw(map);
+		player.draw();
 
 		// Add map vao Layout
 		pane.add(map.getTable());
@@ -159,11 +154,17 @@ public class Layout extends JFrame implements Moving{
 		frame.setTitle("Test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Set up the content pane.
-		frame.setVisible(true);
 		frame.addComponentsToPane(frame.getContentPane(),frame);
 		frame.setSize(1500,700);
+		frame.setVisible(true);
 		frame.pack();
 
+		Monster monster1 = new Monster(new Controller(frame, new Position(3, 0)));
+		monster1.draw();
+
+//		Monster monster2 = new Monster(new Controller(frame, new Position(3, 2)));
+//		monster2.draw();
+		monster1.remote();
 	}
 
 	public static void main(String[] args) {

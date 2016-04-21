@@ -1,4 +1,7 @@
 package layout;
+import character.Monster;
+import character.Position;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -70,5 +73,9 @@ public class Map {
 				table.setValueAt(words[i][j], i, j);
 			}
 		}
+	}
+
+	public void addMonster(Layout layout){
+
 	}
 }

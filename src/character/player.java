@@ -9,12 +9,14 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 
 public class player extends Character{
-	public player(Layout layout) {
-		super(layout);
+	public player(Controller controller){
+		super(controller);
+		this.symbol = "0";
+		remote();
 	}
 
-	private void remote(){
-		this.layout.addKeyListener(new KeyListener() {
+	void remote(){
+		this.getController().getLayout().addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent keyEvent) {
 
@@ -44,12 +46,9 @@ public class player extends Character{
 			}
 
 			@Override
-			public void keyReleased(KeyEvent keyEvent) {
-
-			}
+			public void keyReleased(KeyEvent keyEvent) {}
 		});
-
-		this.layout.setFocusable(true);
+		this.getController().getLayout().setFocusable(true);
 	}
 
 }

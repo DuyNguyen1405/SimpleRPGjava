@@ -1,82 +1,111 @@
 package layout;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.IOException;
-
-import character.Character;
 import character.Coordinate;
-import character.Moving;
-import character.player;
+import character.Position;
 
 import javax.swing.*;
 
-public class Controller implements Moving{
+public class Controller {
 	private Layout layout;
-	private Character character;
+	//private Character character;
+	private Position position;
 
 	public Controller(Layout layout){
 		this.layout = layout;
 	}
-
-	public Controller(Layout layout, Character character){
+	public Controller(Layout layout, Position position){
 		this.layout = layout;
-		this.character = character;
-		if (character instanceof player){
-			addKeyController();
-		}
+		this.position = position;
 	}
 
-	private void addKeyController(){
-		this.layout.addKeyListener(new KeyListener() {
-			@Override
-			public void keyTyped(KeyEvent keyEvent) {
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent keyEvent) {
-				int keyCode = keyEvent.getKeyCode();
-				switch (keyCode){
-					case KeyEvent.VK_UP:
-						move(Moving.up);
-						//character.move(Moving.up);
-						break;
-					case KeyEvent.VK_DOWN:
-						move(Moving.down);
-						//character.move(Moving.down);
-						break;
-					case KeyEvent.VK_LEFT:
-						move(Moving.left);
-						//character.move(Moving.left);
-						break;
-					case KeyEvent.VK_RIGHT :
-						move(Moving.right);
-						//character.move(Moving.right);
-						break;
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent keyEvent) {
-
-			}
-		});
-
-		this.layout.setFocusable(true);
+	public Layout getLayout() {
+		return layout;
 	}
 
-	public void move(Coordinate coordinate){
-		// Toa do (x, y) cu
-		Coordinate curr = new Coordinate(character.getPosition().getX(), character.getPosition().getY());
+	public void setLayout(Layout layout) {
+		this.layout = layout;
+	}
 
-		//Toa do (x, y) moi
+	//	public Controller(Layout layout, Character character){
+//		this.layout = layout;
+//		this.character = character;
+//		if (character instanceof player){
+//			addKeyController();
+//		}
+//	}
+
+//	private void addKeyController(){
+//		this.layout.addKeyListener(new KeyListener() {
+//			@Override
+//			public void keyTyped(KeyEvent keyEvent) {
+//
+//			}
+//
+//			@Override
+//			public void keyPressed(KeyEvent keyEvent) {
+//				int keyCode = keyEvent.getKeyCode();
+//				switch (keyCode){
+//					case KeyEvent.VK_UP:
+//						move(Moving.up);
+//						//character.move(Moving.up);
+//						break;
+//					case KeyEvent.VK_DOWN:
+//						move(Moving.down);
+//						//character.move(Moving.down);
+//						break;
+//					case KeyEvent.VK_LEFT:
+//						move(Moving.left);
+//						//character.move(Moving.left);
+//						break;
+//					case KeyEvent.VK_RIGHT :
+//						move(Moving.right);
+//						//character.move(Moving.right);
+//						break;
+//				}
+//			}
+//
+//			@Override
+//			public void keyReleased(KeyEvent keyEvent) {
+//
+//			}
+//		});
+//
+//		this.layout.setFocusable(true);
+//	}
+
+//	public void move(Coordinate coordinate){
+//		// Toa do (x, y) cu
+//		Coordinate curr = new Coordinate(character.getPosition().getX(), character.getPosition().getY());
+//
+//		//Toa do (x, y) moi
+//		Coordinate newPos = curr.move(coordinate);
+//		if (checkInMap(newPos)){
+//			character.move(coordinate);
+//			Object currValue = this.layout.getValueAt(newPos);
+//
+//		}
+//	}
+
+	public boolean move(Coordinate coordinate, String symbol){
+		Coordinate curr = new Coordinate(this.position.getX(), this.position.getY());
 		Coordinate newPos = curr.move(coordinate);
-		if (checkInMap(newPos)){
-			character.move(coordinate);
-			Object currValue = this.layout.getValueAt(newPos);
 
+		if (checkInMap(newPos)) {
+			//Set gia tri cu vao vi tri hien tai cua player
+			layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
+
+			// Set lai x, y
+			this.position.setX(this.position.getX() + coordinate.getX());
+			this.position.setY(this.position.getY() + coordinate.getY());
+
+			// Set gia tri moi cua o player de len
+			this.position.setSymbol((String) this.layout.getMap().getTable().getValueAt(this.position.getX(), this.position.getY()));
+
+			// Set gia tri moi o table tai vi tri player
+			layout.getMap().getTable().setValueAt(symbol, this.position.getX(), this.position.getY());
+			return true;
 		}
+		return false;
 	}
 
 	private boolean checkInMap(Coordinate coo){
@@ -94,10 +123,15 @@ public class Controller implements Moving{
 		return true;
 	}
 
-	private void loadNewMap(String name) throws IOException {
-		this.layout.setMap(new Map(name));
-		this.character.draw(this.layout.getMap());
+	public void draw(String symbol){
+		this.position.setSymbol((String) layout.getMap().getTable().getValueAt(this.position.getX(), this.position.getY()));
+		layout.getMap().getTable().setValueAt(symbol, this.position.getX(), this.position.getY());
 	}
+
+//	private void loadNewMap(String name) throws IOException {
+//		this.layout.setMap(new Map(name));
+//		this.character.draw(this.layout.getMap());
+//	}
 
 //	public void newGame()
 //	{

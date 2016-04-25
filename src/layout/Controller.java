@@ -1,19 +1,9 @@
 package layout;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.IOException;
-
-import character.Character;
 import character.Coordinate;
 import character.Position;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import com.sun.xml.internal.bind.v2.TODO;
 
 public class Controller {
 	private Layout layout;
@@ -28,70 +18,73 @@ public class Controller {
 		this.position = position;
 	}
 
-<<<<<<< HEAD
-	private void addKeyController(){
-		this.layout.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent keyEvent) {
-
-			}
-
-			public void keyPressed(KeyEvent keyEvent) {
-				int keyCode = keyEvent.getKeyCode();
-				switch (keyCode){
-					case KeyEvent.VK_UP:
-					try {
-						move(Moving.up);
-					} catch (IOException e3) {
-						// TODO Auto-generated catch block
-						e3.printStackTrace();
-					}
-						//character.move(Moving.up);
-						break;
-					case KeyEvent.VK_DOWN:
-					try {
-						move(Moving.down);
-					} catch (IOException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
-						//character.move(Moving.down);
-						break;
-					case KeyEvent.VK_LEFT:
-					try {
-						move(Moving.left);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-						//character.move(Moving.left);
-						break;
-					case KeyEvent.VK_RIGHT :
-					try {
-						move(Moving.right);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-						//character.move(Moving.right);
-						break;
-				}
-			}
-
-			public void keyReleased(KeyEvent keyEvent) {
-
-			}
-		});
-
-		this.layout.setFocusable(true);
 	public Layout getLayout() {
 		return layout;
 	}
 
-	public void move(Coordinate coordinate) throws IOException{
-		// Toa do (x, y) cu
-		Coordinate curr = new Coordinate(character.getPosition().getX(), character.getPosition().getY());
 	public void setLayout(Layout layout) {
 		this.layout = layout;
+	}
+
+	//	public Controller(Layout layout, Character character){
+//		this.layout = layout;
+//		this.character = character;
+//		if (character instanceof player){
+//			addKeyController();
+//		}
+//	}
+
+//	private void addKeyController(){
+//		this.layout.addKeyListener(new KeyListener() {
+//			@Override
+//			public void keyTyped(KeyEvent keyEvent) {
+//
+//			}
+//
+//			@Override
+//			public void keyPressed(KeyEvent keyEvent) {
+//				int keyCode = keyEvent.getKeyCode();
+//				switch (keyCode){
+//					case KeyEvent.VK_UP:
+//						move(Moving.up);
+//						//character.move(Moving.up);
+//						break;
+//					case KeyEvent.VK_DOWN:
+//						move(Moving.down);
+//						//character.move(Moving.down);
+//						break;
+//					case KeyEvent.VK_LEFT:
+//						move(Moving.left);
+//						//character.move(Moving.left);
+//						break;
+//					case KeyEvent.VK_RIGHT :
+//						move(Moving.right);
+//						//character.move(Moving.right);
+//						break;
+//				}
+//			}
+//
+//			@Override
+//			public void keyReleased(KeyEvent keyEvent) {
+//
+//			}
+//		});
+//
+//		this.layout.setFocusable(true);
+//	}
+
+//	public void move(Coordinate coordinate){
+//		// Toa do (x, y) cu
+//		Coordinate curr = new Coordinate(character.getPosition().getX(), character.getPosition().getY());
+//
+//		//Toa do (x, y) moi
+//		Coordinate newPos = curr.move(coordinate);
+//		if (checkInMap(newPos)){
+//			character.move(coordinate);
+//			Object currValue = this.layout.getValueAt(newPos);
+//
+//		}
+//	}
 
 	public boolean move(Coordinate coordinate, String symbol){
 		Coordinate curr = new Coordinate(this.position.getX(), this.position.getY());
@@ -126,20 +119,13 @@ public class Controller {
 		if (coo.getX() >= maxX) return false;
 		if (coo.getY() >= maxY) return false;
 
+		System.out.println("OK");
 		return true;
 	}
 
-<<<<<<< HEAD
-	private void loadNewMap(String name) throws IOException {
-		this.layout.getMap().getTable().setModel(new DefaultTableModel(null, this.layout.getMap().getColumnName()));
-		this.layout.getMap().create(name);
-		this.layout.getMap().draw();
-		this.character.draw(this.layout.getMap());
-=======
 	public void draw(String symbol){
 		this.position.setSymbol((String) layout.getMap().getTable().getValueAt(this.position.getX(), this.position.getY()));
 		layout.getMap().getTable().setValueAt(symbol, this.position.getX(), this.position.getY());
->>>>>>> branch 'master' of https://bitbucket.org/DuyND1405/ltnnhdt-k58-de02-nhom12
 	}
 
 //	private void loadNewMap(String name) throws IOException {
@@ -176,7 +162,6 @@ public class Controller {
 //            }
 //        });
 //	}
->>>>>>> branch 'master' of https://bitbucket.org/DuyND1405/ltnnhdt-k58-de02-nhom12
 //	public void checkEnd(Object next){
 //		String check = (String) next;
 //		if(check.equals("End")){

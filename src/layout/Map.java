@@ -7,55 +7,19 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 public class Map {
-	
+	private String[][] words = new String[5][5];
 	private static BufferedReader reader;
-	private JTable table = new JTable();;
-	private static int maxX; // chi so cot 1 -> maxX
-	private static int maxY;
-	private static boolean isTableExist = false;
-	private String[][] words;
-	private Layout layout;
-	private static Object columnName[];
-	public Object[] getColumnName() {
-		return columnName;
-	}
-
-	public void setColumnName(int i, String s) {
-		this.columnName[i] = s;
-	}
-
-	public int getMaxX() {
-		return maxX;
-	}
-
-	public void setMaxX(int maxX) {
-		this.maxX = maxX;
-	}
-
-	public static boolean isTableExist() {
-		return isTableExist;
-	}
-
-	public static void setTableExist(boolean isTableExist) {
-		Map.isTableExist = isTableExist;
-	}
-
-	public int getMaxY() {
-		return maxY;
-	}
-
-	public void setMaxY(int maxY) {
-		this.maxY = maxY;
-	}
+	private JTable table;
+	private int maxX; // chi so cot 1 -> maxX
+	private int maxY;
 
 	public Map(String name) throws IOException {
+		this.maxX = 5;
+		this.maxY = 5;
+
 		create(name);
 		draw();
 	}
@@ -75,51 +39,40 @@ public class Map {
 	public void setTable(JTable table) {
 		this.table = table;
 	}
-	
-	public void calRowCol(String name) throws IOException{
-		FileReader file = new FileReader(name);
-		reader = new BufferedReader(file);
-		int col =0, row =1;
-		String[] arr = null;
-		String line = reader.readLine();
-		arr = line.split(" ");
-		col = arr.length;
-		while (reader.readLine() != null) row++;
-		this.setMaxX(row);
-		this.setMaxY(col);
-		Map.columnName = new Object[col];
-		for(int i = 0; i<col;i++) Map.columnName[i] = String.valueOf(i+1);
-		reader.close();
-		
-	}
+
 	public void create(String name) throws IOException{
-		calRowCol(name);
 		FileReader file = new FileReader(name);
 		reader = new BufferedReader(file);
 		String line = reader.readLine();
-		String[] arr = null;
+
 		int i=0,j=0;
-		words = new String[maxX][maxY];
 		do{
-			for(i=0;i<maxX;i++){
-				arr = line.split(" ");
-				for(j=0;j<maxY;j++){
-					words[i][j] = arr[j];
+				for(i=0;i<5;i++){
+					String[] arr = line.split(" ");
+					for(j=0;j<5;j++){
+						words[i][j] = arr[j];
+					}
+					line = reader.readLine();
 				}
-				line = reader.readLine();
-			}
-	}while(line != null);
-		
+		}while(line != null);
 		reader.close();
 	}
 
 	public void draw() {
-		  DefaultTableModel model = new DefaultTableModel();
-	      model.setDataVector(words, Map.columnName);
-		  this.table.setModel(model);
-		  System.out.println(words[0][0]);
-		
-
+		/*
+			Load du lieu trong words vao JTable
+		 */
+		TableModel dataModel = new DefaultTableModel() {
+			public int getColumnCount() { return maxX; }
+			public int getRowCount() { return maxY;}
+			public Object getValueAt(int row, int col) { return words[row][col]; } // Gan du lieu trong words cho table
+		};
+		this.table = new JTable(maxX, maxY);
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				table.setValueAt(words[i][j], i, j);
+			}
+		}
 	}
 
 	public void addMonster(Layout layout){

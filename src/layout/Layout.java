@@ -110,7 +110,7 @@ public class Layout extends JFrame {
 		JButton b = new JButton("zxczxczxczxc");
 		Dimension buttonSize = b.getPreferredSize();
 		//bigGrid.setPreferredSize(new Dimension((int)(buttonSize.getWidth()),(int)(buttonSize.getHeight())+200));
-		controls.setPreferredSize(new Dimension((int)(buttonSize.getWidth())+250,(int)(buttonSize.getHeight())+250));
+		controls.setPreferredSize(new Dimension((int)(buttonSize.getWidth())+350,(int)(buttonSize.getHeight())+250));
 		//Add buttons to experiment with Grid Layout
 		//controls.setSize(width, height);e
 		controls.add(b1);
@@ -140,9 +140,9 @@ public class Layout extends JFrame {
 		// Add map vao Layout
 		pane.add(map.getTable());
 		//pane.remove(map.getTable());
-		map.getTable().setSize(100, 80);
+		//map.getTable().setSize(150, 80);
 		size = map.getTable().getPreferredSize();
-		map.getTable().setBounds(0 + insets.left, 0 + insets.bottom, size.width, size.height);
+		map.getTable().setBounds(insets.left,insets.bottom, 450, this.getMap().getMaxX()*16);
 
 		//Add controls
 		pane.add(controls);
@@ -159,12 +159,12 @@ public class Layout extends JFrame {
 		frame.setVisible(true);
 		frame.pack();
 
-		Monster monster1 = new Monster(new Controller(frame, new Position(3, 0)));
-		monster1.draw();
+		//Monster monster1 = new Monster(new Controller(frame, new Position(3, 0)));
+		//monster1.draw();
 
 //		Monster monster2 = new Monster(new Controller(frame, new Position(3, 2)));
 //		monster2.draw();
-		monster1.remote();
+		//monster1.remote();
 	}
 
 	public static void main(String[] args) {

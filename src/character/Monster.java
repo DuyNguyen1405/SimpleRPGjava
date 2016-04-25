@@ -2,6 +2,7 @@ package character;
 
 import layout.Controller;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,15 +45,20 @@ public class Monster extends Character {
                         public void run() {
                             // your code here
                             Coordinate coo = Moving.right;
-                            if (move(coo)) {
-                                //continue;
-                            } else {
-                                if (coo == Moving.right) {
-                                    coo = Moving.left;
-                                } else {
-                                    coo = Moving.right;
-                                }
-                            }
+                            try {
+								if (move(coo)) {
+								    //continue;
+								} else {
+								    if (coo == Moving.right) {
+								        coo = Moving.left;
+								    } else {
+								        coo = Moving.right;
+								    }
+								}
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
                         }
                     },
                     1000

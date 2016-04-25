@@ -4,6 +4,8 @@ import layout.Controller;
 import layout.Layout;
 import layout.Map;
 
+import java.io.IOException;
+
 import javax.naming.ldap.Control;
 import javax.swing.*;
 
@@ -22,7 +24,7 @@ public abstract class Character {
         this.name = "KiDu";
         this.hp = 1000;
         this.mp = 500;
-        this.symbol = "O";
+        this.symbol = "U";
         //this.position = new Position(4, 0);
     }
 
@@ -93,7 +95,7 @@ public abstract class Character {
 //        layout.getMap().getTable().setValueAt(this.symbol, this.position.getX(), this.position.getY());
 //    }
 
-    public boolean move(Coordinate coordinate){
+    public boolean move(Coordinate coordinate) throws IOException{
         return this.controller.move(coordinate, this.symbol);
     }
 

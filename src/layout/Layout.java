@@ -110,7 +110,7 @@ public class Layout extends JFrame {
 		JButton b = new JButton("zxczxczxczxc");
 		Dimension buttonSize = b.getPreferredSize();
 		//bigGrid.setPreferredSize(new Dimension((int)(buttonSize.getWidth()),(int)(buttonSize.getHeight())+200));
-		controls.setPreferredSize(new Dimension((int)(buttonSize.getWidth())+250,(int)(buttonSize.getHeight())+250));
+		controls.setPreferredSize(new Dimension((int)(buttonSize.getWidth())+350,(int)(buttonSize.getHeight())+350));
 		//Add buttons to experiment with Grid Layout
 		//controls.setSize(width, height);e
 		controls.add(b1);

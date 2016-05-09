@@ -1,6 +1,7 @@
 package layout;
 import character.Monster;
 import character.Position;
+import character.player;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -115,10 +116,10 @@ public class Map {
 	      model.setDataVector(words, Map.columnName);
 		  this.table.setModel(model);
 		  this.table.setBounds(0,0, 450, this.getMaxX()*16);
-
 	}
 
 	public void addMonster(Layout layout){
-
+		Monster monster = new Monster(new Controller(this.layout, new Position(3, 0)));
+		monster.draw();
 	}
 }

@@ -31,6 +31,10 @@ public class Controller {
 		this.layout = layout;
 	}
 
+	public Object getCurrObject(){
+		return layout.getMap().getTable().getValueAt(position.getX(), position.getY());
+	}
+
 	//	public Controller(Layout layout, Character character){
 //		this.layout = layout;
 //		this.character = character;
@@ -105,6 +109,15 @@ public class Controller {
 			}
 			if (currValue.equals("End")) {
 				endMap();
+			}
+
+			if (currValue.equals("X")){
+				System.out.println("Player attact Monster!!");
+			}
+
+			System.out.println(currValue);
+			if (currValue.equals("O")){
+				System.out.println(currValue);
 			}
 			// Set lai x, y
 			this.position.setX(this.position.getX() + coordinate.getX());

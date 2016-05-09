@@ -137,6 +137,9 @@ public class Layout extends JFrame {
 
 		player.draw();
 
+		Monster monster = new Monster(new Controller(this, new Position(3, 0)));
+		monster.draw();
+
 		// Add map vao Layout
 		pane.add(map.getTable());
 		//pane.remove(map.getTable());

@@ -43,10 +43,6 @@ public class Position {
         this.symbol = symbol;
     }
 
-    public int distance(Position p){
-        return (Math.abs(p.x - this.x) + Math.abs(p.y - this.y));
-    }
-
     public int up(int value) {
         /* TODO
         *

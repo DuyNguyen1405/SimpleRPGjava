@@ -12,6 +12,8 @@ import java.awt.Insets;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+
 public class Map {
 	private static BufferedReader reader;
 	private JTable table = new JTable();;
@@ -21,6 +23,8 @@ public class Map {
 	private String[][] words;
 	private Layout layout;
 	private static Object columnName[];
+	private ArrayList monsters;
+
 	public Object[] getColumnName() {
 		return columnName;
 	}
@@ -56,6 +60,7 @@ public class Map {
 	public Map(String name) throws IOException {
 		create(name);
 		draw();
+		this.monsters = new ArrayList();
 	}
 
 	public String[][] getWords() {
@@ -118,9 +123,12 @@ public class Map {
 		  this.table.setBounds(0,0, 450, this.getMaxX()*16);
 	}
 
-	public void addMonster(Layout layout){
-		Monster monster = new Monster(new Controller(this.layout, new Position(3, 0)));
-		monster.draw();
+	public ArrayList getMonsters() {
+		return monsters;
+	}
+
+	public void addMonster(Monster monster){
+		this.monsters.add(monster);
 	}
 
 	public Object getValueAt(int x, int y){

@@ -23,43 +23,45 @@ public class player extends Character{
 
 			public void keyPressed(KeyEvent keyEvent) {
 				int keyCode = keyEvent.getKeyCode();
-				switch (keyCode){
-					case KeyEvent.VK_UP:
-					try {
-						move(Moving.up);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				try {
+					switch (keyCode){
+						case KeyEvent.VK_UP:
+							try {
+								move(Moving.up);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							//character.move(Moving.up);
+							break;
+						case KeyEvent.VK_DOWN:
+							try {
+								move(Moving.down);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							break;
+						case KeyEvent.VK_LEFT:
+							try {
+								move(Moving.left);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							//character.move(Moving.left);
+							break;
+						case KeyEvent.VK_RIGHT :
+							try {
+								move(Moving.right);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							break;
 					}
-						//character.move(Moving.up);
-						break;
-					case KeyEvent.VK_DOWN:
-					try {
-						move(Moving.down);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-						//character.move(Moving.down);
-						break;
-					case KeyEvent.VK_LEFT:
-					try {
-						move(Moving.left);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-						//character.move(Moving.left);
-						break;
-					case KeyEvent.VK_RIGHT :
-					try {
-						move(Moving.right);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-						//character.move(Moving.right);
-						break;
+				} catch (AttackException e){
+					System.out.println("Attack!");
 				}
 			}
 

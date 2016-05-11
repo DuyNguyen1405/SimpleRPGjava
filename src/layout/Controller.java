@@ -1,7 +1,7 @@
 package layout;
 
 import character.*;
-import character.Character;
+import character.Position;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +14,6 @@ public class Controller {
 	private Layout layout;
 	private Position position;
 
-	public Controller(Layout layout){
-		this.layout = layout;
-	}
 	public Controller(Layout layout, Position position){
 		this.layout = layout;
 		this.position = position;
@@ -26,13 +23,19 @@ public class Controller {
 		return layout;
 	}
 
-	public boolean move(Coordinate coordinate, String symbol) throws IOException{
+	public Position getPosition() {
+		return position;
+	}
+
+	public boolean move(Coordinate coordinate, String symbol) throws AttackException, IOException{
 		Coordinate curr = new Coordinate(this.position.getX(), this.position.getY());
 		Coordinate newPos = curr.move(coordinate);
 
 		if (checkInMap(newPos)) {
 			//Set gia tri cu vao vi tri hien tai cua player
-
+			if (this.layout.getCharacterAt(newPos) != null){
+				throw new AttackException();
+			}
 			// Get value tu Table
 //			layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
 			layout.getMap().getTable().setValueAt(this.layout.getMap().getValueAt(this.position.getX(), this.position.getY()), this.position.getX(), this.position.getY());
@@ -95,6 +98,10 @@ public class Controller {
 		this.layout.getMap().create(name);
 		this.layout.getMap().draw();
 
+	}
+
+	public Coordinate getNewPos(Coordinate coo){
+		return coo.move(coo);
 	}
 	
 	public void endMap(){

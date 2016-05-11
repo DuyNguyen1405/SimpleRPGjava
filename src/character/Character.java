@@ -95,7 +95,7 @@ public abstract class Character{
 //        layout.getMap().getTable().setValueAt(this.symbol, this.position.getX(), this.position.getY());
 //    }
 
-    public boolean move(Coordinate coordinate) throws IOException{
+    public boolean move(Coordinate coordinate) throws IOException, AttackException {
         return this.controller.move(coordinate, this.symbol);
     }
 

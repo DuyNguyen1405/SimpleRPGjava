@@ -8,6 +8,7 @@ import character.player;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Layout extends JFrame {
 	private player player;
@@ -94,8 +95,31 @@ public class Layout extends JFrame {
 		this.controls = controls;
 	}
 
+	public character.player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(character.player player) {
+		this.player = player;
+	}
+
 	public Object getValueAt(Coordinate coo){
 		return this.map.getTable().getValueAt(coo.getX(), coo.getY());
+	}
+
+	public Object getCharacterAt(Coordinate coo){
+		if ((this.player.getController().getPosition().getX() == coo.getX()) && (this.player.getController().getPosition().getY() == coo.getY())){
+			return this.player;
+		}
+
+		ArrayList monsters = this.map.getMonsters();
+		for (int i = 0; i < monsters.size(); i++){
+			Monster monster = (Monster) monsters.get(i);
+			if ((monster.getController().getPosition().getX() == coo.getX()) && (monster.getController().getPosition().getY() == coo.getY())){
+				return monster;
+			}
+		}
+		return null;
 	}
 
 	public Map getMap() {
@@ -140,7 +164,14 @@ public class Layout extends JFrame {
 		Monster monster = new Monster(new Controller(this, new Position(3, 0)));
 		Thread monsterThread = new Thread(monster);
 		monster.draw();
+		this.map.addMonster(monster);
 		monsterThread.start();
+
+		Monster monster2 = new Monster(new Controller(this, new Position(2, 2)));
+		Thread monsterThread2 = new Thread(monster2);
+		monster2.draw();
+		this.map.addMonster(monster2);
+		monsterThread2.start();
 
 
 		// Add map vao Layout

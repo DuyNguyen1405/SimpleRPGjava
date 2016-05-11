@@ -97,7 +97,9 @@ public class Monster extends Character implements Runnable{
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
-							}
+							} catch (AttackException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     1000
@@ -129,6 +131,8 @@ public class Monster extends Character implements Runnable{
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (AttackException e) {
+                System.out.println("Attack!");
             }
         }
     }

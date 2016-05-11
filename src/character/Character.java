@@ -102,4 +102,8 @@ public abstract class Character{
     public void draw(){
         this.controller.draw(this.symbol);
     }
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 }

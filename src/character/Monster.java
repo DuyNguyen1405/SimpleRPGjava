@@ -14,7 +14,7 @@ public class Monster extends Character implements Runnable{
     Toolkit toolkit;
     Timer timer;
     Coordinate coo;
-
+    player player;
     public Monster (Controller controller){
         super(controller);
         this.symbol = "X";
@@ -132,7 +132,7 @@ public class Monster extends Character implements Runnable{
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (AttackException e) {
-                System.out.println("Attack!");
+            	//System.out.println("Attack!");
             }
         }
     }

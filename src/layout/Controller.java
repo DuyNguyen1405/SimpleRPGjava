@@ -1,7 +1,6 @@
 package layout;
 
 import character.*;
-import character.Position;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,15 +47,13 @@ public class Controller {
 			}
 			if (currValue.equals("End")) {
 				endMap();
-			}
+							}
 
 			if (currValue.equals("X")){
 				System.out.println("Player attact Monster!!");
 			}
 
-			System.out.println(currValue);
 			if (currValue.equals("O")){
-				System.out.println(currValue);
 			}
 			// Set lai x, y
 			this.position.setX(this.position.getX() + coordinate.getX());
@@ -104,38 +101,20 @@ public class Controller {
 		return coo.move(coo);
 	}
 	
-	public void endMap(){
-		System.out.println("Tro choi ket thuc");
-		this.layout.getUp().setEnabled(false);
-		this.layout.getDown().setEnabled(false);
-		this.layout.getLeft().setEnabled(false);
-		this.layout.getRight().setEnabled(false);
+	public void endMap() throws IOException{
+		Object[] options = { "New Game", "Quit Game" };
+	      int iLuaChon = JOptionPane.showOptionDialog(null, "Choose", null, JOptionPane.DEFAULT_OPTION, 
+	    		  JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+	      if (iLuaChon == 0) {
+	    	  this.position.setY(0);
+	    	  loadNewMap("M1.txt");
+	    	  this.position.setX(this.layout.getMap().getMaxX()-1);
+	    	  this.layout.getPlayer().setHp(1000);
+	    	  this.layout.getMap().getTable().setValueAt("0", this.position.getX(), 0);
+	    	  
+	      }
+	      else layout.dispose();
 		//Todo khoa ca ban phim khong cho di chuyen
-		newGame();
 		return;
 	}
-
-
-	public void newGame()
-	{
-		//Todo: di chuyen duoc bang ban phim sau khi bam nut
-		layout.getB2().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)  {
-            	layout.getUp().setEnabled(true);
-            	layout.getDown().setEnabled(true);
-            	layout.getLeft().setEnabled(true);
-            	layout.getRight().setEnabled(true);
-    	        try {
-    	    		layout.getMap().getTable().setModel(new DefaultTableModel(null, layout.getMap().getColumnName()));
-					layout.getMap().create("M1.txt");
-					layout.getMap().draw();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-    	        
-            }
-
-        });
-	}
- 
 }

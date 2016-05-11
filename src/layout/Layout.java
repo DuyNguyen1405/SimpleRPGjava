@@ -138,7 +138,10 @@ public class Layout extends JFrame {
 		player.draw();
 
 		Monster monster = new Monster(new Controller(this, new Position(3, 0)));
+		Thread monsterThread = new Thread(monster);
 		monster.draw();
+		monsterThread.start();
+
 
 		// Add map vao Layout
 		pane.add(map.getTable());

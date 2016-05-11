@@ -12,7 +12,7 @@ import javax.swing.*;
 /**
  * Created by j on 03/04/2016.
  */
-public abstract class Character {
+public abstract class Character{
     protected String name;
     protected int hp;
     protected int mp;

@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class Controller {
 	private Layout layout;
-	private Character character;
 	private Position position;
 
 	public Controller(Layout layout){
@@ -27,85 +26,22 @@ public class Controller {
 		return layout;
 	}
 
-	public void setLayout(Layout layout) {
-		this.layout = layout;
-	}
-
-	public Object getCurrObject(){
-		return layout.getMap().getTable().getValueAt(position.getX(), position.getY());
-	}
-
-	//	public Controller(Layout layout, Character character){
-//		this.layout = layout;
-//		this.character = character;
-//		if (character instanceof player){
-//			addKeyController();
-//		}
-//	}
-
-//	private void addKeyController(){
-//		this.layout.addKeyListener(new KeyListener() {
-//			@Override
-//			public void keyTyped(KeyEvent keyEvent) {
-//
-//			}
-//
-//			@Override
-//			public void keyPressed(KeyEvent keyEvent) {
-//				int keyCode = keyEvent.getKeyCode();
-//				switch (keyCode){
-//					case KeyEvent.VK_UP:
-//						move(Moving.up);
-//						//character.move(Moving.up);
-//						break;
-//					case KeyEvent.VK_DOWN:
-//						move(Moving.down);
-//						//character.move(Moving.down);
-//						break;
-//					case KeyEvent.VK_LEFT:
-//						move(Moving.left);
-//						//character.move(Moving.left);
-//						break;
-//					case KeyEvent.VK_RIGHT :
-//						move(Moving.right);
-//						//character.move(Moving.right);
-//						break;
-//				}
-//			}
-//
-//			@Override
-//			public void keyReleased(KeyEvent keyEvent) {
-//
-//			}
-//		});
-//
-//		this.layout.setFocusable(true);
-//	}
-
-//	public void move(Coordinate coordinate){
-//		// Toa do (x, y) cu
-//		Coordinate curr = new Coordinate(character.getPosition().getX(), character.getPosition().getY());
-//
-//		//Toa do (x, y) moi
-//		Coordinate newPos = curr.move(coordinate);
-//		if (checkInMap(newPos)){
-//			character.move(coordinate);
-//			Object currValue = this.layout.getValueAt(newPos);
-//
-//		}
-//	}
-
 	public boolean move(Coordinate coordinate, String symbol) throws IOException{
 		Coordinate curr = new Coordinate(this.position.getX(), this.position.getY());
 		Coordinate newPos = curr.move(coordinate);
 
 		if (checkInMap(newPos)) {
 			//Set gia tri cu vao vi tri hien tai cua player
-			layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
-			String currValue = (String) this.layout.getValueAt(newPos);
+
+			// Get value tu Table
+//			layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
+			layout.getMap().getTable().setValueAt(this.layout.getMap().getValueAt(this.position.getX(), this.position.getY()), this.position.getX(), this.position.getY());
+
+			//Get value tu Table
+//			String currValue = (String) this.layout.getValueAt(newPos);
+			String currValue = (String) this.layout.getMap().getValueAt(newPos.getX(), newPos.getY());
 			if (currValue.substring(0, 1).equals("M")) {
 				loadNewMap(String.format("%s.txt", currValue));
-				
 			}
 			if (currValue.equals("End")) {
 				endMap();
@@ -194,175 +130,5 @@ public class Controller {
 
         });
 	}
-	
-
-//	public void newGame()
-//	{
-//		layout.getB2().addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e)  {
-//            	Map map = new Map();
-//            	layout.getUp().setEnabled(true);
-//    			layout.getDown().setEnabled(true);
-//    			layout.getLeft().setEnabled(true);
-//    			layout.getRight().setEnabled(true);
-//    	        try {
-//					map.createMap("M1.txt");
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//    	        String[][] test = map.getWords();
-//    	        for (int i = 0; i < 5; i++) {
-//    	            for (int j = 0; j < 5; j++) {
-//    	                layout.getMap().getTable().setValueAt(test[i][j], i, j);
-//    	            }
-//    	        }
-//    	    layout.setOldPos(layout.getMap().getTable().getValueAt(4, 0));
-//
-//    	    layout.getMap().getTable().setValueAt(character.getSymbol(), 4, 0);
-//    	    character.getPosition().setX(4);
-//				character.getPosition().setY(0);
-//            }
-//        });
-//	}
-//	public void checkEnd(Object next){
-//		String check = (String) next;
-//		if(check.equals("End")){
-//			System.out.println("Tro choi ket thuc");
-//			layout.getUp().setEnabled(false);
-//			layout.getDown().setEnabled(false);
-//			layout.getLeft().setEnabled(false);
-//			layout.getRight().setEnabled(false);
-//			newGame();
-//			return;
-//		}
-//	}
-//	public void checkNextMap(Object next) throws IOException{
-//		String check = (String) next;
-//		Map map= new Map();
-//		//player player = new player();
-//		if(check.substring(0,1).equals("M")){
-//			// Sang map khac
-//			check = check + ".txt";
-//	        map.createMap(check); // recreate map, thay doi du lieu trong mang words
-//	        String[][] test = map.getWords();
-//
-//			// set lai layout.getTable() theo gia tri trong mang map.getWords()
-//	        for (int i = 0; i < 5; i++) {
-//	            for (int j = 0; j < 5; j++) {
-//	                layout.getTable().setValueAt(test[i][j], i, j);
-//	            }
-//	        }
-//	    	layout.setOldPos(layout.getTable().getValueAt(4, 0));
-//
-//			// dat player o (4, 0)
-//	    	layout.getTable().setValueAt(character.getSymbol(), 4, 0);
-//	    	character.getPosition().setX(4);
-//	    	character.getPosition().setY(0);
-//		}
-//	}
-//	public void press(){
-//       	//player player = new player();
-//       	//final JTable table = layout.getTable();
-//
-//    	layout.getUp().addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e)  {
-//               	int x = character.getPosition().getX();
-//               	int y = character.getPosition().getY();
-//
-//				if (x < 1){
-//					System.out.println("Khong the di chuyen");
-//					return;
-//				}
-//
-//               	Object next = layout.getTable().getValueAt(x-1, y);
-//               	layout.getTable().setValueAt(character.getSymbol(), x-1, y);
-//            	character.getPosition().setX(x - 1);
-//            	layout.getTable().setValueAt(layout.getOldPos(), x, y);
-//            	layout.setOldPos(next);
-//            	try {
-//            		checkEnd(next);
-//					checkNextMap(next);
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//
-//            }
-//        });
-//
-//    	layout.getDown().addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e)  {
-//				int x = character.getPosition().getX();
-//				int y = character.getPosition().getY();
-//
-//				if (x > 3){
-//					System.out.println("Khong the di chuyen");
-//					return;
-//				}
-//				Object next = layout.getTable().getValueAt(x + 1, y);
-//				layout.getTable().setValueAt(character.getSymbol(), x + 1, y);
-//				character.getPosition().setX(x + 1);
-//				layout.getTable().setValueAt(layout.getOldPos(), x, y);
-//				layout.setOldPos(next);
-//				try {
-//					checkEnd(next);
-//					checkNextMap( next);
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//			}
-//		});
-//
-//    	layout.getLeft().addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e)  {
-//				int x = character.getPosition().getX();
-//				int y = character.getPosition().getY();
-//
-//				if (y < 1){
-//					System.out.println("Khong the di chuyen");
-//					return;
-//				}
-//				Object next = layout.getTable().getValueAt(x, y - 1);
-//				layout.getTable().setValueAt(character.getSymbol(), x, y - 1);
-//				character.getPosition().setY(y - 1);
-//				layout.getTable().setValueAt(layout.getOldPos(), x, y);
-//				layout.setOldPos(next);
-//				try {
-//					checkEnd(next);
-//					checkNextMap(next);
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//			}
-//		});
-//
-//    	layout.getRight().addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e)  {
-//				int x = character.getPosition().getX();
-//				int y = character.getPosition().getY();
-//
-//				if (y > 3){
-//					System.out.println("Khong the di chuyen");
-//					return;
-//				}
-//				Object next = layout.getTable().getValueAt(x, y + 1);
-//				layout.getTable().setValueAt(character.getSymbol(), x, y + 1);
-//				character.getPosition().setY(y + 1);
-//				layout.getTable().setValueAt(layout.getOldPos(), x, y);
-//				layout.setOldPos(next);
-//				try {
-//					checkEnd(next);
-//					checkNextMap(next);
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//
  
 }

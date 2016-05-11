@@ -122,4 +122,8 @@ public class Map {
 		Monster monster = new Monster(new Controller(this.layout, new Position(3, 0)));
 		monster.draw();
 	}
+
+	public Object getValueAt(int x, int y){
+		return this.words[x][y];
+	}
 }

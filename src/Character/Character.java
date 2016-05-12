@@ -1,9 +1,9 @@
-package character;
-
-import layout.Controller;
+package Character;
 
 import java.io.IOException;
 
+import Character.Move.Coordinate;
+import Character.Move.Position;
 import Exception.AttackException;
 /**
  * Created by j on 03/04/2016.
@@ -77,17 +77,17 @@ public class Character implements Runnable{
     //    public void move(Coordinate coordinate){
 //
 //        //Set gia tri cu vao vi tri hien tai cua player
-//        layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
+//        Layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
 //
 //        // Set lai x, y
 //        this.position.setX(this.position.getX() + coordinate.getX());
 //        this.position.setY(this.position.getY() + coordinate.getY());
 //
 //        // Set gia tri moi cua o player de len
-//        this.position.setSymbol((String) this.layout.getMap().getTable().getValueAt(this.position.getX(), this.position.getY()));
+//        this.position.setSymbol((String) this.Layout.getMap().getTable().getValueAt(this.position.getX(), this.position.getY()));
 //
 //        // Set gia tri moi o table tai vi tri player
-//        layout.getMap().getTable().setValueAt(this.symbol, this.position.getX(), this.position.getY());
+//        Layout.getMap().getTable().setValueAt(this.symbol, this.position.getX(), this.position.getY());
 //    }
 
     public boolean move(Coordinate coordinate) throws IOException, AttackException {

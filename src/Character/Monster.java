@@ -1,8 +1,9 @@
-package character;
-
-import layout.Controller;
+package Character;
 
 import java.io.IOException;
+
+import Character.Move.Coordinate;
+import Character.Move.Moving;
 import Exception.AttackException;
 
 /**
@@ -25,7 +26,7 @@ public class Monster extends Character{
                 // Moi buoc di chuyen cach nhau 1s
                 if (true){ //TODO
                     // Ko co charactor khac o newPos
-                    Thread.sleep(1000);
+                    Thread.sleep(200);
                     if (move(coo)) {
                         //continue;
                     } else {

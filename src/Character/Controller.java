@@ -1,6 +1,8 @@
-package layout;
+package Character;
 
-import character.*;
+import Character.Move.Coordinate;
+import Character.Move.Position;
+import Layout.Layout;
 
 import java.io.IOException;
 
@@ -36,11 +38,11 @@ public class Controller {
 				throw new AttackException();
 			}
 			// Get value tu Table
-//			layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
+//			Layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
 			layout.getMap().getTable().setValueAt(this.layout.getMap().getValueAt(this.position.getX(), this.position.getY()), this.position.getX(), this.position.getY());
 
 			//Get value tu Table
-//			String currValue = (String) this.layout.getValueAt(newPos);
+//			String currValue = (String) this.Layout.getValueAt(newPos);
 			String currValue = (String) this.layout.getMap().getValueAt(newPos.getX(), newPos.getY());
 			if (currValue.substring(0, 1).equals("M")) {
 				loadNewMap(String.format("%s.txt", currValue));

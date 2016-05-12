@@ -1,4 +1,6 @@
-package character;
+package Character.Move;
+
+import Character.Character;
 
 /**
  * Created by j on 14/03/2016.
@@ -7,12 +9,6 @@ public class Position {
     private int x;
     private int y;
     private String symbol;
-
-    public Position(int x, int y, String symbol) {
-        this.x = x;
-        this.y = y;
-        this.symbol = symbol;
-    }
 
     public Position(int x, int y) {
         this.x = x;

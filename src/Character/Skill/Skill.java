@@ -1,9 +1,9 @@
-package character;
+package Character.Skill;
 
 /**
  * Created by j on 12/05/2016.
  */
-public class Skill {
+public abstract class Skill {
     private String name;
     private int cost;
 
@@ -19,4 +19,7 @@ public class Skill {
     public int getCost() {
         return cost;
     }
+
+    public abstract void affect() throws Exception;
 }
+

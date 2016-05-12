@@ -1,7 +1,5 @@
 package Character.Move;
 
-import Character.Character;
-
 /**
  * Created by j on 14/03/2016.
  */
@@ -40,38 +38,21 @@ public class Position {
     }
 
     public int up(int value) {
-        /* TODO
-        *
-        * Kiem tra xem co the di chuyen nhu vay khong?
-        * */
-
         this.x += 1;
         return 0;
     }
 
     public int down(int value) {
-        /* TODO
-        *
-        * Kiem tra xem co the di chuyen nhu vay khong?
-        * */
         this.x -= 1;
         return 0;
     }
 
     public int left(int value) {
-        /* TODO
-        *
-        * Kiem tra xem co the di chuyen nhu vay khong?
-        * */
         this.y -= 1;
         return 0;
     }
 
     public int right(int value) {
-        /* TODO
-        *
-        * Kiem tra xem co the di chuyen nhu vay khong?
-        * */
         this.y += 1;
         return 0;
     }

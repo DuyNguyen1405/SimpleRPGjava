@@ -3,13 +3,13 @@ package Character;
 import Character.Move.Moving;
 import Character.Skill.FrozenTimeSkill;
 import Character.Skill.Skill;
+import Exception.AttackException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import Exception.AttackException;
 
 public class player extends Character{
 	private Skill[] skills;
@@ -43,16 +43,13 @@ public class player extends Character{
 							try {
 								move(Moving.up);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							//Character.move(Moving.up);
 							break;
 						case KeyEvent.VK_DOWN:
 							try {
 								move(Moving.down);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							break;
@@ -60,16 +57,13 @@ public class player extends Character{
 							try {
 								move(Moving.left);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							//Character.move(Moving.left);
 							break;
 						case KeyEvent.VK_RIGHT :
 							try {
 								move(Moving.right);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							break;
@@ -108,10 +102,8 @@ public class player extends Character{
     	    	  try {
     				move(Moving.up);
     			} catch (IOException e1) {
-    				// TODO Auto-generated catch block
     				e1.printStackTrace();
     			} catch (AttackException e1) {
-    				// TODO Auto-generated catch block
     				e1.printStackTrace();
     			}
     	      }
@@ -122,10 +114,8 @@ public class player extends Character{
   				move(Moving.down);
 
   			} catch (IOException e1) {
-  				// TODO Auto-generated catch block
   				e1.printStackTrace();
   			} catch (AttackException e1) {
-  				// TODO Auto-generated catch block
   				e1.printStackTrace();
   			}
   	      }
@@ -135,10 +125,8 @@ public class player extends Character{
   	    	  try {
   				move(Moving.left);
   			} catch (IOException e1) {
-  				// TODO Auto-generated catch block
   				e1.printStackTrace();
   			} catch (AttackException e1) {
-  				// TODO Auto-generated catch block
   				e1.printStackTrace();
   			}
   	      }
@@ -148,10 +136,8 @@ public class player extends Character{
   	    	  try {
   				move(Moving.right);
   			} catch (IOException e1) {
-  				// TODO Auto-generated catch block
   				e1.printStackTrace();
   			} catch (AttackException e1) {
-  				// TODO Auto-generated catch block
   				e1.printStackTrace();
   			}
   	      }

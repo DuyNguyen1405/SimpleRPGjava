@@ -1,10 +1,10 @@
 package Character;
 
-import java.io.IOException;
-
 import Character.Move.Coordinate;
 import Character.Move.Moving;
 import Exception.AttackException;
+
+import java.io.IOException;
 
 /**
  * Created by j on 09/04/2016.
@@ -24,7 +24,7 @@ public class Monster extends Character{
             try {
                 // Thoa man dieu kien -> co the di chuyen
                 // Moi buoc di chuyen cach nhau 1s
-                if (true){ //TODO
+                if (true){
                     // Ko co charactor khac o newPos
                     Thread.sleep(200);
                     if (move(coo)) {

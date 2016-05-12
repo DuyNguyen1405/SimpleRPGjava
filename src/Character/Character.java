@@ -1,10 +1,10 @@
 package Character;
 
-import java.io.IOException;
-
 import Character.Move.Coordinate;
 import Character.Move.Position;
 import Exception.AttackException;
+
+import java.io.IOException;
 /**
  * Created by j on 03/04/2016.
  */
@@ -98,8 +98,7 @@ public class Character implements Runnable{
         this.controller.draw(this.symbol);
     }
 	public void run() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
     public Thread getThread(){

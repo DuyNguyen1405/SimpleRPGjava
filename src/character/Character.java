@@ -1,25 +1,20 @@
 package character;
 
 import layout.Controller;
-import layout.Layout;
-import layout.Map;
 
 import java.io.IOException;
 
-import javax.naming.ldap.Control;
-import javax.swing.*;
-
+import Exception.AttackException;
 /**
  * Created by j on 03/04/2016.
  */
-public abstract class Character{
+public class Character implements Runnable{
     protected String name;
     protected int hp;
     protected int mp;
     protected String symbol;
     protected Controller controller;
 
-    abstract void remote();
     public Character(){
         this.name = "KiDu";
         this.hp = 1000;
@@ -106,4 +101,12 @@ public abstract class Character{
 		// TODO Auto-generated method stub
 		
 	}
+
+    public Thread getThread(){
+        return this.controller.getThread();
+    }
+
+    public void setThread(Thread thread){
+        this.controller.setThread(thread);
+    }
 }

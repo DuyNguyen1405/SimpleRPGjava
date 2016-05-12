@@ -1,14 +1,8 @@
 package layout;
 import character.Monster;
-import character.Position;
-import character.player;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
-import java.awt.Insets;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

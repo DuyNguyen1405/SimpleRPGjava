@@ -1,7 +1,5 @@
 package character;
 
-import javax.swing.*;
-
 import layout.*;
 
 import java.awt.event.ActionEvent;
@@ -9,13 +7,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import Exception.AttackException;
 
 public class player extends Character{
-	private Layout layout;
+	private Skill[] skills;
 	public player(Controller controller){
 		super(controller);
 		this.hp = 1000;
 		this.symbol = "0";
+		this.skills = new Skill[2];
+		skills[0] = new Skill("fireBall", 50);
+		skills[1] = new Skill("frozenTime", 100);
 		remote();
 	}
 
@@ -68,12 +71,26 @@ public class player extends Character{
 								e.printStackTrace();
 							}
 							break;
+						case KeyEvent.VK_Z :
+							try {
+								doSkill(skills[0]);
+							} catch (Exception e){
+
+							}
+							break;
+						case KeyEvent.VK_X :
+							try {
+								doSkill(skills[1]);
+							} catch (Exception e){
+
+							}
+							break;
 					}
 				} catch (AttackException e){
 					try {
 						fight();
+						//TODO player cham monster, chi attack 1 lan duy nhat !!
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					//System.out.println("Attack!");
@@ -101,6 +118,7 @@ public class player extends Character{
   	      public void actionPerformed(ActionEvent e)  {
   	    	  try {
   				move(Moving.down);
+
   			} catch (IOException e1) {
   				// TODO Auto-generated catch block
   				e1.printStackTrace();
@@ -140,4 +158,18 @@ public class player extends Character{
     	
 	}
 
+	private void doSkill(Skill skill){
+		System.out.println(skill.getName());
+		ArrayList monsters = this.controller.getLayout().getMap().getMonsters();
+		int i;
+
+		for (i = 0; i < monsters.size(); i++){
+			Monster monster = (Monster) monsters.get(i);
+			monster.getThread().interrupt();
+		}
+	}
+
+	public void run(){
+
+	}
 }

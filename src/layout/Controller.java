@@ -2,16 +2,16 @@ package layout;
 
 import character.*;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import Exception.AttackException;
 
 public class Controller {
 	private Layout layout;
 	private Position position;
+	private Thread thread;
 
 	public Controller(Layout layout, Position position){
 		this.layout = layout;
@@ -116,5 +116,13 @@ public class Controller {
 	      else layout.dispose();
 		//Todo khoa ca ban phim khong cho di chuyen
 		return;
+	}
+
+	public Thread getThread() {
+		return this.thread;
+	}
+
+	public void setThread(Thread thread) {
+		this.thread = thread;
 	}
 }

@@ -1,4 +1,4 @@
-package character;
+package Exception;
 
 /**
  * Created by j on 11/05/2016.

@@ -1,9 +1,6 @@
 package layout;
 
-import character.Coordinate;
-import character.Monster;
-import character.Position;
-import character.player;
+import character.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,8 +19,6 @@ public class Layout extends JFrame {
 	private static JButton right;
 
 	private Container controls;
-//		private static int x;
-//		private static int y;
 
 	public Layout() throws IOException {
 		this.b1 = new JButton("A");
@@ -87,24 +82,8 @@ public class Layout extends JFrame {
 		this.right = right;
 	}
 
-	public Container getControls() {
-		return controls;
-	}
-
-	public void setControls(Container controls) {
-		this.controls = controls;
-	}
-
 	public character.player getPlayer() {
 		return player;
-	}
-
-	public void setPlayer(character.player player) {
-		this.player = player;
-	}
-
-	public Object getValueAt(Coordinate coo){
-		return this.map.getTable().getValueAt(coo.getX(), coo.getY());
 	}
 
 	public Object getCharacterAt(Coordinate coo){
@@ -161,15 +140,17 @@ public class Layout extends JFrame {
 
 		player.draw();
 
-		Monster monster = new Monster(new Controller(this, new Position(3, 0)));
+		Monster monster = new Monster(new Controller(this, new Position(3, 0)), Moving.right);
 		Thread monsterThread = new Thread(monster);
 		monster.draw();
+		monster.setThread(monsterThread);
 		this.map.addMonster(monster);
 		monsterThread.start();
 
-		Monster monster2 = new Monster(new Controller(this, new Position(2, 2)));
+		Monster monster2 = new Monster(new Controller(this, new Position(2, 2)), Moving.up);
 		Thread monsterThread2 = new Thread(monster2);
 		monster2.draw();
+		monster2.setThread(monsterThread2);
 		this.map.addMonster(monster2);
 		monsterThread2.start();
 
@@ -195,13 +176,6 @@ public class Layout extends JFrame {
 		frame.setSize(1500,700);
 		frame.setVisible(true);
 		frame.pack();
-
-		//Monster monster1 = new Monster(new Controller(frame, new Position(3, 0)));
-		//monster1.draw();
-
-//		Monster monster2 = new Monster(new Controller(frame, new Position(3, 2)));
-//		monster2.draw();
-		//monster1.remote();
 	}
 
 	public static void main(String[] args) {

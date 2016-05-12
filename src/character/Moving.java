@@ -8,4 +8,5 @@ public interface Moving {
     final Coordinate down = new Coordinate(1, 0);
     final Coordinate left = new Coordinate(0, -1);
     final Coordinate right = new Coordinate(0, 1);
+    final Coordinate chase = new Coordinate(0, 0);
 }

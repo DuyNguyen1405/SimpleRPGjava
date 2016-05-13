@@ -111,6 +111,7 @@ public class Controller {
 	    	  loadNewMap("M1.txt");
 	    	  this.position.setX(this.layout.getMap().getMaxX()-1);
 	    	  this.layout.getPlayer().setHp(1000);
+	    	  this.layout.getPlayer().setMp(400);
 	    	  this.layout.getMap().getTable().setValueAt("0", this.position.getX(), 0);
 	    	  
 	      }

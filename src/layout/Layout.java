@@ -17,77 +17,16 @@ public class Layout extends JFrame {
 	private player player;
 	private Map map;
 
-	private static JButton b1;
-	private static JButton b2;
-	private static JButton up;
-	private static JButton down;
-	private static JButton left;
-	private static JButton right;
-
 	private Container controls;
 
 	public Layout() throws IOException {
-		this.b1 = new JButton("A");
-		this.b2 = new JButton("B");
-		this.up = new JButton("^");
-		this.down = new JButton("v");
-		this.left = new JButton("<");
-		this.right = new JButton(">");
 
 		this.controls = new Container();
-
 		this.map = new Map("M1.txt"); //khoi tao map
 		this.player = new player(new Controller(this, new Position(4, 0)));
 	}
 
-	public JButton getB1() {
-		return b1;
-	}
-
-	public void setB1(JButton b1) {
-		this.b1 = b1;
-	}
-
-	public JButton getB2() {
-		return b2;
-	}
-
-	public void setB2(JButton b2) {
-		this.b2 = b2;
-	}
-
-	public JButton getUp() {
-		return up;
-	}
-
-	public void setUp(JButton up) {
-		this.up = up;
-	}
-
-	public JButton getDown() {
-		return down;
-	}
-
-	public void setDown(JButton down) {
-		this.down = down;
-	}
-
-	public JButton getLeft() {
-		return left;
-	}
-
-	public void setLeft(JButton left) {
-		this.left = left;
-	}
-
-	public JButton getRight() {
-		return right;
-	}
-
-	public void setRight(JButton right) {
-		this.right = right;
-	}
-
+	
 	public player getPlayer() {
 		return player;
 	}
@@ -118,30 +57,12 @@ public class Layout extends JFrame {
 
 		JButton b = new JButton("zxczxczxczxc");
 		Dimension buttonSize = b.getPreferredSize();
-		//bigGrid.setPreferredSize(new Dimension((int)(buttonSize.getWidth()),(int)(buttonSize.getHeight())+200));
-		controls.setPreferredSize(new Dimension((int)(buttonSize.getWidth())+350,(int)(buttonSize.getHeight())+250));
-		//Add buttons to experiment with Grid layout
-		//controls.setSize(width, height);e
-		controls.add(b1);
-		controls.add(b2);
-		controls.add(up);
-		controls.add(down);
-		controls.add(left);
-		controls.add(right);
-
+		controls.setPreferredSize(new Dimension((int)(buttonSize.getWidth())+350,(int)(buttonSize.getHeight())+150));
+		JLabel label1 = new JLabel("Bam a de xem huong dan");
+		controls.add(label1);
+		label1.setBounds(50, 100, buttonSize.width, buttonSize.height);
+		label1.setSize(200, 100);
 		Insets insets = pane.getInsets();
-		Dimension size = b1.getPreferredSize();
-		b1.setBounds(185 + insets.left, 180 + insets.bottom,  size.width, size.height);
-		size = b2.getPreferredSize();
-		b2.setBounds(245 + insets.left, 180 + insets.bottom, size.width, size.height);
-		size = up.getPreferredSize();
-		up.setBounds(60 + insets.left, 140 + insets.bottom, size.width, size.height);
-		size = down.getPreferredSize();
-		down.setBounds(60 + insets.left, 200 + insets.bottom, size.width, size.height);
-		size = left.getPreferredSize();
-		left.setBounds(10 + insets.left, 170 + insets.bottom, size.width, size.height);
-		size = right.getPreferredSize();
-		right.setBounds(110 + insets.left, 170 + insets.bottom, size.width, size.height);
 
 
 		player.draw();
@@ -165,7 +86,7 @@ public class Layout extends JFrame {
 		pane.add(map.getTable());
 		//pane.remove(map.getTable());
 		//map.getTable().setSize(150, 80);
-		size = map.getTable().getPreferredSize();
+		buttonSize = map.getTable().getPreferredSize();
 		map.getTable().setBounds(insets.left,insets.bottom, 450, this.getMap().getMaxX()*16);
 
 		//Add controls

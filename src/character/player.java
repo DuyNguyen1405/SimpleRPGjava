@@ -12,12 +12,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 public class player extends Character{
 	private Skill[] skills;
 
 	public player(Controller controller){
 		super(controller);
 		this.hp = 1000;
+		this.mp = 400;
 		this.symbol = "0";
 		this.skills = new Skill[3];
 		skills[0] = new FrozenTimeSkill("FrozenTime", 200, 0, 0);
@@ -93,6 +96,27 @@ public class player extends Character{
 
 							}
 							break;
+						case KeyEvent.VK_S :
+							JOptionPane.showMessageDialog (null, "Thong tin nhan vat:"
+									+ "\nHP:" + getHp()
+									+ "\nMP:" + getMp()
+									+ "\nThong tin ve ki nang:"
+									+ "\nSpace: Dung thoi gian - Quai vat dung im trong 2s"
+									+ "\nZ, X: Ban phep - Gay sat thuong len quai vat"
+									,"Huong Dan", JOptionPane.INFORMATION_MESSAGE);
+							break;
+						case KeyEvent.VK_A :
+							JOptionPane.showMessageDialog (null, "Nut bam:\n+ Bam ^, v, <, > de di chuyen."
+									+ "\n+ Bam z, x, space de dung ki nang."
+									+ "\n+ Bam s de xem thong tin nhan vat."
+									+ "\n\nCach choi:"
+									+ "\n+ De ve dich phai di chuyen den o End"
+									+ "\n+ Va cham voi quai vat se mat mau. Neu mau ve 0 tro choi se ket thuc."
+									+ "\n+ Vao nhung o M1, M2 se doi sang map moi."
+																
+									,"Huong Dan", JOptionPane.INFORMATION_MESSAGE);
+
+							break;	
 					}
 				} catch (AttackException e){
 					try {
@@ -133,60 +157,25 @@ public class player extends Character{
 		});
 		this.getController().getLayout().setFocusable(true);
 		
-    	this.getController().getLayout().getUp().addActionListener(new ActionListener() {
-    	      public void actionPerformed(ActionEvent e)  {
-    	    	  try {
-    				move(Moving.up);
-    			} catch (IOException e1) {
-    				e1.printStackTrace();
-    			} catch (AttackException e1) {
-    				e1.printStackTrace();
-    			}
-    	      }
-    	  });
-    	this.getController().getLayout().getDown().addActionListener(new ActionListener() {
-  	      public void actionPerformed(ActionEvent e)  {
-  	    	  try {
-  				move(Moving.down);
-
-  			} catch (IOException e1) {
-  				e1.printStackTrace();
-  			} catch (AttackException e1) {
-  				e1.printStackTrace();
-  			}
-  	      }
-  	  });
-    	this.getController().getLayout().getLeft().addActionListener(new ActionListener() {
-  	      public void actionPerformed(ActionEvent e)  {
-  	    	  try {
-  				move(Moving.left);
-  			} catch (IOException e1) {
-  				e1.printStackTrace();
-  			} catch (AttackException e1) {
-  				e1.printStackTrace();
-  			}
-  	      }
-  	  });
-    	this.getController().getLayout().getRight().addActionListener(new ActionListener() {
-  	      public void actionPerformed(ActionEvent e)  {
-  	    	  try {
-  				move(Moving.right);
-  			} catch (IOException e1) {
-  				e1.printStackTrace();
-  			} catch (AttackException e1) {
-  				e1.printStackTrace();
-  			}
-  	      }
-  	  });
 	}
 
-	private void doSkill(Skill skill){
+	private boolean doSkill(Skill skill){
 		System.out.println(skill.getName());
 		try {
+			this.setMp(this.getMp()-skill.getCost());
+			if(this.getMp()<0) {
+				JOptionPane.showMessageDialog (null, "Khong du MP"
+						
+													
+						,"Thong bao", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			
 			skill.affect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return true;
 	}
 
 	public void run(){

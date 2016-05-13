@@ -1,7 +1,7 @@
-package Character.Skill;
+package character.skill;
 
-import Character.Monster;
-import Layout.Resource;
+import character.Monster;
+import layout.Resource;
 
 import java.util.ArrayList;
 

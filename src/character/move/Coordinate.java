@@ -1,4 +1,4 @@
-package Character.Move;
+package character.move;
 
 /**
  * Created by j on 05/04/2016.

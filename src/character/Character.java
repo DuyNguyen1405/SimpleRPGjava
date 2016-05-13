@@ -1,8 +1,8 @@
-package Character;
+package character;
 
-import Character.Move.Coordinate;
-import Character.Move.Position;
-import Exception.AttackException;
+import character.move.Coordinate;
+import character.move.Position;
+import exception.AttackException;
 
 import java.io.IOException;
 /**

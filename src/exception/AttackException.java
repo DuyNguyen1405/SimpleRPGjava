@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 import Character.Character;
 

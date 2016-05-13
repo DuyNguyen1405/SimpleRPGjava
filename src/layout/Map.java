@@ -1,8 +1,7 @@
-package Layout;
-import Character.Monster;
+package layout;
+import character.Monster;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

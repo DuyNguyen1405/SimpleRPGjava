@@ -2,13 +2,12 @@ package Character;
 
 import Character.Move.Coordinate;
 import Character.Move.Position;
+import Exception.AttackException;
 import Layout.Layout;
-
-import java.io.IOException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import Exception.AttackException;
+import java.io.IOException;
 
 public class Controller {
 	private Layout layout;
@@ -35,7 +34,7 @@ public class Controller {
 		if (checkInMap(newPos)) {
 			//Set gia tri cu vao vi tri hien tai cua player
 			if (this.layout.getCharacterAt(newPos) != null){
-				throw new AttackException();
+				throw new AttackException(this.getLayout().getCharacterAt(newPos));
 			}
 			// Get value tu Table
 //			Layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
@@ -126,5 +125,13 @@ public class Controller {
 
 	public void setThread(Thread thread) {
 		this.thread = thread;
+	}
+
+	public Boolean onSameRowRight(Position pos){
+		return (this.position.getX() == pos.getX()) && (this.position.getY() <= pos.getY());
+	}
+
+	public Boolean onSameRowLeft(Position pos){
+		return (this.position.getX() == pos.getX()) && (this.position.getY() >= pos.getY());
 	}
 }

@@ -2,7 +2,7 @@ package Character;
 
 import Character.Move.Coordinate;
 import Character.Move.Moving;
-import Exception.AttackException;
+import Exception.*;
 
 import java.io.IOException;
 
@@ -20,39 +20,42 @@ public class Monster extends Character{
 
     @Override
     public void run() {
-        while (true){
-            try {
-                // Thoa man dieu kien -> co the di chuyen
-                // Moi buoc di chuyen cach nhau 1s
-                if (true){
-                    // Ko co charactor khac o newPos
-                    Thread.sleep(200);
-                    if (move(coo)) {
-                        //continue;
-                    } else {
-                        if (coo == Moving.right) {
-                            coo = Moving.left;
-                        } else if (coo == Moving.left) {
-                            coo = Moving.right;
-                        } else if (coo == Moving.up){
-                            coo = Moving.down;
-                        } else {
-                            coo = Moving.up;
-                        }
-                    }
-                } else {
-                    // Co charactor khac o newPos
-                }
-            } catch (InterruptedException e) {
+        synchronized (this){
+            while (true){
                 try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
+                    // Thoa man dieu kien -> co the di chuyen
+                    // Moi buoc di chuyen cach nhau 1s
+                    if (true){
+                        // Ko co charactor khac o newPos
+                        Thread.sleep(1000);
+                        if (move(coo)) {
+                            //continue;
+                        } else {
+                            if (coo == Moving.right) {
+                                coo = Moving.left;
+                            } else if (coo == Moving.left) {
+                                coo = Moving.right;
+                            } else if (coo == Moving.up){
+                                coo = Moving.down;
+                            } else {
+                                coo = Moving.up;
+                            }
+                        }
+                    } else {
+                        // Co charactor khac o newPos
+                    }
+                } catch (InterruptedException e) {
+                    try {
+                        Thread.sleep(2000);
+                        System.out.println("... Frozen Time: " + this.name + "activated");
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (AttackException e) {
+                    //System.out.println("Attack!");
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (AttackException e) {
-                //System.out.println("Attack!");
             }
         }
     }

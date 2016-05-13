@@ -1,9 +1,12 @@
 package Layout;
 
-import Character.*;
+import Character.Character;
+import Character.Controller;
+import Character.Monster;
 import Character.Move.Coordinate;
 import Character.Move.Moving;
 import Character.Move.Position;
+import Character.player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -89,7 +92,7 @@ public class Layout extends JFrame {
 		return player;
 	}
 
-	public Object getCharacterAt(Coordinate coo){
+	public Character getCharacterAt(Coordinate coo){
 		if ((this.player.getController().getPosition().getX() == coo.getX()) && (this.player.getController().getPosition().getY() == coo.getY())){
 			return this.player;
 		}
@@ -101,7 +104,7 @@ public class Layout extends JFrame {
 				return monster;
 			}
 		}
-		return null;
+		return (Character) new Object();
 	}
 
 	public Map getMap() {
@@ -172,6 +175,7 @@ public class Layout extends JFrame {
 	private static void createAndShowGUI() throws IOException, InterruptedException {
 		//Create and set up the window.
 		Layout frame = new Layout();
+		Resource.setLayout(frame);
 		frame.setTitle("Test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Set up the content pane.

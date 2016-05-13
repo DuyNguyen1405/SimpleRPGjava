@@ -121,7 +121,7 @@ public class Map {
 		return monsters;
 	}
 
-	public void addMonster(Monster monster){
+	public void  addMonster(Monster monster){
 		this.monsters.add(monster);
 	}
 

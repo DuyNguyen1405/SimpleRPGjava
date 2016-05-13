@@ -1,6 +1,7 @@
 package Character;
 
 import Character.Move.Moving;
+import Character.Skill.Fire;
 import Character.Skill.FrozenTimeSkill;
 import Character.Skill.Skill;
 import Exception.AttackException;
@@ -18,8 +19,10 @@ public class player extends Character{
 		super(controller);
 		this.hp = 1000;
 		this.symbol = "0";
-		this.skills = new Skill[2];
-		skills[0] = new FrozenTimeSkill("fireBall", 50);
+		this.skills = new Skill[3];
+		skills[0] = new FrozenTimeSkill("FrozenTime", 200, 0, 0);
+		skills[1] = new Fire("Lazer Fire", 50, 500, 0, Moving.left);
+		skills[2] = new Fire("Lazer Fire", 50, 500, 0, Moving.right);
 		remote();
 	}
 
@@ -67,16 +70,25 @@ public class player extends Character{
 								e.printStackTrace();
 							}
 							break;
-						case KeyEvent.VK_Z :
+						case KeyEvent.VK_SPACE :
 							try {
 								doSkill(skills[0]);
 							} catch (Exception e){
 
 							}
 							break;
+						case KeyEvent.VK_Z :
+							try {
+								player.this.getController().draw("<");
+								doSkill(skills[1]);
+							} catch (Exception e){
+
+							}
+							break;
 						case KeyEvent.VK_X :
 							try {
-								doSkill(skills[1]);
+								player.this.getController().draw(">");
+								doSkill(skills[2]);
 							} catch (Exception e){
 
 							}
@@ -93,7 +105,31 @@ public class player extends Character{
 				}
 			}
 
-			public void keyReleased(KeyEvent keyEvent) {}
+			public void keyReleased(KeyEvent keyEvent) {
+				int keyCode = keyEvent.getKeyCode();
+				switch (keyCode){
+                    case KeyEvent.VK_SPACE :
+                        try {
+                        } catch (Exception e){
+
+                        }
+                        break;
+                    case KeyEvent.VK_Z :
+                        try {
+							player.this.getController().draw("O");
+                        } catch (Exception e){
+
+                        }
+                        break;
+                    case KeyEvent.VK_X :
+                        try {
+                            player.this.getController().draw("O");
+                        } catch (Exception e){
+
+                        }
+                        break;
+                }
+			}
 		});
 		this.getController().getLayout().setFocusable(true);
 		
@@ -142,8 +178,6 @@ public class player extends Character{
   			}
   	      }
   	  });
-    	
-    	
 	}
 
 	private void doSkill(Skill skill){

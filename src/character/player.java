@@ -1,10 +1,10 @@
-package Character;
+package character;
 
-import Character.Move.Moving;
-import Character.Skill.Fire;
-import Character.Skill.FrozenTimeSkill;
-import Character.Skill.Skill;
-import Exception.AttackException;
+import character.move.Moving;
+import character.skill.Fire;
+import character.skill.FrozenTimeSkill;
+import character.skill.Skill;
+import exception.AttackException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,6 +1,6 @@
 package exception;
 
-import Character.Character;
+import character.Character;
 
 /**
  * Created by j on 11/05/2016.

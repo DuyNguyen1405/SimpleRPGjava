@@ -1,12 +1,12 @@
-package Layout;
+package layout;
 
-import Character.Character;
-import Character.Controller;
-import Character.Monster;
-import Character.Move.Coordinate;
-import Character.Move.Moving;
-import Character.Move.Position;
-import Character.player;
+import character.Character;
+import character.Controller;
+import character.Monster;
+import character.move.Coordinate;
+import character.move.Moving;
+import character.move.Position;
+import character.player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -104,7 +104,7 @@ public class Layout extends JFrame {
 				return monster;
 			}
 		}
-		return (Character) new Object();
+		return null;
 	}
 
 	public Map getMap() {
@@ -120,7 +120,7 @@ public class Layout extends JFrame {
 		Dimension buttonSize = b.getPreferredSize();
 		//bigGrid.setPreferredSize(new Dimension((int)(buttonSize.getWidth()),(int)(buttonSize.getHeight())+200));
 		controls.setPreferredSize(new Dimension((int)(buttonSize.getWidth())+350,(int)(buttonSize.getHeight())+250));
-		//Add buttons to experiment with Grid Layout
+		//Add buttons to experiment with Grid layout
 		//controls.setSize(width, height);e
 		controls.add(b1);
 		controls.add(b2);
@@ -161,7 +161,7 @@ public class Layout extends JFrame {
 		monsterThread2.start();
 
 
-		// Add map vao Layout
+		// Add map vao layout
 		pane.add(map.getTable());
 		//pane.remove(map.getTable());
 		//map.getTable().setSize(150, 80);

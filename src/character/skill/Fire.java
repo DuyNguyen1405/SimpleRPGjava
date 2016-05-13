@@ -1,10 +1,10 @@
-package Character.Skill;
+package character.skill;
 
-import Character.Monster;
-import Character.Move.Coordinate;
-import Character.Move.Moving;
-import Character.player;
-import Layout.Resource;
+import character.Monster;
+import character.move.Coordinate;
+import character.move.Moving;
+import character.player;
+import layout.Resource;
 
 import java.util.ArrayList;
 

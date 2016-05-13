@@ -1,4 +1,4 @@
-package layout;;
+package layout;
 
 /**
  * Created by j on 12/05/2016.
@@ -12,7 +12,7 @@ public final class Resource {
 
     public static Object get(String resourceName){
         switch (resourceName){
-            case "Layout":
+            case "layout":
                 return layout;
             case "map":
                 return layout.getMap();

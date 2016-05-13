@@ -1,9 +1,9 @@
-package Character;
+package character;
 
-import Character.Move.Coordinate;
-import Character.Move.Position;
-import Exception.AttackException;
-import Layout.Layout;
+import character.move.Coordinate;
+import character.move.Position;
+import exception.AttackException;
+import layout.Layout;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -37,11 +37,11 @@ public class Controller {
 				throw new AttackException(this.getLayout().getCharacterAt(newPos));
 			}
 			// Get value tu Table
-//			Layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
+//			layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
 			layout.getMap().getTable().setValueAt(this.layout.getMap().getValueAt(this.position.getX(), this.position.getY()), this.position.getX(), this.position.getY());
 
 			//Get value tu Table
-//			String currValue = (String) this.Layout.getValueAt(newPos);
+//			String currValue = (String) this.layout.getValueAt(newPos);
 			String currValue = (String) this.layout.getMap().getValueAt(newPos.getX(), newPos.getY());
 			if (currValue.substring(0, 1).equals("M")) {
 				loadNewMap(String.format("%s.txt", currValue));

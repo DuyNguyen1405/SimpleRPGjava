@@ -1,9 +1,9 @@
-package Layout;
+package layout;
 
-import Character.*;
-import Character.Move.Coordinate;
-import Character.Move.Moving;
-import Character.Move.Position;
+import character.*;
+import character.move.Coordinate;
+import character.move.Moving;
+import character.move.Position;
 
 import javax.swing.*;
 import java.awt.*;
@@ -115,10 +115,8 @@ public class Layout extends JFrame {
 
 		JButton b = new JButton("zxczxczxczxc");
 		Dimension buttonSize = b.getPreferredSize();
-		//bigGrid.setPreferredSize(new Dimension((int)(buttonSize.getWidth()),(int)(buttonSize.getHeight())+200));
 		controls.setPreferredSize(new Dimension((int)(buttonSize.getWidth())+350,(int)(buttonSize.getHeight())+250));
 		//Add buttons to experiment with Grid Layout
-		//controls.setSize(width, height);e
 		controls.add(b1);
 		controls.add(b2);
 		controls.add(up);
@@ -160,8 +158,6 @@ public class Layout extends JFrame {
 
 		// Add map vao Layout
 		pane.add(map.getTable());
-		//pane.remove(map.getTable());
-		//map.getTable().setSize(150, 80);
 		size = map.getTable().getPreferredSize();
 		map.getTable().setBounds(insets.left,insets.bottom, 450, this.getMap().getMaxX()*16);
 

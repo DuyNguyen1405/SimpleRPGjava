@@ -10,12 +10,11 @@ import exception.NotEnoughMP;
 import layout.Game;
 
 import javax.swing.*;
-import java.awt.Toolkit;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Player extends Character{
 	private Skill[] skills;
@@ -38,7 +37,6 @@ public class Player extends Character{
 	}
 
 	private void updateInterval(){
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Timer timer = new Timer();
 		TimerTask timerTask = new TimerTask() {
 			@Override

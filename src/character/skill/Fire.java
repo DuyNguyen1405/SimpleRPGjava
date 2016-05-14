@@ -3,7 +3,6 @@ package character.skill;
 import character.Monster;
 import character.Player;
 import character.move.Coordinate;
-import character.move.Moving;
 import exception.NotEnoughMP;
 import layout.Game;
 
@@ -27,22 +26,10 @@ public class Fire extends Skill{
         Player player = (Player) Game.get("Player");
         ArrayList monsters = (ArrayList) Game.get("monsters");
 
-        if (direction == Moving.right){
-            for (int i = 0; i < monsters.size(); i++){
-                Monster monster = (Monster) monsters.get(i);
-                if (player.getController().onSameRowRight(monster.getController().getPosition())){
-                    monster.gotHit(player, this.getDamage());
-                }
-            }
-        }
-
-        if (direction == Moving.left){
-            player.getController().draw("<");
-            for (int i = 0; i < monsters.size(); i++){
-                Monster monster = (Monster) monsters.get(i);
-                if (player.getController().onSameRowLeft(monster.getController().getPosition())){
-                    monster.gotHit(player, this.getDamage());
-                }
+        for (int i = 0; i < monsters.size(); i++){
+            Monster monster = (Monster) monsters.get(i);
+            if (player.getController().onSameRow(monster.getController().getPosition(), direction)){
+                monster.gotHit(player, this.getDamage());
             }
         }
     }

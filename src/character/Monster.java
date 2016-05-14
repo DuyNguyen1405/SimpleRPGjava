@@ -25,30 +25,19 @@ public class Monster extends Character{
     public void run() {
         while (this.isAlive){
             try {
-                // Thoa man dieu kien -> co the di chuyen
-                // Moi buoc di chuyen cach nhau 1s
-                if (true){
-                    // Ko co charactor khac o newPos
-                    Thread.sleep(1000);
-                    if (move(coo)) {
-                        //continue;
-                    } else {
-                        if (coo == Moving.right) {
-                            coo = Moving.left;
-
-                        } else if (coo == Moving.left) {
-                            coo = Moving.right;
-
-                        } else if (coo == Moving.up){
-                            coo = Moving.down;
-
-                        } else {
-                            coo = Moving.up;
-
-                        }
-                    }
+                Thread.sleep(1000);
+                if (move(coo)) {
+                    //continue;
                 } else {
-                    // Co charactor khac o newPos
+                    if (coo == Moving.right) {
+                        coo = Moving.left;
+                    } else if (coo == Moving.left) {
+                        coo = Moving.right;
+                    } else if (coo == Moving.up){
+                        coo = Moving.down;
+                    } else {
+                        coo = Moving.up;
+                    }
                 }
             } catch (InterruptedException e) {
                 try {
@@ -59,12 +48,14 @@ public class Monster extends Character{
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+
             } catch (AttackException e) {
                 if (e.getEnemy() instanceof Player){
                     e.getEnemy().gotHit(this, e.getDamage());
                 }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 

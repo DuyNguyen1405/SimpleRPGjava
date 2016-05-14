@@ -28,7 +28,9 @@ public abstract class Character implements Runnable{
         Thread controlThread = new Thread(this);
         this.controller.setThread(controlThread);
     }
-	
+
+    public abstract void run();
+
     public String getName() {
         return name;
     }
@@ -39,10 +41,6 @@ public abstract class Character implements Runnable{
 
     public void setHp(int hp) {
         this.hp = hp;
-    }
-
-    public void adjustHp(int value){
-        this.hp += value;
     }
 
     public int getMp() {
@@ -80,14 +78,9 @@ public abstract class Character implements Runnable{
     public void draw(){
         this.controller.draw(this.symbol);
     }
-	public abstract void run();
 
     public Thread getThread(){
         return this.controller.getThread();
-    }
-
-    public void setThread(Thread thread){
-        this.controller.setThread(thread);
     }
 
     public void activate(){

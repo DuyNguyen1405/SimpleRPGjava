@@ -1,6 +1,7 @@
 package character;
 
 import character.move.Coordinate;
+import character.move.Moving;
 import character.move.Position;
 import exception.AttackException;
 import layout.Layout;
@@ -41,16 +42,11 @@ public class Controller {
 		Coordinate newPos = curr.move(coordinate);
 
 		if (checkInMap(newPos)) {
-			//Set gia tri cu vao vi tri hien tai cua Player
 			if (this.layout.getCharacterAt(newPos) != null){
 				throw new AttackException(this.getLayout().getCharacterAt(newPos));
 			}
-			// Get value tu Table
-//			layout.getMap().getTable().setValueAt(this.position.getSymbol(), this.position.getX(), this.position.getY());
-			layout.getMap().getTable().setValueAt(this.layout.getMap().getValueAt(this.position.getX(), this.position.getY()), this.position.getX(), this.position.getY());
 
-			//Get value tu Table
-//			String currValue = (String) this.layout.getValueAt(newPos);
+			layout.getMap().getTable().setValueAt(this.layout.getMap().getValueAt(this.position.getX(), this.position.getY()), this.position.getX(), this.position.getY());
 			String currValue = (String) this.layout.getMap().getValueAt(newPos.getX(), newPos.getY());
 			if ((!currValue.isEmpty()) && (currValue.substring(0, 1).equals("M"))) {
 				loadNewMap(String.format("%s.txt", currValue));
@@ -101,10 +97,6 @@ public class Controller {
 
 	}
 
-	public Coordinate getNewPos(Coordinate coo){
-		return coo.move(coo);
-	}
-	
 	public void endMap() throws IOException{
 		Object[] options = { "Choi lai", "Thoat" };
 	      int iLuaChon = JOptionPane.showOptionDialog(null, "So diem cua ban: "
@@ -134,18 +126,18 @@ public class Controller {
 		this.thread = thread;
 	}
 
-	public Boolean onSameRowRight(Position pos){
-		return (this.position.getX() == pos.getX()) && (this.position.getY() <= pos.getY());
-	}
-
-	public Boolean onSameRowLeft(Position pos){
-		return (this.position.getX() == pos.getX()) && (this.position.getY() >= pos.getY());
+	public Boolean onSameRow(Position pos, Coordinate direction){
+		if (direction == Moving.left)
+			return (this.position.getX() == pos.getX()) && (this.position.getY() >= pos.getY());
+		if (direction == Moving.right)
+			return (this.position.getX() == pos.getX()) && (this.position.getY() <= pos.getY());
+		return false;
 	}
 
 	public void reDraw(){
 		Map map = (Map) Game.get("map");
 		int x = this.getPosition().getX();
 		int y = this.getPosition().getY();
-		map.getTable().setValueAt((String) map.getValueAt(x, y), x, y);
+		map.getTable().setValueAt(map.getValueAt(x, y), x, y);
 	}
 }

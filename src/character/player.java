@@ -36,14 +36,12 @@ public class player extends Character{
 	private boolean doSkill(Skill skill){
 		System.out.println(skill.getName());
 		try {
-<<<<<<< Updated upstream
 			if((this.getMp()-skill.getCost())<0) {
 				JOptionPane.showMessageDialog (null, "Khong du MP","Thong bao", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 			this.setMp(this.getMp()-skill.getCost());
 			this.getController().getLayout().getMpLabel().setText("MP: " +this.getMp());
-=======
 			this.setMp(this.getMp()-skill.getCost());
 			if(this.getMp()<0) {
 				JOptionPane.showMessageDialog (null, "Khong du MP"
@@ -52,8 +50,6 @@ public class player extends Character{
 						,"Thong bao", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
-
->>>>>>> Stashed changes
 			skill.affect();
 		} catch (Exception e) {
 			e.printStackTrace();

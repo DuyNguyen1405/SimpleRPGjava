@@ -1,6 +1,6 @@
 package character.skill;
 
-import character.player;
+import character.Player;
 import exception.NotEnoughMP;
 import layout.Game;
 
@@ -27,7 +27,7 @@ public abstract class Skill {
     }
 
     protected void preAffect() throws NotEnoughMP {
-        player player = (character.player) Game.get("player");
+        Player player = (Player) Game.get("Player");
         if (player.getMp() - this.cost < 0){
             throw new NotEnoughMP(this);
         } else {

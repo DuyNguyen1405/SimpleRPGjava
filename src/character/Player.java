@@ -10,58 +10,47 @@ import exception.NotEnoughMP;
 import layout.Game;
 
 import javax.swing.*;
+import java.awt.Toolkit;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
-public class player extends Character{
+public class Player extends Character{
 	private Skill[] skills;
 
-	public player(String name, int hp, int mp, Position position){
+	public Player(String name, int hp, int mp, Position position){
 		super(name, hp, mp, position);
 		this.symbol = "O";
 		this.skills = new Skill[3];
 		skills[0] = new FrozenTimeSkill("FrozenTime", 200);
 		skills[1] = new Fire("Lazer Fire", 50, 500, Moving.left);
 		skills[2] = new Fire("Lazer Fire", 50, 500, Moving.right);
-		//remote();
 	}
 
 	private void update(){
 		JLabel hpLabel = (JLabel) Game.get("hplabel");
-		hpLabel.setText("HP: " + this.hp);
+		hpLabel.setText(String.valueOf(this.hp));
 
 		JLabel mpLabel = (JLabel) Game.get("mplabel");
-		hpLabel.setText("MP: " + this.mp);
+		mpLabel.setText(String.valueOf(this.mp));
 	}
 
-	public void fight() throws IOException{
-		this.setHp(getHp()-500);
-		this.getController().getLayout().getHpLabel().setText("HP: " +this.getHp());
-		System.out.println(this.getHp());
-		if(this.getHp() <= 0) controller.endMap();
+	private void updateInterval(){
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Timer timer = new Timer();
+		TimerTask timerTask = new TimerTask() {
+			@Override
+			public void run() {
+				update();
+			}
+		};
+
+		timer.schedule(timerTask, 0, 100);
 	}
 
 	private void doSkill(Skill skill){
-//		try {
-////			if((this.getMp()-skill.getCost())<0) {
-////				JOptionPane.showMessageDialog (null, "Khong du MP","Thong bao", JOptionPane.ERROR_MESSAGE);
-////				return false;
-////			}
-////			this.setMp(this.getMp()-skill.getCost());
-////			this.getController().getLayout().getMpLabel().setText("MP: " +this.getMp());
-////			this.setMp(this.getMp()-skill.getCost());
-////			if(this.getMp()<0) {
-////				JOptionPane.showMessageDialog (null, "Khong du MP"
-////
-////
-////						,"Thong bao", JOptionPane.ERROR_MESSAGE);
-////				return false;
-////			}
-//			skill.affect();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
 		try {
 			skill.affect();
 		} catch (NotEnoughMP e){
@@ -71,9 +60,7 @@ public class player extends Character{
 
 	public void run(){
 		KeyListener playerCommand = new KeyListener() {
-			public void keyTyped(KeyEvent keyEvent) {
-
-			}
+			public void keyTyped(KeyEvent keyEvent) {}
 
 			public void keyPressed(KeyEvent keyEvent) {
 				int keyCode = keyEvent.getKeyCode();
@@ -116,7 +103,7 @@ public class player extends Character{
 							break;
 						case KeyEvent.VK_Z :
 							try {
-								player.this.getController().draw("<");
+								Player.this.getController().draw("<");
 								doSkill(skills[1]);
 							} catch (Exception e){
 
@@ -124,7 +111,7 @@ public class player extends Character{
 							break;
 						case KeyEvent.VK_X :
 							try {
-								player.this.getController().draw(">");
+								Player.this.getController().draw(">");
 								doSkill(skills[2]);
 							} catch (Exception e){
 
@@ -153,8 +140,7 @@ public class player extends Character{
 							break;
 					}
 				} catch (AttackException e){
-					//fight();
-					player.this.gotHit(e.getEnemy(), e.getDamage());
+					Player.this.gotHit(e.getEnemy(), e.getDamage());
 				}
 			}
 
@@ -162,21 +148,17 @@ public class player extends Character{
 				int keyCode = keyEvent.getKeyCode();
 				switch (keyCode){
 					case KeyEvent.VK_SPACE :
-						try {
-						} catch (Exception e){
-
-						}
 						break;
 					case KeyEvent.VK_Z :
 						try {
-							player.this.getController().draw("O");
+							Player.this.getController().draw("O");
 						} catch (Exception e){
 
 						}
 						break;
 					case KeyEvent.VK_X :
 						try {
-							player.this.getController().draw("O");
+							Player.this.getController().draw("O");
 						} catch (Exception e){
 
 						}
@@ -188,8 +170,8 @@ public class player extends Character{
 		this.getController().getLayout().addKeyListener(playerCommand);
 		this.getController().getLayout().setFocusable(true);
 
-		while (isAlive){
-			update();
+		if (isAlive){
+			updateInterval();
 		}
 
 		if (! isAlive){

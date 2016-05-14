@@ -2,9 +2,9 @@ package layout;
 
 import character.Character;
 import character.Monster;
+import character.Player;
 import character.move.Coordinate;
 import character.move.Position;
-import character.player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Layout extends JFrame {
 	private Container controls;
-	private player player;
+	private Player player;
 	private Map map;
 	private JLabel hpLabel;
 	private JLabel mpLabel;
@@ -29,17 +29,17 @@ public class Layout extends JFrame {
 	public Layout() throws IOException {
 		this.controls = new Container();
 		this.map = new Map("M1.txt"); //khoi tao map
-		this.player = new player("Kien", 1000, 500, new Position(4, 0));
-		hpLabel = new JLabel("HP: " +this.getPlayer().getHp());
-		mpLabel = new JLabel("MP: " +this.getPlayer().getMp());
+		this.player = new Player("Kien", 1000, 500, new Position(4, 0));
+		hpLabel = new JLabel(String.valueOf(this.getPlayer().getHp()));
+		mpLabel = new JLabel(String.valueOf(this.getPlayer().getMp()));
 	}
 
 	
-	public player getPlayer() {
+	public Player getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(player player){
+	public void setPlayer(Player player){
 		this.player = player;
 	}
 
@@ -62,9 +62,6 @@ public class Layout extends JFrame {
 		return map;
 	}
 
-	public void setMap(Map map) {
-		this.map = map;
-	}
 	public void addComponentsToPane(final Container pane, Layout layout) throws IOException, InterruptedException {
 
 		JButton b = new JButton("zxczxczxczxc");

@@ -1,9 +1,9 @@
 package character.skill;
 
 import character.Monster;
+import character.Player;
 import character.move.Coordinate;
 import character.move.Moving;
-import character.player;
 import exception.NotEnoughMP;
 import layout.Game;
 
@@ -24,7 +24,7 @@ public class Fire extends Skill{
     public void affect() throws NotEnoughMP {
         preAffect();
 
-        player player = (player) Game.get("player");
+        Player player = (Player) Game.get("Player");
         ArrayList monsters = (ArrayList) Game.get("monsters");
 
         if (direction == Moving.right){
@@ -42,7 +42,6 @@ public class Fire extends Skill{
                 Monster monster = (Monster) monsters.get(i);
                 if (player.getController().onSameRowLeft(monster.getController().getPosition())){
                     monster.gotHit(player, this.getDamage());
-                    System.out.println("--- Fire: " + monster.getName() + " got fired: lost " + this.getDamage() + " hp.");
                 }
             }
         }

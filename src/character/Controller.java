@@ -41,7 +41,7 @@ public class Controller {
 		Coordinate newPos = curr.move(coordinate);
 
 		if (checkInMap(newPos)) {
-			//Set gia tri cu vao vi tri hien tai cua player
+			//Set gia tri cu vao vi tri hien tai cua Player
 			if (this.layout.getCharacterAt(newPos) != null){
 				throw new AttackException(this.getLayout().getCharacterAt(newPos));
 			}
@@ -63,10 +63,10 @@ public class Controller {
 			this.position.setX(this.position.getX() + coordinate.getX());
 			this.position.setY(this.position.getY() + coordinate.getY());
 
-			// Set gia tri moi cua o player de len
+			// Set gia tri moi cua o Player de len
 			this.position.setSymbol((String) this.layout.getMap().getTable().getValueAt(this.position.getX(), this.position.getY()));
 
-			// Set gia tri moi o table tai vi tri player
+			// Set gia tri moi o table tai vi tri Player
 			layout.getMap().getTable().setValueAt(symbol, this.position.getX(), this.position.getY());
 			
 			

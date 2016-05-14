@@ -62,7 +62,7 @@ public class Monster extends Character{
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (AttackException e) {
-                if (e.getEnemy() instanceof player){
+                if (e.getEnemy() instanceof Player){
                     e.getEnemy().gotHit(this, e.getDamage());
                 }
             }

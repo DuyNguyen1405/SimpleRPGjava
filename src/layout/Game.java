@@ -31,7 +31,7 @@ public final class Game {
                 return layout;
             case "map":
                 return layout.getMap();
-            case "player":
+            case "Player":
                 return layout.getPlayer();
             case "monsters":
                 return layout.getMap().getMonsters();

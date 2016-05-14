@@ -28,10 +28,6 @@ public abstract class Character implements Runnable{
         this.controller.setThread(controlThread);
     }
 
-    public Character(Controller controller){
-        this.controller = controller;
-    }
-
     public String getName() {
         return name;
     }

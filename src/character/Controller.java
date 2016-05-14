@@ -111,8 +111,10 @@ public class Controller {
 	}
 	
 	public void endMap() throws IOException{
-		Object[] options = { "New Game", "Quit Game" };
-	      int iLuaChon = JOptionPane.showOptionDialog(null, "Choose", null, JOptionPane.DEFAULT_OPTION, 
+		Object[] options = { "Choi lai", "Thoat" };
+	      int iLuaChon = JOptionPane.showOptionDialog(null, "So diem cua ban: "
+	      		+ this.layout.getPlayer().getPoint()
+	      		+ "\nHay chon 1 trong 2 lua chon sau", null, JOptionPane.DEFAULT_OPTION, 
 	    		  JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 	      if (iLuaChon == 0) {
 	    	  this.position.setY(0);
@@ -120,6 +122,7 @@ public class Controller {
 	    	  this.position.setX(this.layout.getMap().getMaxX()-1);
 	    	  this.layout.getPlayer().setHp(1000);
 	    	  this.layout.getPlayer().setMp(400);
+	    	  this.layout.getPlayer().setPoint(0);
 	    	  this.layout.getMap().getTable().setValueAt("0", this.position.getX(), 0);
 	    	  this.layout.getHpLabel().setText("HP: " + 1000);
 	    	  this.layout.getMpLabel().setText("MP: " + 400);

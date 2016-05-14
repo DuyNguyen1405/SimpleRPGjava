@@ -15,10 +15,10 @@ import java.io.IOException;
 public class player extends Character{
 	private Skill[] skills;
 
-	public player(String name, int hp, int mp, Position position){
-		super(name, hp, mp, position);
+	public player(String name, int hp, int mp, int point, Position position){
+		super(name, hp, mp, point, position);
 		this.symbol = "O";
-
+		this.point = 0;
 		this.skills = new Skill[3];
 		skills[0] = new FrozenTimeSkill("FrozenTime", 200);
 		skills[1] = new Fire("Lazer Fire", 50, 500, Moving.left);
@@ -65,10 +65,21 @@ public class player extends Character{
 
 			public void keyPressed(KeyEvent keyEvent) {
 				int keyCode = keyEvent.getKeyCode();
+				int p = 0;
+				JTable table = controller.getLayout().getMap().getTable();
+				int x = controller.getPosition().getX();
+				int y = controller.getPosition().getY();
 				try {
 					switch (keyCode){
 						case KeyEvent.VK_UP:
 							try {
+								try{
+									if(x-1>=0) p = Integer.valueOf((String)(table.getValueAt(x-1, y)));
+								}catch(NumberFormatException ex ){
+									p = 0;
+								}
+								point = point + p;
+								System.out.println(point);
 								move(Moving.up);
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -76,6 +87,13 @@ public class player extends Character{
 							break;
 						case KeyEvent.VK_DOWN:
 							try {
+								try{
+									if(x+1<controller.getLayout().getMap().getMaxX()) p = Integer.valueOf((String)(table.getValueAt(x+1, y)));
+								}catch(NumberFormatException ex ){
+									p = 0;
+								}
+								point = point + p;
+								System.out.println(point);
 								move(Moving.down);
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -83,6 +101,13 @@ public class player extends Character{
 							break;
 						case KeyEvent.VK_LEFT:
 							try {
+								try{
+									if(y-1 >= 0) p = Integer.valueOf((String)(table.getValueAt(x, y-1)));
+								}catch(NumberFormatException ex ){
+									p = 0;
+								}
+								point = point + p;
+								System.out.println(point);
 								move(Moving.left);
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -90,6 +115,13 @@ public class player extends Character{
 							break;
 						case KeyEvent.VK_RIGHT :
 							try {
+								try{
+									if(y+1<controller.getLayout().getMap().getMaxY()) p = Integer.valueOf((String)(table.getValueAt(x, y+1)));
+								}catch(NumberFormatException ex ){
+									p = 0;
+								}
+								point = point + p;
+								System.out.println(point);
 								move(Moving.right);
 							} catch (IOException e) {
 								e.printStackTrace();

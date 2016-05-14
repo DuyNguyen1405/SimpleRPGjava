@@ -15,20 +15,29 @@ public abstract class Character implements Runnable{
     protected int hp;
     protected int mp;
     protected String symbol;
+    protected int point;
     protected Controller controller;
     protected Boolean isAlive;
 
-    public Character(String name, int hp, int mp, Position position){
-        this.isAlive = true;
+    public Character(String name, int hp, int mp, int point, Position position){
         this.name = name;
         this.hp = hp;
         this.mp = mp;
+        this.point = point;
         this.controller = new Controller(position);
 
         Thread controlThread = new Thread(this);
         this.controller.setThread(controlThread);
     }
 
+    public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	
     public String getName() {
         return name;
     }

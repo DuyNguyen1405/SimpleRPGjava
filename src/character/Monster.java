@@ -47,7 +47,7 @@ public class Monster extends Character{
             } catch (InterruptedException e) {
                 try {
                     Thread.sleep(2000);
-                    System.out.println("... Frozen Time: " + this.name + "activated");
+                    System.out.println("... Frozen Time: " + this.name + " activated");
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }

@@ -121,7 +121,8 @@ public class Controller {
 	    	  this.layout.getPlayer().setHp(1000);
 	    	  this.layout.getPlayer().setMp(400);
 	    	  this.layout.getMap().getTable().setValueAt("0", this.position.getX(), 0);
-	    	  
+	    	  this.layout.getHpLabel().setText("HP: " + 1000);
+	    	  this.layout.getMpLabel().setText("MP: " + 400);
 	      }
 	      else layout.dispose();
 		//Todo khoa ca ban phim khong cho di chuyen

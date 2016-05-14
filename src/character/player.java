@@ -28,6 +28,7 @@ public class player extends Character{
 
 	public void fight() throws IOException{
 		this.setHp(getHp()-500);
+		this.getController().getLayout().getHpLabel().setText("HP: " +this.getHp());
 		System.out.println(this.getHp());
 		if(this.getHp() <= 0) controller.endMap();
 	}
@@ -35,15 +36,12 @@ public class player extends Character{
 	private boolean doSkill(Skill skill){
 		System.out.println(skill.getName());
 		try {
-			this.setMp(this.getMp()-skill.getCost());
-			if(this.getMp()<0) {
-				JOptionPane.showMessageDialog (null, "Khong du MP"
-						
-													
-						,"Thong bao", JOptionPane.ERROR_MESSAGE);
+			if((this.getMp()-skill.getCost())<0) {
+				JOptionPane.showMessageDialog (null, "Khong du MP","Thong bao", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
-			
+			this.setMp(this.getMp()-skill.getCost());
+			this.getController().getLayout().getMpLabel().setText("MP: " +this.getMp());
 			skill.affect();
 		} catch (Exception e) {
 			e.printStackTrace();

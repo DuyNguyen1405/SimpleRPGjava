@@ -14,7 +14,27 @@ import java.util.ArrayList;
 public class Layout extends JFrame {
 	private player player;
 	private Map map;
+	private JLabel hpLabel;
+	private JLabel mpLabel;
+	
+	public JLabel getHpLabel() {
+		return hpLabel;
+	}
 
+
+	public void setHpLabel(JLabel hpLabel) {
+		this.hpLabel = hpLabel;
+	}
+
+
+	public JLabel getMpLabel() {
+		return mpLabel;
+	}
+
+
+	public void setMpLabel(String string) {
+		this.mpLabel.setText(string);
+	}
 	private Container controls;
 
 	public Layout() throws IOException {
@@ -57,9 +77,19 @@ public class Layout extends JFrame {
 		Dimension buttonSize = b.getPreferredSize();
 		controls.setPreferredSize(new Dimension((int)(buttonSize.getWidth())+350,(int)(buttonSize.getHeight())+150));
 		JLabel label1 = new JLabel("Bam a de xem huong dan");
+		hpLabel = new JLabel("HP: " +this.getPlayer().getHp());
+		mpLabel = new JLabel("MP: " +this.getPlayer().getMp());
+
 		controls.add(label1);
-		label1.setBounds(50, 100, buttonSize.width, buttonSize.height);
-		label1.setSize(200, 100);
+		controls.add(hpLabel);
+		controls.add(mpLabel);
+		label1.setBounds(50, 80, 30, 30);
+		label1.setSize(150, 100);
+		
+		hpLabel.setBounds(250,80, 30, 30);
+		hpLabel.setSize(50, 100);
+		mpLabel.setBounds(250,100, 30, 30);
+		mpLabel.setSize(50, 100);
 		Insets insets = pane.getInsets();
 
 		// Add map vao layout

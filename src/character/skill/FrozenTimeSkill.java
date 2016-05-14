@@ -1,7 +1,8 @@
 package character.skill;
 
 import character.Monster;
-import layout.Resource;
+import exception.NotEnoughMP;
+import layout.Game;
 
 import java.util.ArrayList;
 
@@ -12,8 +13,10 @@ public class FrozenTimeSkill extends Skill{
     }
 
     @Override
-    public void affect() throws Exception{
-        ArrayList monsters = (ArrayList) Resource.get("monsters");
+    public void affect() throws NotEnoughMP{
+        preAffect();
+
+        ArrayList monsters = (ArrayList) Game.get("monsters");
         int i;
 
         System.out.println("+++ Frozen Time activated: all monsters will be frozen in ---> 2s");

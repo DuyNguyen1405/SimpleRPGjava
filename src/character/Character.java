@@ -4,7 +4,7 @@ import character.move.Coordinate;
 import character.move.Position;
 import exception.AttackException;
 import layout.Layout;
-import layout.Resource;
+import layout.Game;
 
 import java.io.IOException;
 /**
@@ -15,28 +15,19 @@ public abstract class Character implements Runnable{
     protected int hp;
     protected int mp;
     protected String symbol;
-    protected int point;
     protected Controller controller;
     protected Boolean isAlive;
 
-    public Character(String name, int hp, int mp, int point, Position position){
+    public Character(String name, int hp, int mp, Position position){
         this.name = name;
         this.hp = hp;
         this.mp = mp;
-        this.point = point;
         this.controller = new Controller(position);
+        this.isAlive = true;
 
         Thread controlThread = new Thread(this);
         this.controller.setThread(controlThread);
     }
-
-    public int getPoint() {
-		return point;
-	}
-
-	public void setPoint(int point) {
-		this.point = point;
-	}
 	
     public String getName() {
         return name;
@@ -72,7 +63,10 @@ public abstract class Character implements Runnable{
     }
 
     public void die(){
-
+        this.isAlive = false;
+        controller.getThread().interrupt();
+        controller.reDraw();
+        System.out.println(this.getName() + " die!");
     }
 
     public Controller getController() {
@@ -97,7 +91,7 @@ public abstract class Character implements Runnable{
     }
 
     public void activate(){
-        this.controller.setLayout((Layout) Resource.get("layout"));
+        this.controller.setLayout((Layout) Game.get("layout"));
         draw();
         this.controller.getThread().start();
     }

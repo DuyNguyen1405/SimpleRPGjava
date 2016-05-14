@@ -4,6 +4,8 @@ import character.move.Coordinate;
 import character.move.Moving;
 import character.move.Position;
 import exception.AttackException;
+import layout.Map;
+import layout.Game;
 
 import java.io.IOException;
 
@@ -15,7 +17,7 @@ public class Monster extends Character{
 
     public Monster (String name, int hp, Position position, Coordinate coo){
         super(name, hp, 0, position);
-        this.symbol = "X";
+        this.symbol = "XXX";
         this.coo = coo;
     }
 
@@ -33,12 +35,16 @@ public class Monster extends Character{
                     } else {
                         if (coo == Moving.right) {
                             coo = Moving.left;
+
                         } else if (coo == Moving.left) {
                             coo = Moving.right;
+
                         } else if (coo == Moving.up){
                             coo = Moving.down;
+
                         } else {
                             coo = Moving.up;
+
                         }
                     }
                 } else {
@@ -46,8 +52,10 @@ public class Monster extends Character{
                 }
             } catch (InterruptedException e) {
                 try {
-                    Thread.sleep(2000);
-                    System.out.println("... Frozen Time: " + this.name + " activated");
+                    if (isAlive){
+                        Thread.sleep(2000);
+                        System.out.println("... Frozen Time: " + this.name + " activated");
+                    }
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
@@ -55,9 +63,14 @@ public class Monster extends Character{
                 e.printStackTrace();
             } catch (AttackException e) {
                 if (e.getEnemy() instanceof player){
-                    System.out.println("Monster attack player!");
+                    e.getEnemy().gotHit(this, e.getDamage());
                 }
             }
+        }
+
+        if (! this.isAlive) {
+            Map map = (Map) Game.get("map");
+            map.removeMonster(this);
         }
     }
 }

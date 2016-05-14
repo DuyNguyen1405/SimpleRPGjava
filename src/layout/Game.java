@@ -5,7 +5,7 @@ import java.io.IOException;
 /**
  * Created by j on 12/05/2016.
  */
-public final class Resource {
+public final class Game {
     private static Layout layout;
 
     public static void init() {
@@ -35,8 +35,16 @@ public final class Resource {
                 return layout.getPlayer();
             case "monsters":
                 return layout.getMap().getMonsters();
+            case "hplabel":
+                return layout.getHpLabel();
+            case "mplabel":
+                return layout.getMpLabel();
             default:
                 return new Object();
         }
+    }
+
+    public static void end(){
+        layout.setPlayer(null);
     }
 }

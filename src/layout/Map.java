@@ -62,7 +62,7 @@ public class Map {
 		monster	= new Monster("Voidermort", 500, new Position(3, 0), Moving.right);
 		addMonster(monster);
 
-		monster = new Monster("Dracula", 500, new Position(3, 0), Moving.right);
+		monster = new Monster("Dracula", 500, new Position(2, 2), Moving.down);
 		addMonster(monster);
 	}
 
@@ -110,7 +110,8 @@ public class Map {
 			for(i=0;i<maxX;i++){
 				arr = line.split(" ");
 				for(j=0;j<maxY;j++){
-					words[i][j] = arr[j];
+					if (arr[j].equals(",")) words[i][j] = "";
+					else words[i][j] = arr[j];
 				}
 				line = reader.readLine();
 			}
@@ -132,6 +133,10 @@ public class Map {
 
 	public void  addMonster(Monster monster){
 		this.monsters.add(monster);
+	}
+
+	public void removeMonster(Monster monster) {
+		this.monsters.remove(monster);
 	}
 
 	public void activateMonster(){

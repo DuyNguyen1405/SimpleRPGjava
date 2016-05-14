@@ -1,5 +1,9 @@
 package character.skill;
 
+import character.player;
+import exception.NotEnoughMP;
+import layout.Game;
+
 /**
  * Created by j on 12/05/2016.
  */
@@ -18,14 +22,20 @@ public abstract class Skill {
         return name;
     }
 
-    public int getCost() {
-        return cost;
-    }
-
     public int getDamage() {
         return damage;
     }
 
-    public abstract void affect() throws Exception;
+    protected void preAffect() throws NotEnoughMP {
+        player player = (character.player) Game.get("player");
+        if (player.getMp() - this.cost < 0){
+            throw new NotEnoughMP(this);
+        } else {
+            player.setMp(player.getMp() - this.cost);
+            System.out.println(this.name + " - " + this.cost + " mp");
+        }
+    }
+
+    public abstract void affect() throws NotEnoughMP;
 }
 

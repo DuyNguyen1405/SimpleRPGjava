@@ -4,7 +4,8 @@ import character.move.Coordinate;
 import character.move.Position;
 import exception.AttackException;
 import layout.Layout;
-import layout.Resource;
+import layout.Map;
+import layout.Game;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +21,7 @@ public class Controller {
 	}
 
 	public Layout getLayout() {
-		return (Layout) Resource.get("layout");
+		return (Layout) Game.get("layout");
 	}
 
 	public void setLayout(Layout layout) {
@@ -51,19 +52,13 @@ public class Controller {
 			//Get value tu Table
 //			String currValue = (String) this.layout.getValueAt(newPos);
 			String currValue = (String) this.layout.getMap().getValueAt(newPos.getX(), newPos.getY());
-			if (currValue.substring(0, 1).equals("M")) {
+			if ((!currValue.isEmpty()) && (currValue.substring(0, 1).equals("M"))) {
 				loadNewMap(String.format("%s.txt", currValue));
 			}
-			if (currValue.equals("End")) {
+			if ((!currValue.isEmpty()) && (currValue.equals("End"))) {
 				endMap();
-							}
-
-			if (currValue.equals("X")){
-				System.out.println("Player attact Monster!!");
 			}
 
-			if (currValue.equals("O")){
-			}
 			// Set lai x, y
 			this.position.setX(this.position.getX() + coordinate.getX());
 			this.position.setY(this.position.getY() + coordinate.getY());
@@ -113,7 +108,7 @@ public class Controller {
 	public void endMap() throws IOException{
 		Object[] options = { "Choi lai", "Thoat" };
 	      int iLuaChon = JOptionPane.showOptionDialog(null, "So diem cua ban: "
-	      		+ this.layout.getPlayer().getPoint()
+
 	      		+ "\nHay chon 1 trong 2 lua chon sau", null, JOptionPane.DEFAULT_OPTION, 
 	    		  JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 	      if (iLuaChon == 0) {
@@ -122,7 +117,6 @@ public class Controller {
 	    	  this.position.setX(this.layout.getMap().getMaxX()-1);
 	    	  this.layout.getPlayer().setHp(1000);
 	    	  this.layout.getPlayer().setMp(400);
-	    	  this.layout.getPlayer().setPoint(0);
 	    	  this.layout.getMap().getTable().setValueAt("0", this.position.getX(), 0);
 	    	  this.layout.getHpLabel().setText("HP: " + 1000);
 	    	  this.layout.getMpLabel().setText("MP: " + 400);
@@ -146,5 +140,12 @@ public class Controller {
 
 	public Boolean onSameRowLeft(Position pos){
 		return (this.position.getX() == pos.getX()) && (this.position.getY() >= pos.getY());
+	}
+
+	public void reDraw(){
+		Map map = (Map) Game.get("map");
+		int x = this.getPosition().getX();
+		int y = this.getPosition().getY();
+		map.getTable().setValueAt((String) map.getValueAt(x, y), x, y);
 	}
 }

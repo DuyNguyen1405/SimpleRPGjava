@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Layout extends JFrame {
+	private Container controls;
 	private player player;
 	private Map map;
 	private JLabel hpLabel;
@@ -21,32 +22,25 @@ public class Layout extends JFrame {
 		return hpLabel;
 	}
 
-
-	public void setHpLabel(JLabel hpLabel) {
-		this.hpLabel = hpLabel;
-	}
-
-
 	public JLabel getMpLabel() {
 		return mpLabel;
 	}
 
-
-	public void setMpLabel(String string) {
-		this.mpLabel.setText(string);
-	}
-	private Container controls;
-
 	public Layout() throws IOException {
-
 		this.controls = new Container();
 		this.map = new Map("M1.txt"); //khoi tao map
 		this.player = new player("Kien", 1000, 500, new Position(4, 0));
+		hpLabel = new JLabel("HP: " +this.getPlayer().getHp());
+		mpLabel = new JLabel("MP: " +this.getPlayer().getMp());
 	}
 
 	
 	public player getPlayer() {
 		return player;
+	}
+
+	public void setPlayer(player player){
+		this.player = player;
 	}
 
 	public Character getCharacterAt(Coordinate coo){
@@ -77,12 +71,12 @@ public class Layout extends JFrame {
 		Dimension buttonSize = b.getPreferredSize();
 		controls.setPreferredSize(new Dimension((int)(buttonSize.getWidth())+350,(int)(buttonSize.getHeight())+150));
 		JLabel label1 = new JLabel("Bam a de xem huong dan");
-		hpLabel = new JLabel("HP: " +this.getPlayer().getHp());
-		mpLabel = new JLabel("MP: " +this.getPlayer().getMp());
+
 
 		controls.add(label1);
 		controls.add(hpLabel);
 		controls.add(mpLabel);
+
 		label1.setBounds(50, 80, 30, 30);
 		label1.setSize(150, 100);
 		
@@ -105,9 +99,9 @@ public class Layout extends JFrame {
 
 	private static void createAndShowGUI() throws IOException, InterruptedException {
 		//Create and set up the window.
-		Resource.init();
-		Resource.start();
-		Layout frame = (Layout) Resource.get("layout");
+		Game.init();
+		Game.start();
+		Layout frame = (Layout) Game.get("layout");
 		frame.setTitle("Test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Set up the content pane.
@@ -119,17 +113,15 @@ public class Layout extends JFrame {
 
 	public static void main(String[] args) {
 
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					createAndShowGUI();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		javax.swing.SwingUtilities.invokeLater(() -> {
+            try {
+                createAndShowGUI();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 	}
 }
 

@@ -7,7 +7,7 @@ import character.Character;
  */
 public class AttackException extends Exception{
     private Character enemy;
-    private int damage;
+    private final int damage = 100;
 
     public AttackException(Character enemy) {
         super("Attack");
@@ -17,4 +17,5 @@ public class AttackException extends Exception{
     public Character getEnemy() {
         return enemy;
     }
+    public int getDamage(){return damage;}
 }

@@ -4,7 +4,8 @@ import character.Monster;
 import character.move.Coordinate;
 import character.move.Moving;
 import character.player;
-import layout.Resource;
+import exception.NotEnoughMP;
+import layout.Game;
 
 import java.util.ArrayList;
 
@@ -20,20 +21,19 @@ public class Fire extends Skill{
     }
 
     @Override
-    public void affect() throws Exception {
-        player player = (player) Resource.get("player");
-        ArrayList monsters = (ArrayList) Resource.get("monsters");
+    public void affect() throws NotEnoughMP {
+        preAffect();
+
+        player player = (player) Game.get("player");
+        ArrayList monsters = (ArrayList) Game.get("monsters");
 
         if (direction == Moving.right){
             for (int i = 0; i < monsters.size(); i++){
                 Monster monster = (Monster) monsters.get(i);
                 if (player.getController().onSameRowRight(monster.getController().getPosition())){
                     monster.gotHit(player, this.getDamage());
-                    System.out.println("--- Fire: " + monster.getName() + " got fired: lost " + this.getDamage() + " hp.");
                 }
             }
-
-
         }
 
         if (direction == Moving.left){
@@ -41,11 +41,10 @@ public class Fire extends Skill{
             for (int i = 0; i < monsters.size(); i++){
                 Monster monster = (Monster) monsters.get(i);
                 if (player.getController().onSameRowLeft(monster.getController().getPosition())){
-                    monster.adjustHp(-this.getDamage());
+                    monster.gotHit(player, this.getDamage());
                     System.out.println("--- Fire: " + monster.getName() + " got fired: lost " + this.getDamage() + " hp.");
                 }
             }
-            player.getController().draw("O");
         }
     }
 }

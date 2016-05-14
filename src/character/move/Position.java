@@ -4,29 +4,27 @@ package character.move;
  * Created by j on 14/03/2016.
  */
 public class Position {
-    private int x;
-    private int y;
+    private Coordinate coordinate;
     private String symbol;
 
     public Position(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.coordinate = new Coordinate(x, y);
     }
 
     public int getX() {
-        return x;
+        return coordinate.getX();
     }
 
     public void setX(int x) {
-        this.x = x;
+        coordinate.setX(x);
     }
 
     public int getY() {
-        return y;
+        return coordinate.getY();
     }
 
     public void setY(int y) {
-        this.y = y;
+        coordinate.setY(y);
     }
 
     public String getSymbol() {
@@ -35,26 +33,6 @@ public class Position {
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
-    }
-
-    public int up(int value) {
-        this.x += 1;
-        return 0;
-    }
-
-    public int down(int value) {
-        this.x -= 1;
-        return 0;
-    }
-
-    public int left(int value) {
-        this.y -= 1;
-        return 0;
-    }
-
-    public int right(int value) {
-        this.y += 1;
-        return 0;
     }
 
 }

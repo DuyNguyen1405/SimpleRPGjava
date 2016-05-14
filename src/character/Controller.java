@@ -15,8 +15,8 @@ public class Controller {
 	private Position position;
 	private Thread thread;
 
-	public Controller(){
-
+	public Controller(Position position){
+		this.position = position;
 	}
 
 	public Layout getLayout() {

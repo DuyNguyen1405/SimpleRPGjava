@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class FrozenTimeSkill extends Skill{
 
-    public FrozenTimeSkill(String name, int cost, int attack, int defence) {
-        super(name, cost, attack, defence);
+    public FrozenTimeSkill(String name, int cost) {
+        super(name, cost, 0);
     }
 
     @Override

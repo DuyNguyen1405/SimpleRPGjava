@@ -20,9 +20,9 @@ public class player extends Character{
 		this.symbol = "O";
 
 		this.skills = new Skill[3];
-		skills[0] = new FrozenTimeSkill("FrozenTime", 200, 0, 0);
-		skills[1] = new Fire("Lazer Fire", 50, 500, 0, Moving.left);
-		skills[2] = new Fire("Lazer Fire", 50, 500, 0, Moving.right);
+		skills[0] = new FrozenTimeSkill("FrozenTime", 200);
+		skills[1] = new Fire("Lazer Fire", 50, 500, Moving.left);
+		skills[2] = new Fire("Lazer Fire", 50, 500, Moving.right);
 		//remote();
 	}
 
@@ -36,12 +36,24 @@ public class player extends Character{
 	private boolean doSkill(Skill skill){
 		System.out.println(skill.getName());
 		try {
+<<<<<<< Updated upstream
 			if((this.getMp()-skill.getCost())<0) {
 				JOptionPane.showMessageDialog (null, "Khong du MP","Thong bao", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 			this.setMp(this.getMp()-skill.getCost());
 			this.getController().getLayout().getMpLabel().setText("MP: " +this.getMp());
+=======
+			this.setMp(this.getMp()-skill.getCost());
+			if(this.getMp()<0) {
+				JOptionPane.showMessageDialog (null, "Khong du MP"
+
+
+						,"Thong bao", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+
+>>>>>>> Stashed changes
 			skill.affect();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,7 +62,7 @@ public class player extends Character{
 	}
 
 	public void run(){
-		this.getController().getLayout().addKeyListener(new KeyListener() {
+		KeyListener playerCommand = new KeyListener() {
 			public void keyTyped(KeyEvent keyEvent) {
 
 			}
@@ -168,7 +180,9 @@ public class player extends Character{
 						break;
 				}
 			}
-		});
+		};
+
+		this.getController().getLayout().addKeyListener(playerCommand);
 		this.getController().getLayout().setFocusable(true);
 
 	}

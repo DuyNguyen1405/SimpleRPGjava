@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Map {
+	private JTable table;
 	private static BufferedReader reader;
-	private JTable table = new JTable();;
 	private static int maxX; // chi so cot 1 -> maxX
 	private static int maxY;
 	private static boolean isTableExist = false;
@@ -53,6 +53,7 @@ public class Map {
 	}
 
 	public Map(String name) throws IOException {
+		this.table = new JTable();
 		create(name);
 		draw();
 		this.monsters = new ArrayList();

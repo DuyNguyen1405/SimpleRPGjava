@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class Fire extends Skill{
     private Coordinate direction;
 
-    public Fire(String name, int cost, int attack, int defence, Coordinate coo) {
-        super(name, cost, attack, defence);
+    public Fire(String name, int cost, int damage, Coordinate coo) {
+        super(name, cost, damage);
         this.direction = coo;
     }
 
@@ -28,8 +28,8 @@ public class Fire extends Skill{
             for (int i = 0; i < monsters.size(); i++){
                 Monster monster = (Monster) monsters.get(i);
                 if (player.getController().onSameRowRight(monster.getController().getPosition())){
-                    monster.adjustHp(this.getAttack());
-                    System.out.println("--- Fire: " + monster.getName() + " got fired: lost " + this.getAttack() + " hp.");
+                    monster.gotHit(player, this.getDamage());
+                    System.out.println("--- Fire: " + monster.getName() + " got fired: lost " + this.getDamage() + " hp.");
                 }
             }
 
@@ -41,8 +41,8 @@ public class Fire extends Skill{
             for (int i = 0; i < monsters.size(); i++){
                 Monster monster = (Monster) monsters.get(i);
                 if (player.getController().onSameRowLeft(monster.getController().getPosition())){
-                    monster.adjustHp(this.getAttack());
-                    System.out.println("--- Fire: " + monster.getName() + " got fired: lost " + this.getAttack() + " hp.");
+                    monster.adjustHp(-this.getDamage());
+                    System.out.println("--- Fire: " + monster.getName() + " got fired: lost " + this.getDamage() + " hp.");
                 }
             }
             player.getController().draw("O");

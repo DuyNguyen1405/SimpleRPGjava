@@ -16,13 +16,14 @@ public abstract class Character implements Runnable{
     protected int mp;
     protected String symbol;
     protected Controller controller;
+    protected Boolean isAlive;
 
     public Character(String name, int hp, int mp, Position position){
+        this.isAlive = true;
         this.name = name;
         this.hp = hp;
         this.mp = mp;
-        this.controller = new Controller();
-        this.controller.setPosition(position);
+        this.controller = new Controller(position);
 
         Thread controlThread = new Thread(this);
         this.controller.setThread(controlThread);
@@ -52,8 +53,17 @@ public abstract class Character implements Runnable{
         this.mp = mp;
     }
 
-    public String getSymbol() {
-        return symbol;
+    public void gotHit(Character enemy, int damage){
+        this.hp -= damage;
+
+        System.out.println(enemy.getName() + " hits " + this.name + ": " + damage);
+        if (this.hp <= 0){
+            die();
+        }
+    }
+
+    public void die(){
+
     }
 
     public Controller getController() {

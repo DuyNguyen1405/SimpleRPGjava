@@ -6,14 +6,12 @@ package character.skill;
 public abstract class Skill {
     private String name;
     private int cost;
-    private int attack;
-    private int defence;
+    private int damage;
 
-    public Skill (String name, int cost, int attack, int defence){
+    public Skill (String name, int cost, int damage){
         this.name = name;
         this.cost = cost;
-        this.attack = attack;
-        this.defence = defence;
+        this.damage = damage;
     }
 
     public String getName() {
@@ -24,12 +22,8 @@ public abstract class Skill {
         return cost;
     }
 
-    public int getAttack() {
-        return attack;
-    }
-
-    public int getDefence() {
-        return defence;
+    public int getDamage() {
+        return damage;
     }
 
     public abstract void affect() throws Exception;

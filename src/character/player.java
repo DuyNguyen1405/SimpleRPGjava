@@ -1,32 +1,29 @@
 package character;
 
 import character.move.Moving;
+import character.move.Position;
 import character.skill.Fire;
 import character.skill.FrozenTimeSkill;
 import character.skill.Skill;
 import exception.AttackException;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
 public class player extends Character{
 	private Skill[] skills;
 
-	public player(Controller controller){
-		super(controller);
-		this.hp = 1000;
-		this.mp = 400;
-		this.symbol = "0";
+	public player(String name, int hp, int mp, Position position){
+		super(name, hp, mp, position);
+		this.symbol = "O";
+
 		this.skills = new Skill[3];
 		skills[0] = new FrozenTimeSkill("FrozenTime", 200, 0, 0);
 		skills[1] = new Fire("Lazer Fire", 50, 500, 0, Moving.left);
 		skills[2] = new Fire("Lazer Fire", 50, 500, 0, Moving.right);
-		remote();
+		//remote();
 	}
 
 	public void fight() throws IOException{
@@ -35,7 +32,26 @@ public class player extends Character{
 		if(this.getHp() <= 0) controller.endMap();
 	}
 
-	void remote(){
+	private boolean doSkill(Skill skill){
+		System.out.println(skill.getName());
+		try {
+			this.setMp(this.getMp()-skill.getCost());
+			if(this.getMp()<0) {
+				JOptionPane.showMessageDialog (null, "Khong du MP"
+						
+													
+						,"Thong bao", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			
+			skill.affect();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	public void run(){
 		this.getController().getLayout().addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent keyEvent) {
 
@@ -98,25 +114,25 @@ public class player extends Character{
 							break;
 						case KeyEvent.VK_S :
 							JOptionPane.showMessageDialog (null, "Thong tin nhan vat:"
-									+ "\nHP:" + getHp()
-									+ "\nMP:" + getMp()
-									+ "\nThong tin ve ki nang:"
-									+ "\nSpace: Dung thoi gian - Quai vat dung im trong 2s"
-									+ "\nZ, X: Ban phep - Gay sat thuong len quai vat"
+											+ "\nHP:" + getHp()
+											+ "\nMP:" + getMp()
+											+ "\nThong tin ve ki nang:"
+											+ "\nSpace: Dung thoi gian - Quai vat dung im trong 2s"
+											+ "\nZ, X: Ban phep - Gay sat thuong len quai vat"
 									,"Huong Dan", JOptionPane.INFORMATION_MESSAGE);
 							break;
 						case KeyEvent.VK_A :
 							JOptionPane.showMessageDialog (null, "Nut bam:\n+ Bam ^, v, <, > de di chuyen."
-									+ "\n+ Bam z, x, space de dung ki nang."
-									+ "\n+ Bam s de xem thong tin nhan vat."
-									+ "\n\nCach choi:"
-									+ "\n+ De ve dich phai di chuyen den o End"
-									+ "\n+ Va cham voi quai vat se mat mau. Neu mau ve 0 tro choi se ket thuc."
-									+ "\n+ Vao nhung o M1, M2 se doi sang map moi."
-																
+											+ "\n+ Bam z, x, space de dung ki nang."
+											+ "\n+ Bam s de xem thong tin nhan vat."
+											+ "\n\nCach choi:"
+											+ "\n+ De ve dich phai di chuyen den o End"
+											+ "\n+ Va cham voi quai vat se mat mau. Neu mau ve 0 tro choi se ket thuc."
+											+ "\n+ Vao nhung o M1, M2 se doi sang map moi."
+
 									,"Huong Dan", JOptionPane.INFORMATION_MESSAGE);
 
-							break;	
+							break;
 					}
 				} catch (AttackException e){
 					try {
@@ -132,53 +148,30 @@ public class player extends Character{
 			public void keyReleased(KeyEvent keyEvent) {
 				int keyCode = keyEvent.getKeyCode();
 				switch (keyCode){
-                    case KeyEvent.VK_SPACE :
-                        try {
-                        } catch (Exception e){
+					case KeyEvent.VK_SPACE :
+						try {
+						} catch (Exception e){
 
-                        }
-                        break;
-                    case KeyEvent.VK_Z :
-                        try {
+						}
+						break;
+					case KeyEvent.VK_Z :
+						try {
 							player.this.getController().draw("O");
-                        } catch (Exception e){
+						} catch (Exception e){
 
-                        }
-                        break;
-                    case KeyEvent.VK_X :
-                        try {
-                            player.this.getController().draw("O");
-                        } catch (Exception e){
+						}
+						break;
+					case KeyEvent.VK_X :
+						try {
+							player.this.getController().draw("O");
+						} catch (Exception e){
 
-                        }
-                        break;
-                }
+						}
+						break;
+				}
 			}
 		});
 		this.getController().getLayout().setFocusable(true);
-		
-	}
-
-	private boolean doSkill(Skill skill){
-		System.out.println(skill.getName());
-		try {
-			this.setMp(this.getMp()-skill.getCost());
-			if(this.getMp()<0) {
-				JOptionPane.showMessageDialog (null, "Khong du MP"
-						
-													
-						,"Thong bao", JOptionPane.ERROR_MESSAGE);
-				return false;
-			}
-			
-			skill.affect();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return true;
-	}
-
-	public void run(){
 
 	}
 }

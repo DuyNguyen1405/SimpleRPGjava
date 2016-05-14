@@ -4,6 +4,7 @@ import character.move.Coordinate;
 import character.move.Position;
 import exception.AttackException;
 import layout.Layout;
+import layout.Resource;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -14,17 +15,24 @@ public class Controller {
 	private Position position;
 	private Thread thread;
 
-	public Controller(Layout layout, Position position){
-		this.layout = layout;
-		this.position = position;
+	public Controller(){
+
 	}
 
 	public Layout getLayout() {
-		return layout;
+		return (Layout) Resource.get("layout");
+	}
+
+	public void setLayout(Layout layout) {
+		this.layout = layout;
 	}
 
 	public Position getPosition() {
 		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 
 	public boolean move(Coordinate coordinate, String symbol) throws AttackException, IOException{

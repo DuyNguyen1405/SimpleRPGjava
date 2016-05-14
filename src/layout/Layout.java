@@ -1,10 +1,8 @@
 package layout;
 
 import character.Character;
-import character.Controller;
 import character.Monster;
 import character.move.Coordinate;
-import character.move.Moving;
 import character.move.Position;
 import character.player;
 
@@ -23,7 +21,7 @@ public class Layout extends JFrame {
 
 		this.controls = new Container();
 		this.map = new Map("M1.txt"); //khoi tao map
-		this.player = new player(new Controller(this, new Position(4, 0)));
+		this.player = new player("Kien", 1000, 500, new Position(4, 0));
 	}
 
 	
@@ -64,24 +62,6 @@ public class Layout extends JFrame {
 		label1.setSize(200, 100);
 		Insets insets = pane.getInsets();
 
-
-		player.draw();
-
-		Monster monster = new Monster(new Controller(this, new Position(3, 0)), Moving.right);
-		Thread monsterThread = new Thread(monster);
-		monster.draw();
-		monster.setThread(monsterThread);
-		this.map.addMonster(monster);
-		monsterThread.start();
-
-		Monster monster2 = new Monster(new Controller(this, new Position(2, 2)), Moving.up);
-		Thread monsterThread2 = new Thread(monster2);
-		monster2.draw();
-		monster2.setThread(monsterThread2);
-		this.map.addMonster(monster2);
-		monsterThread2.start();
-
-
 		// Add map vao layout
 		pane.add(map.getTable());
 		//pane.remove(map.getTable());
@@ -95,8 +75,9 @@ public class Layout extends JFrame {
 
 	private static void createAndShowGUI() throws IOException, InterruptedException {
 		//Create and set up the window.
-		Layout frame = new Layout();
-		Resource.setLayout(frame);
+		Resource.init();
+		Resource.start();
+		Layout frame = (Layout) Resource.get("layout");
 		frame.setTitle("Test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Set up the content pane.

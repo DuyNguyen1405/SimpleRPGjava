@@ -15,4 +15,8 @@ public class AttackException extends Exception{
         super("Attack");
         this.enemy = enemy;
     }
+
+    public Character getEnemy() {
+        return enemy;
+    }
 }

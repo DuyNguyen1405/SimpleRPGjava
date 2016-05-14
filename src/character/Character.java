@@ -3,31 +3,29 @@ package character;
 import character.move.Coordinate;
 import character.move.Position;
 import exception.AttackException;
+import layout.Layout;
+import layout.Resource;
 
 import java.io.IOException;
 /**
  * Created by j on 03/04/2016.
  */
-public class Character implements Runnable{
+public abstract class Character implements Runnable{
     protected String name;
     protected int hp;
     protected int mp;
     protected String symbol;
     protected Controller controller;
 
-    public Character(){
-        this.name = "KiDu";
-        this.hp = 1000;
-        this.mp = 500;
-        this.symbol = "U";
-        //this.position = new Position(4, 0);
-    }
+    public Character(String name, int hp, int mp, Position position){
+        this.name = name;
+        this.hp = hp;
+        this.mp = mp;
+        this.controller = new Controller();
+        this.controller.setPosition(position);
 
-    public Character(Position position){
-        this.name = "KiDu";
-        this.hp = 1000;
-        this.mp = 500;
-        this.symbol = "O";
+        Thread controlThread = new Thread(this);
+        this.controller.setThread(controlThread);
     }
 
     public Character(Controller controller){
@@ -73,9 +71,7 @@ public class Character implements Runnable{
     public void draw(){
         this.controller.draw(this.symbol);
     }
-	public void run() {
-
-	}
+	public abstract void run();
 
     public Thread getThread(){
         return this.controller.getThread();
@@ -83,5 +79,11 @@ public class Character implements Runnable{
 
     public void setThread(Thread thread){
         this.controller.setThread(thread);
+    }
+
+    public void activate(){
+        this.controller.setLayout((Layout) Resource.get("layout"));
+        draw();
+        this.controller.getThread().start();
     }
 }

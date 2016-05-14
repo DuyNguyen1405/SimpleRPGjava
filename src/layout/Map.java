@@ -1,5 +1,7 @@
 package layout;
 import character.Monster;
+import character.move.Moving;
+import character.move.Position;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +17,6 @@ public class Map {
 	private static int maxY;
 	private static boolean isTableExist = false;
 	private String[][] words;
-	private Layout layout;
 	private static Object columnName[];
 	private ArrayList monsters;
 
@@ -55,6 +56,13 @@ public class Map {
 		create(name);
 		draw();
 		this.monsters = new ArrayList();
+
+		Monster monster;
+		monster	= new Monster("Voidermort", 500, new Position(3, 0), Moving.right);
+		addMonster(monster);
+
+		monster = new Monster("Dracula", 500, new Position(3, 0), Moving.right);
+		addMonster(monster);
 	}
 
 	public String[][] getWords() {
@@ -123,6 +131,13 @@ public class Map {
 
 	public void  addMonster(Monster monster){
 		this.monsters.add(monster);
+	}
+
+	public void activateMonster(){
+		for (int i = 0; i < monsters.size(); i++){
+			Monster monster = (Monster) monsters.get(i);
+			monster.activate();
+		}
 	}
 
 	public Object getValueAt(int x, int y){

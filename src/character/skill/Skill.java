@@ -27,7 +27,7 @@ public abstract class Skill {
     }
 
     protected void preAffect() throws NotEnoughMP {
-        Player player = (Player) Game.get("Player");
+        Player player = (Player) Game.get("player");
         if (player.getMp() - this.cost < 0){
             throw new NotEnoughMP(this);
         } else {

@@ -8,8 +8,10 @@ import character.move.Position;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 public class Layout extends JFrame {
 	private Container controls;
@@ -18,7 +20,16 @@ public class Layout extends JFrame {
 	private JLabel hpLabel;
 	private JLabel mpLabel;
 	private JLabel pLabel;
-	
+	private KeyListener playerCommand;
+
+	public KeyListener getPlayerCommand() {
+		return playerCommand;
+	}
+
+	public void setPlayerCommand(KeyListener playerCommand) {
+		this.playerCommand = playerCommand;
+	}
+
 	public JLabel getHpLabel() {
 		return hpLabel;
 	}
@@ -34,7 +45,7 @@ public class Layout extends JFrame {
 	public Layout() throws IOException {
 		this.controls = new Container();
 		this.map = new Map("M1.txt"); //khoi tao map
-		this.player = new Player("Kien", 1000, 500, new Position(4, 4));
+		this.player = new Player("Kien", 1000, 500, new Position(map.getMaxX() - 1, map.getMaxY() - 1));
 		hpLabel = new JLabel("HP: " +this.getPlayer().getHp());
 		mpLabel = new JLabel("MP: " +this.getPlayer().getMp());
 		pLabel = new JLabel("Point: " +this.getPlayer().getPoint());
@@ -103,11 +114,35 @@ public class Layout extends JFrame {
 		pane.add(controls);
 	}
 
+	private void update(){
+		JLabel hpLabel = (JLabel) Game.get("hplabel");
+		hpLabel.setText("HP: " + String.valueOf(player.getHp()));
+
+		JLabel mpLabel = (JLabel) Game.get("mplabel");
+		mpLabel.setText("MP: " + String.valueOf(player.getMp()));
+
+		JLabel pLabel = (JLabel) Game.get("plabel");
+		pLabel.setText("Point: " +String.valueOf(player.getPoint()));
+	}
+
+	public void updateInterval(){
+		java.util.Timer timer = new java.util.Timer();
+		TimerTask timerTask = new TimerTask() {
+			@Override
+			public void run() {
+				update();
+			}
+		};
+
+		timer.schedule(timerTask, 0, 100);
+	}
+
 	private static void createAndShowGUI() throws IOException, InterruptedException {
 		//Create and set up the window.
 		Game.init();
 		Game.start();
 		Layout frame = (Layout) Game.get("layout");
+
 		frame.setTitle("Test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Set up the content pane.

@@ -23,7 +23,7 @@ public class Fire extends Skill{
     public void affect() throws NotEnoughMP {
         preAffect();
 
-        Player player = (Player) Game.get("Player");
+        Player player = (Player) Game.get("player");
         ArrayList monsters = (ArrayList) Game.get("monsters");
 
         for (int i = 0; i < monsters.size(); i++){

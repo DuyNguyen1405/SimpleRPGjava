@@ -6,23 +6,24 @@ import character.skill.Fire;
 import character.skill.FrozenTimeSkill;
 import character.skill.Skill;
 import exception.AttackException;
+import exception.EndGameException;
+import exception.NewMapException;
 import exception.NotEnoughMP;
 import layout.Game;
+import layout.Layout;
+import layout.Map;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Player extends Character{
 	private Skill[] skills;
 	private int point;
 
 	public Player(String name, int hp, int mp, Position position){
-		super(name, hp, mp, position);
-		this.symbol = "O";
+		super(name, "O", hp, mp, position);
 		this.skills = new Skill[3];
 		skills[0] = new FrozenTimeSkill("FrozenTime", 200);
 		skills[1] = new Fire("Lazer Fire", 50, 500, Moving.left);
@@ -33,31 +34,9 @@ public class Player extends Character{
 		return point;
 	}
 
-	public void incPoint(int point){
-		this.point += point;
-	}
-
-	private void update(){
-		JLabel hpLabel = (JLabel) Game.get("hplabel");
-		hpLabel.setText("HP: " + String.valueOf(this.hp));
-
-		JLabel mpLabel = (JLabel) Game.get("mplabel");
-		mpLabel.setText("MP: " + String.valueOf(this.mp));
-
-		JLabel pLabel = (JLabel) Game.get("plabel");
-		pLabel.setText("Point: " +String.valueOf(this.point));
-	}
-
-	private void updateInterval(){
-		Timer timer = new Timer();
-		TimerTask timerTask = new TimerTask() {
-			@Override
-			public void run() {
-				update();
-			}
-		};
-
-		timer.schedule(timerTask, 0, 100);
+	public void eatPoint(){
+		this.point += 1;
+		controller.eatPoint();
 	}
 
 	private void doSkill(Skill skill){
@@ -69,9 +48,9 @@ public class Player extends Character{
 	}
 
 
-
 	public void run(){
-		KeyListener playerCommand = new KeyListener() {
+		Layout layout = (Layout) Game.get("layout");
+		KeyListener key = new KeyListener() {
 			public void keyTyped(KeyEvent keyEvent) {}
 
 			public void keyPressed(KeyEvent keyEvent) {
@@ -82,10 +61,6 @@ public class Player extends Character{
 						case KeyEvent.VK_UP:
 							try {
 								point = move(Moving.up);
-								if (point >  0){
-									incPoint(point);
-									System.out.println("Got a point");
-								}
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
@@ -93,9 +68,6 @@ public class Player extends Character{
 						case KeyEvent.VK_DOWN:
 							try {
 								point = move(Moving.down);
-								if (point >  0){
-									incPoint(point);
-								}
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
@@ -103,9 +75,6 @@ public class Player extends Character{
 						case KeyEvent.VK_LEFT:
 							try {
 								point = move(Moving.left);
-								if (point >  0){
-									incPoint(point);
-								}
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
@@ -113,9 +82,6 @@ public class Player extends Character{
 						case KeyEvent.VK_RIGHT :
 							try {
 								point = move(Moving.right);
-								if (point >  0){
-									incPoint(point);
-								}
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
@@ -129,15 +95,16 @@ public class Player extends Character{
 							break;
 						case KeyEvent.VK_Z :
 							try {
-								Player.this.getController().draw("<");
+								getController().draw("<");
 								doSkill(skills[1]);
 							} catch (Exception e){
-
+								System.out.println(controller.getPosition().getX() + " " + controller.getPosition().getY());
+								e.printStackTrace();
 							}
 							break;
 						case KeyEvent.VK_X :
 							try {
-								Player.this.getController().draw(">");
+								getController().draw(">");
 								doSkill(skills[2]);
 							} catch (Exception e){
 
@@ -167,6 +134,20 @@ public class Player extends Character{
 					}
 				} catch (AttackException e){
 					Player.this.gotHit(e.getEnemy(), e.getDamage());
+				} catch (EndGameException e){
+					Game.end();
+				} catch (NewMapException e) {
+					Map map = (Map) Game.get("map");
+					try {
+						map.loadNewMap(e.getMapName());
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+
+				if (point >  0){
+					eatPoint();
+					System.out.println("Got a point");
 				}
 			}
 
@@ -177,14 +158,14 @@ public class Player extends Character{
 						break;
 					case KeyEvent.VK_Z :
 						try {
-							Player.this.getController().draw("O");
+							Player.this.getController().draw(symbol);
 						} catch (Exception e){
 
 						}
 						break;
 					case KeyEvent.VK_X :
 						try {
-							Player.this.getController().draw("O");
+							Player.this.getController().draw(symbol);
 						} catch (Exception e){
 
 						}
@@ -193,17 +174,12 @@ public class Player extends Character{
 			}
 		};
 
-		this.getController().getLayout().addKeyListener(playerCommand);
-		this.getController().getLayout().setFocusable(true);
+		layout.setPlayerCommand(key);
+		layout.addKeyListener(layout.getPlayerCommand());
+		layout.setFocusable(true);
 
-		if (isAlive){
-			updateInterval();
-		}
-
-		if (! isAlive){
-			System.out.println("Player die");
-			this.getController().getLayout().removeKeyListener(playerCommand);
-			Game.end();
-		}
+//		if (isAlive){
+//			updateInterval();
+//		}
 	}
 }

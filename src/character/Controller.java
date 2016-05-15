@@ -4,12 +4,13 @@ import character.move.Coordinate;
 import character.move.Moving;
 import character.move.Position;
 import exception.AttackException;
+import exception.EndGameException;
+import exception.NewMapException;
+import layout.Game;
 import layout.Layout;
 import layout.Map;
-import layout.Game;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
 
 public class Controller {
@@ -37,7 +38,7 @@ public class Controller {
 		this.position = position;
 	}
 
-	public int move(Coordinate coordinate, String symbol) throws AttackException, IOException{
+	public int move(Coordinate coordinate, String symbol) throws AttackException, EndGameException, NewMapException, IOException{
 		Coordinate curr = new Coordinate(this.position.getX(), this.position.getY());
 		Coordinate newPos = curr.move(coordinate);
 		int point = 0;
@@ -46,17 +47,18 @@ public class Controller {
 			if (this.layout.getCharacterAt(newPos) != null){
 				throw new AttackException(this.getLayout().getCharacterAt(newPos));
 			}
-
 			layout.getMap().getTable().setValueAt(this.layout.getMap().getValueAt(this.position.getX(), this.position.getY()), this.position.getX(), this.position.getY());
 			String currValue = (String) this.layout.getMap().getValueAt(newPos.getX(), newPos.getY());
 			if ((!currValue.isEmpty()) && (currValue.substring(0, 1).equals("M"))) {
-				loadNewMap(String.format("%s.txt", currValue));
+				//loadNewMap(String.format("%s.txt", currValue));
+				throw new NewMapException(currValue+".txt");
 			}
 			if ((!currValue.isEmpty()) && (currValue.equals("End"))) {
-				endMap();
+				//endMap();
+				throw new EndGameException();
 			}
 
-			if ((!currValue.isEmpty()) && (currValue.equals("."))) {
+			if ((!currValue.isEmpty()) && (currValue.equals("*"))) {
 				point = 1;
 			}
 
@@ -90,40 +92,7 @@ public class Controller {
 	}
 
 	public void draw(String symbol){
-		this.position.setSymbol((String) layout.getMap().getTable().getValueAt(this.position.getX(), this.position.getY()));
 		layout.getMap().getTable().setValueAt(symbol, this.position.getX(), this.position.getY());
-	}
-
-	private void loadNewMap(String name) throws IOException {
-		this.layout.getMap().getTable().setModel(new DefaultTableModel(null, this.layout.getMap().getColumnName()));
-		this.layout.getMap().create(name);
-		this.layout.getMap().draw();
-		this.layout.getMap().removeAllMonster();
-		this.layout.getMap().activateMonster();
-	}
-
-	public void endMap() throws IOException{
-		Player player = (Player) Game.get("player");
-		Object[] options = { "Choi lai", "Thoat" };
-	      int iLuaChon = JOptionPane.showOptionDialog(null, "So diem cua ban: " + player.getPoint()
-
-	      		+ "\nHay chon 1 trong 2 lua chon sau", null, JOptionPane.DEFAULT_OPTION, 
-	    		  JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-	      if (iLuaChon == 0) {
-//	    	  this.position.setY(0);
-//	    	  loadNewMap("M1.txt");
-//	    	  this.position.setX(this.layout.getMap().getMaxX()-1);
-//	    	  this.layout.getPlayer().setHp(1000);
-//	    	  this.layout.getPlayer().setMp(400);
-//	    	  this.layout.getMap().getTable().setValueAt("0", this.position.getX(), 0);
-//	    	  this.layout.getHpLabel().setText("HP: " + 1000);
-//	    	  this.layout.getMpLabel().setText("MP: " + 400);
-			  Game.init();
-			  Game.start();
-	      }
-	      else layout.dispose();
-		//Todo khoa ca ban phim khong cho di chuyen
-		return;
 	}
 
 	public Thread getThread() {
@@ -147,5 +116,15 @@ public class Controller {
 		int x = this.getPosition().getX();
 		int y = this.getPosition().getY();
 		map.getTable().setValueAt(map.getValueAt(x, y), x, y);
+	}
+
+	public void setPosition(int x, int y) {
+		this.position.setX(x);
+		this.position.setY(y);
+	}
+
+	public void eatPoint(){
+		Map map = (Map) Game.get("map");
+		map.setWordAt("", this.position.getX(), this.position.getY());
 	}
 }

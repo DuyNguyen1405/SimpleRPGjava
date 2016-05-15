@@ -1,5 +1,7 @@
 package layout;
+
 import character.Monster;
+import character.Player;
 import character.move.Coordinate;
 import character.move.Moving;
 import character.move.Position;
@@ -35,58 +37,27 @@ public class Map {
 		return columnName;
 	}
 
-	public String[][] getWordsMonster() {
-		return wordsMonster;
-	}
-
-	public void setWordsMonster(String[][] wordsMonster) {
-		this.wordsMonster = wordsMonster;
-	}
-
-	public void setColumnName(int i, String s) {
-		this.columnName[i] = s;
-	}
-
 	public int getMaxX() {
 		return maxX;
-	}
-
-	public void setMaxX(int maxX) {
-		this.maxX = maxX;
-	}
-
-	public static boolean isTableExist() {
-		return isTableExist;
-	}
-
-	public static void setTableExist(boolean isTableExist) {
-		Map.isTableExist = isTableExist;
 	}
 
 	public int getMaxY() {
 		return maxY;
 	}
 
-	public void setMaxY(int maxY) {
-		this.maxY = maxY;
-	}
-
 	public Map(String name) throws IOException {
 		this.table = new JTable();
 		create(name);
 		draw();
-
-//		monster = new Monster(wordsMonster[1][0], 500, new Position(2, 2), Moving.down, 1000);
-//		addMonster(monster);
 	}
 	public void addMonsterToMap(){
 		int x, y;
 		this.monsters = new ArrayList();
 		Monster monster;
 		for(int i=0;i<num;i++){
-			x = Integer.parseInt(wordsMonster[i][2]);
-			y = Integer.parseInt(wordsMonster[i][3]);
-			int move = Integer.parseInt(wordsMonster[i][4]);
+			x = Integer.parseInt(wordsMonster[i][3]);
+			y = Integer.parseInt(wordsMonster[i][4]);
+			int move = Integer.parseInt(wordsMonster[i][5]);
 			Coordinate moving;
 			switch (move){
 				case 0:
@@ -107,24 +78,30 @@ public class Map {
 				default:
 					moving = Moving.left;
 			}
-			monster	= new Monster(wordsMonster[i][0], Integer.parseInt(wordsMonster[i][1]), new Position(x, y), moving, Integer.parseInt(wordsMonster[i][5]));
+			monster	= new Monster(wordsMonster[i][0], wordsMonster[i][1], Integer.parseInt(wordsMonster[i][2]), new Position(x, y), moving, Integer.parseInt(wordsMonster[i][6]));
 			addMonster(monster);
 		}
 	}
-	public String[][] getWords() {
-				return words;
-			}
-			
-	public void setWords(String[][] words) {
-				this.words = words;
-			}
 
 	public JTable getTable() {
 		return table;
 	}
 
-	public void setTable(JTable table) {
-		this.table = table;
+	public void setWordAt(String symbol, int x, int y){
+		words[x][y] = symbol;
+	}
+
+	public void loadNewMap(String name) throws IOException {
+		System.out.println();
+		System.out.println("New map: " + name);
+		removeAllMonster();
+		table.setModel(new DefaultTableModel(null, getColumnName()));
+		create(name);
+		draw();
+		Player player = (Player) Game.get("player");
+		player.setPosition(maxX - 1, maxY - 1);
+		player.draw();
+		activateMonster();
 	}
 	
 	public void create(String name) throws IOException{
@@ -142,8 +119,12 @@ public class Map {
 			for(i=0;i<maxX;i++){
 				arr = line.split(" ");
 				for(j=0;j<maxY;j++){
-					if (arr[j].equals(",")) words[i][j] = "";
-					else words[i][j] = arr[j];
+					try {
+						if (arr[j].equals(",")) words[i][j] = "";
+						else words[i][j] = arr[j];
+					} catch (Exception e){
+						System.out.println(i + " " + j);
+					}
 				}
 				line = reader.readLine();
 			}
@@ -163,13 +144,13 @@ public class Map {
 		int num = Integer.parseInt(arr[0]);
 		setNum(num);
 		int i=0,j=0;
-		wordsMonster = new String[num][6];
+		wordsMonster = new String[num][7];
 		line = reader.readLine();
 		
 		do{
 			for(i=0;i<num;i++){
 				if(line != null) arr = line.split(" ");
-				for(j=0;j<6;j++){
+				for(j=0;j<7;j++){
 					wordsMonster[i][j] = arr[j];
 					//System.out.print(arr[j]);
 				}
@@ -201,19 +182,18 @@ public class Map {
 	}
 
 	public void activateMonster(){
-		for (int i = 0; i < monsters.size(); i++){
+		int n = monsters.size();
+		for (int i = 0; i < n; i++){
 			Monster monster = (Monster) monsters.get(i);
 			monster.activate();
 		}
 	}
-
 	
 	public void removeAllMonster(){
-		for (int i = 0; i < monsters.size(); i++){
-			Monster monster = (Monster) monsters.get(i);
-			removeMonster(monster);
+		while (monsters.size() > 0){
+			Monster monster = (Monster) monsters.get(0);
+			monster.die();
 		}
-		
 	}
 	public Object getValueAt(int x, int y){
 		return this.words[x][y];

@@ -128,30 +128,17 @@ public class Map {
 		this.table = table;
 	}
 	
-	public void calRowCol(String name) throws IOException{
-		FileReader file = new FileReader(name);
-		reader = new BufferedReader(file);
-		int col =0, row =1;
-		String[] arr = null;
-		String line = reader.readLine();
-		arr = line.split(" ");
-		col = arr.length;
-		while (reader.readLine() != null) row++;
-		this.setMaxX(row);
-		this.setMaxY(col);
-		Map.columnName = new Object[col];
-		for(int i = 0; i<col;i++) Map.columnName[i] = String.valueOf(i+1);
-		reader.close();
-		
-	}
 	public void create(String name) throws IOException{
-		calRowCol(name);
 		FileReader file = new FileReader(name);
 		reader = new BufferedReader(file);
 		String line = reader.readLine();
 		String[] arr = null;
+		arr = line.split(" ");
+		maxX = Integer.parseInt(arr[0]);
+		maxY = Integer.parseInt(arr[1]);
 		int i=0,j=0;
 		words = new String[maxX][maxY];
+		line = reader.readLine();
 		do{
 			for(i=0;i<maxX;i++){
 				arr = line.split(" ");
@@ -162,6 +149,8 @@ public class Map {
 				line = reader.readLine();
 			}
 	}while(line != null);
+		Map.columnName = new Object[maxY];
+		for(i = 0; i<maxY;i++) Map.columnName[i] = String.valueOf(i+1);
 		createMonster(name.substring(0, 2) +"-monster.txt");
 		reader.close();
 	}

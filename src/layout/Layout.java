@@ -17,6 +17,7 @@ public class Layout extends JFrame {
 	private Map map;
 	private JLabel hpLabel;
 	private JLabel mpLabel;
+	private JLabel pLabel;
 	
 	public JLabel getHpLabel() {
 		return hpLabel;
@@ -26,12 +27,17 @@ public class Layout extends JFrame {
 		return mpLabel;
 	}
 
+	public JLabel getpLabel() {
+		return pLabel;
+	}
+
 	public Layout() throws IOException {
 		this.controls = new Container();
 		this.map = new Map("M1.txt"); //khoi tao map
 		this.player = new Player("Kien", 1000, 500, new Position(4, 0));
 		hpLabel = new JLabel(String.valueOf(this.getPlayer().getHp()));
 		mpLabel = new JLabel(String.valueOf(this.getPlayer().getMp()));
+		pLabel = new JLabel(String.valueOf(this.getPlayer().getPoint()));
 	}
 
 	
@@ -73,14 +79,17 @@ public class Layout extends JFrame {
 		controls.add(label1);
 		controls.add(hpLabel);
 		controls.add(mpLabel);
+		controls.add(pLabel);
 
 		label1.setBounds(50, 80, 30, 30);
 		label1.setSize(150, 100);
 		
 		hpLabel.setBounds(250,80, 30, 30);
-		hpLabel.setSize(50, 100);
+		hpLabel.setSize(70, 100);
 		mpLabel.setBounds(250,100, 30, 30);
-		mpLabel.setSize(50, 100);
+		mpLabel.setSize(70, 100);
+		pLabel.setBounds(300, 80, 30, 30);
+		pLabel.setSize(50, 50);
 		Insets insets = pane.getInsets();
 
 		// Add map vao layout

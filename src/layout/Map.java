@@ -1,5 +1,6 @@
 package layout;
 import character.Monster;
+import character.move.Coordinate;
 import character.move.Moving;
 import character.move.Position;
 
@@ -81,7 +82,28 @@ public class Map {
 		for(int i=0;i<num;i++){
 			x = Integer.parseInt(wordsMonster[i][2]);
 			y = Integer.parseInt(wordsMonster[i][3]);
-			monster	= new Monster(wordsMonster[i][0], Integer.parseInt(wordsMonster[i][1]), new Position(x, y), Moving.right, Integer.parseInt(wordsMonster[i][5]));
+			int move = Integer.parseInt(wordsMonster[i][4]);
+			Coordinate moving;
+			switch (move){
+				case 0:
+					moving = Moving.up;
+					break;
+				case 1:
+					moving = Moving.down;
+					break;
+				case 2:
+					moving = Moving.left;
+					break;
+				case 3:
+					moving = Moving.right;
+					break;
+				case 4:
+					moving = Moving.chase;
+					break;
+				default:
+					moving = Moving.left;
+			}
+			monster	= new Monster(wordsMonster[i][0], Integer.parseInt(wordsMonster[i][1]), new Position(x, y), moving, Integer.parseInt(wordsMonster[i][5]));
 			addMonster(monster);
 		}
 		

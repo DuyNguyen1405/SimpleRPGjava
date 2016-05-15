@@ -28,7 +28,7 @@ public class Monster extends Character{
         while (this.isAlive){
             try {
                 Thread.sleep(this.speed);
-                if (move(coo)) {
+                if (move(coo) >= 0) {
                     //continue;
                 } else {
                     if (coo == Moving.right) {

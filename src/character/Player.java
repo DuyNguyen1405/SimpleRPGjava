@@ -18,6 +18,7 @@ import java.util.TimerTask;
 
 public class Player extends Character{
 	private Skill[] skills;
+	private int point;
 
 	public Player(String name, int hp, int mp, Position position){
 		super(name, hp, mp, position);
@@ -28,12 +29,23 @@ public class Player extends Character{
 		skills[2] = new Fire("Lazer Fire", 50, 500, Moving.right);
 	}
 
+	public int getPoint() {
+		return point;
+	}
+
+	public void incPoint(int point){
+		this.point += point;
+	}
+
 	private void update(){
 		JLabel hpLabel = (JLabel) Game.get("hplabel");
-		hpLabel.setText(String.valueOf(this.hp));
+		hpLabel.setText("HP: " + String.valueOf(this.hp));
 
 		JLabel mpLabel = (JLabel) Game.get("mplabel");
 		mpLabel.setText(String.valueOf(this.mp));
+
+		JLabel pLabel = (JLabel) Game.get("plabel");
+		pLabel.setText(String.valueOf(this.point));
 	}
 
 	private void updateInterval(){
@@ -56,38 +68,54 @@ public class Player extends Character{
 		}
 	}
 
+
+
 	public void run(){
 		KeyListener playerCommand = new KeyListener() {
 			public void keyTyped(KeyEvent keyEvent) {}
 
 			public void keyPressed(KeyEvent keyEvent) {
 				int keyCode = keyEvent.getKeyCode();
+				int point = 0;
 				try {
 					switch (keyCode){
 						case KeyEvent.VK_UP:
 							try {
-								move(Moving.up);
+								point = move(Moving.up);
+								if (point >  0){
+									incPoint(point);
+									System.out.println("Got a point");
+								}
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
 							break;
 						case KeyEvent.VK_DOWN:
 							try {
-								move(Moving.down);
+								point = move(Moving.down);
+								if (point >  0){
+									incPoint(point);
+								}
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
 							break;
 						case KeyEvent.VK_LEFT:
 							try {
-								move(Moving.left);
+								point = move(Moving.left);
+								if (point >  0){
+									incPoint(point);
+								}
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
 							break;
 						case KeyEvent.VK_RIGHT :
 							try {
-								move(Moving.right);
+								point = move(Moving.right);
+								if (point >  0){
+									incPoint(point);
+								}
 							} catch (IOException e) {
 								e.printStackTrace();
 							}

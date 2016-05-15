@@ -37,9 +37,10 @@ public class Controller {
 		this.position = position;
 	}
 
-	public boolean move(Coordinate coordinate, String symbol) throws AttackException, IOException{
+	public int move(Coordinate coordinate, String symbol) throws AttackException, IOException{
 		Coordinate curr = new Coordinate(this.position.getX(), this.position.getY());
 		Coordinate newPos = curr.move(coordinate);
+		int point = 0;
 
 		if (checkInMap(newPos)) {
 			if (this.layout.getCharacterAt(newPos) != null){
@@ -55,6 +56,10 @@ public class Controller {
 				endMap();
 			}
 
+			if ((!currValue.isEmpty()) && (currValue.equals("."))) {
+				point = 1;
+			}
+
 			// Set lai x, y
 			this.position.setX(this.position.getX() + coordinate.getX());
 			this.position.setY(this.position.getY() + coordinate.getY());
@@ -64,11 +69,10 @@ public class Controller {
 
 			// Set gia tri moi o table tai vi tri Player
 			layout.getMap().getTable().setValueAt(symbol, this.position.getX(), this.position.getY());
-			
-			
-			return true;
+
+			return point;
 		}
-		return false;
+		return -1;
 	}
 
 	private boolean checkInMap(Coordinate coo){
@@ -98,20 +102,23 @@ public class Controller {
 	}
 
 	public void endMap() throws IOException{
+		Player player = (Player) Game.get("player");
 		Object[] options = { "Choi lai", "Thoat" };
-	      int iLuaChon = JOptionPane.showOptionDialog(null, "So diem cua ban: "
+	      int iLuaChon = JOptionPane.showOptionDialog(null, "So diem cua ban: " + player.getPoint()
 
 	      		+ "\nHay chon 1 trong 2 lua chon sau", null, JOptionPane.DEFAULT_OPTION, 
 	    		  JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 	      if (iLuaChon == 0) {
-	    	  this.position.setY(0);
-	    	  loadNewMap("M1.txt");
-	    	  this.position.setX(this.layout.getMap().getMaxX()-1);
-	    	  this.layout.getPlayer().setHp(1000);
-	    	  this.layout.getPlayer().setMp(400);
-	    	  this.layout.getMap().getTable().setValueAt("0", this.position.getX(), 0);
-	    	  this.layout.getHpLabel().setText("HP: " + 1000);
-	    	  this.layout.getMpLabel().setText("MP: " + 400);
+//	    	  this.position.setY(0);
+//	    	  loadNewMap("M1.txt");
+//	    	  this.position.setX(this.layout.getMap().getMaxX()-1);
+//	    	  this.layout.getPlayer().setHp(1000);
+//	    	  this.layout.getPlayer().setMp(400);
+//	    	  this.layout.getMap().getTable().setValueAt("0", this.position.getX(), 0);
+//	    	  this.layout.getHpLabel().setText("HP: " + 1000);
+//	    	  this.layout.getMpLabel().setText("MP: " + 400);
+			  Game.init();
+			  Game.start();
 	      }
 	      else layout.dispose();
 		//Todo khoa ca ban phim khong cho di chuyen

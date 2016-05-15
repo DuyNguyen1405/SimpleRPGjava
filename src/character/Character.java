@@ -71,7 +71,7 @@ public abstract class Character implements Runnable{
         return controller;
     }
 
-    public boolean move(Coordinate coordinate) throws IOException, AttackException {
+    public int move(Coordinate coordinate) throws IOException, AttackException {
         return this.controller.move(coordinate, this.symbol);
     }
 

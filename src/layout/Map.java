@@ -17,11 +17,29 @@ public class Map {
 	private static int maxY;
 	private static boolean isTableExist = false;
 	private String[][] words;
+	private String[][] wordsMonster;
+	private int num;
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
 	private static Object columnName[];
 	private ArrayList monsters;
 
 	public Object[] getColumnName() {
 		return columnName;
+	}
+
+	public String[][] getWordsMonster() {
+		return wordsMonster;
+	}
+
+	public void setWordsMonster(String[][] wordsMonster) {
+		this.wordsMonster = wordsMonster;
 	}
 
 	public void setColumnName(int i, String s) {
@@ -57,13 +75,19 @@ public class Map {
 		create(name);
 		draw();
 		this.monsters = new ArrayList();
-
+		int x, y;
+		
 		Monster monster;
-		monster	= new Monster("Voidermort", 500, new Position(3, 0), Moving.right, 1000);
-		addMonster(monster);
+		for(int i=0;i<num;i++){
+			x = Integer.parseInt(wordsMonster[i][2]);
+			y = Integer.parseInt(wordsMonster[i][3]);
+			monster	= new Monster(wordsMonster[i][0], Integer.parseInt(wordsMonster[i][1]), new Position(x, y), Moving.right, Integer.parseInt(wordsMonster[i][5]));
+			addMonster(monster);
+		}
+		
 
-		monster = new Monster("Dracula", 500, new Position(2, 2), Moving.down, 1000);
-		addMonster(monster);
+//		monster = new Monster(wordsMonster[1][0], 500, new Position(2, 2), Moving.down, 1000);
+//		addMonster(monster);
 	}
 
 	public String[][] getWords() {
@@ -116,7 +140,34 @@ public class Map {
 				line = reader.readLine();
 			}
 	}while(line != null);
+		createMonster(name.substring(0, 2) +"-monster.txt");
+		reader.close();
+	}
+	
+	public void createMonster(String name) throws IOException{
+		FileReader file = new FileReader(name);
+		reader = new BufferedReader(file);
+		String line = reader.readLine();
+		String[] arr = null;
+		arr = line.split(" ");
+		int num = Integer.parseInt(arr[0]);
+		setNum(num);
+		int i=0,j=0;
+		wordsMonster = new String[num][6];
+		line = reader.readLine();
 		
+		do{
+			for(i=0;i<num;i++){
+				if(line != null) arr = line.split(" ");
+				for(j=0;j<6;j++){
+					wordsMonster[i][j] = arr[j];
+					//System.out.print(arr[j]);
+				}
+				line = reader.readLine();
+			}
+			
+	}while(line != null);
+		//System.out.println(wordsMonster[1][0]);
 		reader.close();
 	}
 

@@ -34,10 +34,10 @@ public class Layout extends JFrame {
 	public Layout() throws IOException {
 		this.controls = new Container();
 		this.map = new Map("M1.txt"); //khoi tao map
-		this.player = new Player("Kien", 1000, 500, new Position(4, 0));
-		hpLabel = new JLabel(String.valueOf(this.getPlayer().getHp()));
-		mpLabel = new JLabel(String.valueOf(this.getPlayer().getMp()));
-		pLabel = new JLabel(String.valueOf(this.getPlayer().getPoint()));
+		this.player = new Player("Kien", 1000, 500, new Position(4, 4));
+		hpLabel = new JLabel("HP: " +this.getPlayer().getHp());
+		mpLabel = new JLabel("MP: " +this.getPlayer().getMp());
+		pLabel = new JLabel("Point: " +this.getPlayer().getPoint());
 	}
 
 	
@@ -81,15 +81,15 @@ public class Layout extends JFrame {
 		controls.add(mpLabel);
 		controls.add(pLabel);
 
-		label1.setBounds(50, 80, 30, 30);
-		label1.setSize(150, 100);
+		label1.setBounds(50, 120, 20, 20);
+		label1.setSize(150, 20);
 		
-		hpLabel.setBounds(250,80, 30, 30);
-		hpLabel.setSize(70, 100);
-		mpLabel.setBounds(250,100, 30, 30);
-		mpLabel.setSize(70, 100);
-		pLabel.setBounds(300, 80, 30, 30);
-		pLabel.setSize(50, 50);
+		hpLabel.setBounds(250,120, 20, 20);
+		hpLabel.setSize(70, 20);
+		mpLabel.setBounds(250,140, 20, 20);
+		mpLabel.setSize(70, 20);
+		pLabel.setBounds(330, 120,20, 20);
+		pLabel.setSize(70, 20);
 		Insets insets = pane.getInsets();
 
 		// Add map vao layout

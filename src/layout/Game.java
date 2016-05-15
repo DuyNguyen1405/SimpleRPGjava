@@ -59,12 +59,12 @@ public final class Game {
                         + "\nHay chon 1 trong 2 lua chon sau", null, JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
         if (iLuaChon == 0) {
-//	    	  this.position.setY(0);
+//        	this.position.setY(4);
 //	    	  loadNewMap("M1.txt");
-//	    	  this.position.setX(this.layout.getMap().getMaxX()-1);
+//	    	  this.position.setX(3);
 //	    	  this.layout.getPlayer().setHp(1000);
 //	    	  this.layout.getPlayer().setMp(400);
-//	    	  this.layout.getMap().getTable().setValueAt("0", this.position.getX(), 0);
+//	    	  this.layout.getMap().getTable().setValueAt("0", 4, 4);
 //	    	  this.layout.getHpLabel().setText("HP: " + 1000);
 //	    	  this.layout.getMpLabel().setText("MP: " + 400);
             Game.init();

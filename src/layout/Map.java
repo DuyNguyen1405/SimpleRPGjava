@@ -75,9 +75,13 @@ public class Map {
 		this.table = new JTable();
 		create(name);
 		draw();
-		this.monsters = new ArrayList();
+
+//		monster = new Monster(wordsMonster[1][0], 500, new Position(2, 2), Moving.down, 1000);
+//		addMonster(monster);
+	}
+	public void addMonsterToMap(){
 		int x, y;
-		
+		this.monsters = new ArrayList();
 		Monster monster;
 		for(int i=0;i<num;i++){
 			x = Integer.parseInt(wordsMonster[i][2]);
@@ -106,12 +110,7 @@ public class Map {
 			monster	= new Monster(wordsMonster[i][0], Integer.parseInt(wordsMonster[i][1]), new Position(x, y), moving, Integer.parseInt(wordsMonster[i][5]));
 			addMonster(monster);
 		}
-		
-
-//		monster = new Monster(wordsMonster[1][0], 500, new Position(2, 2), Moving.down, 1000);
-//		addMonster(monster);
 	}
-
 	public String[][] getWords() {
 				return words;
 			}
@@ -178,7 +177,7 @@ public class Map {
 			}
 			
 	}while(line != null);
-		//System.out.println(wordsMonster[1][0]);
+		addMonsterToMap();
 		reader.close();
 	}
 
@@ -208,6 +207,14 @@ public class Map {
 		}
 	}
 
+	
+	public void removeAllMonster(){
+		for (int i = 0; i < monsters.size(); i++){
+			Monster monster = (Monster) monsters.get(i);
+			removeMonster(monster);
+		}
+		
+	}
 	public Object getValueAt(int x, int y){
 		return this.words[x][y];
 	}

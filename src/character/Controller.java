@@ -98,7 +98,8 @@ public class Controller {
 		this.layout.getMap().getTable().setModel(new DefaultTableModel(null, this.layout.getMap().getColumnName()));
 		this.layout.getMap().create(name);
 		this.layout.getMap().draw();
-
+		this.layout.getMap().removeAllMonster();
+		this.layout.getMap().activateMonster();
 	}
 
 	public void endMap() throws IOException{

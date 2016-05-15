@@ -42,10 +42,10 @@ public class Player extends Character{
 		hpLabel.setText("HP: " + String.valueOf(this.hp));
 
 		JLabel mpLabel = (JLabel) Game.get("mplabel");
-		mpLabel.setText(String.valueOf(this.mp));
+		mpLabel.setText("MP: " + String.valueOf(this.mp));
 
 		JLabel pLabel = (JLabel) Game.get("plabel");
-		pLabel.setText(String.valueOf(this.point));
+		pLabel.setText("Point: " +String.valueOf(this.point));
 	}
 
 	private void updateInterval(){

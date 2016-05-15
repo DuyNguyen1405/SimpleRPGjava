@@ -59,10 +59,10 @@ public class Map {
 		this.monsters = new ArrayList();
 
 		Monster monster;
-		monster	= new Monster("Voidermort", 500, new Position(3, 0), Moving.right);
+		monster	= new Monster("Voidermort", 500, new Position(3, 0), Moving.right, 1000);
 		addMonster(monster);
 
-		monster = new Monster("Dracula", 500, new Position(2, 2), Moving.down);
+		monster = new Monster("Dracula", 500, new Position(2, 2), Moving.down, 1000);
 		addMonster(monster);
 	}
 

@@ -14,10 +14,12 @@ import java.io.IOException;
  */
 public class Monster extends Character{
     private Coordinate coo;
+    private int speed;
 
-    public Monster (String name, int hp, Position position, Coordinate coo){
+    public Monster (String name, int hp, Position position, Coordinate coo, int speed){
         super(name, hp, 0, position);
-        this.symbol = "XXX";
+        this.speed = speed;
+        this.symbol = "X";
         this.coo = coo;
     }
 
@@ -25,7 +27,7 @@ public class Monster extends Character{
     public void run() {
         while (this.isAlive){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(this.speed);
                 if (move(coo)) {
                     //continue;
                 } else {

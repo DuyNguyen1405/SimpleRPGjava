@@ -14,7 +14,6 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class Controller {
-	private Layout layout;
 	private Position position;
 	private Thread thread;
 
@@ -22,33 +21,25 @@ public class Controller {
 		this.position = position;
 	}
 
-	public Layout getLayout() {
-		return (Layout) Game.get("layout");
-	}
-
-	public void setLayout(Layout layout) {
-		this.layout = layout;
-	}
-
 	public Position getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position position) {
-		this.position = position;
-	}
+	private Layout getLayout(){return (Layout) Game.get("layout");}
 
 	public int move(Coordinate coordinate, String symbol) throws AttackException, EndGameException, NewMapException, IOException{
+		Layout layout = (Layout) Game.get("layout");
+
 		Coordinate curr = new Coordinate(this.position.getX(), this.position.getY());
 		Coordinate newPos = curr.move(coordinate);
 		int point = 0;
 
 		if (checkInMap(newPos)) {
-			if (this.layout.getCharacterAt(newPos) != null){
-				throw new AttackException(this.getLayout().getCharacterAt(newPos));
+			if (layout.getCharacterAt(newPos) != null){
+				throw new AttackException(layout.getCharacterAt(newPos));
 			}
-			layout.getMap().getTable().setValueAt(this.layout.getMap().getValueAt(this.position.getX(), this.position.getY()), this.position.getX(), this.position.getY());
-			String currValue = (String) this.layout.getMap().getValueAt(newPos.getX(), newPos.getY());
+			layout.getMap().getTable().setValueAt(layout.getMap().getValueAt(this.position.getX(), this.position.getY()), this.position.getX(), this.position.getY());
+			String currValue = (String) layout.getMap().getValueAt(newPos.getX(), newPos.getY());
 			if ((!currValue.isEmpty()) && (currValue.substring(0, 1).equals("M"))) {
 				//loadNewMap(String.format("%s.txt", currValue));
 				throw new NewMapException(currValue+".txt");
@@ -67,7 +58,7 @@ public class Controller {
 			this.position.setY(this.position.getY() + coordinate.getY());
 
 			// Set gia tri moi cua o Player de len
-			this.position.setSymbol((String) this.layout.getMap().getTable().getValueAt(this.position.getX(), this.position.getY()));
+			this.position.setSymbol((String) layout.getMap().getTable().getValueAt(this.position.getX(), this.position.getY()));
 
 			// Set gia tri moi o table tai vi tri Player
 			layout.getMap().getTable().setValueAt(symbol, this.position.getX(), this.position.getY());
@@ -81,7 +72,7 @@ public class Controller {
 		if (coo.getX() < 0) return false;
 		if (coo.getY() < 0) return false;
 
-		JTable table = this.layout.getMap().getTable();
+		JTable table = getLayout().getMap().getTable();
 		int maxX = table.getRowCount();
 		int maxY = table.getColumnCount();
 
@@ -92,7 +83,7 @@ public class Controller {
 	}
 
 	public void draw(String symbol){
-		layout.getMap().getTable().setValueAt(symbol, this.position.getX(), this.position.getY());
+		getLayout().getMap().getTable().setValueAt(symbol, this.position.getX(), this.position.getY());
 	}
 
 	public Thread getThread() {

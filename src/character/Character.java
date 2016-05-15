@@ -35,24 +35,17 @@ public abstract class Character implements Runnable{
 
     public abstract void run();
 
-    public String getName() {
-        return name;
+    public void activate(){
+        draw();
+        this.controller.getThread().start();
     }
 
-    public int getHp() {
-        return hp;
+    public int move(Coordinate coordinate) throws IOException, AttackException, EndGameException, NewMapException {
+        return this.controller.move(coordinate, this.symbol);
     }
 
-    public int getMp() {
-        return mp;
-    }
-
-    public void setMp(int mp) {
-        this.mp = mp;
-    }
-
-    public void setPosition(int x, int y){
-        this.controller.setPosition(x, y);
+    public void draw(){
+        this.controller.draw(this.symbol);
     }
 
     public void gotHit(Character enemy, int damage){
@@ -84,25 +77,25 @@ public abstract class Character implements Runnable{
         System.out.println(this.getName() + " die!");
     }
 
+    public String getName() {
+        return name;
+    }
+    public int getHp() {
+        return hp;
+    }
+    public int getMp() {
+        return mp;
+    }
+    public void setMp(int mp) {
+        this.mp = mp;
+    }
+    public void setPosition(int x, int y){
+        this.controller.setPosition(x, y);
+    }
     public Controller getController() {
         return controller;
     }
-
-    public int move(Coordinate coordinate) throws IOException, AttackException, EndGameException, NewMapException {
-        return this.controller.move(coordinate, this.symbol);
-    }
-
-    public void draw(){
-        this.controller.draw(this.symbol);
-    }
-
     public Thread getThread(){
         return this.controller.getThread();
-    }
-
-    public void activate(){
-        this.controller.setLayout((Layout) Game.get("layout"));
-        draw();
-        this.controller.getThread().start();
     }
 }

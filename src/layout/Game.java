@@ -13,6 +13,27 @@ public final class Game {
     private static Layout layout;
     public static boolean over;
 
+    public static Object get(String resourceName){
+        switch (resourceName){
+            case "layout":
+                return layout;
+            case "map":
+                return layout.getMap();
+            case "player":
+                return layout.getPlayer();
+            case "monsters":
+                return layout.getMap().getMonsters();
+            case "hplabel":
+                return layout.getHpLabel();
+            case "mplabel":
+                return layout.getMpLabel();
+            case "plabel":
+                return layout.getpLabel();
+            default:
+                return new Object();
+        }
+    }
+
     public static void init() {
         try {
             layout = new Layout();
@@ -42,27 +63,6 @@ public final class Game {
         layout.getPlayer().die();
         layout.setPlayer(new Player("Kien", 1000, 500, new Position(layout.getMap().getMaxX() - 1, layout.getMap().getMaxY() - 1)));
         layout.getPlayer().activate();
-    }
-
-    public static Object get(String resourceName){
-        switch (resourceName){
-            case "layout":
-                return layout;
-            case "map":
-                return layout.getMap();
-            case "player":
-                return layout.getPlayer();
-            case "monsters":
-                return layout.getMap().getMonsters();
-            case "hplabel":
-                return layout.getHpLabel();
-            case "mplabel":
-                return layout.getMpLabel();
-            case "plabel":
-                return layout.getpLabel();
-            default:
-                return new Object();
-        }
     }
 
     public static void end(){

@@ -6,8 +6,6 @@ import character.move.Position;
 import exception.AttackException;
 import exception.EndGameException;
 import exception.NewMapException;
-import layout.Game;
-import layout.Map;
 
 import java.io.IOException;
 
@@ -71,11 +69,6 @@ public class Monster extends Character{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        if (! this.isAlive) {
-            Map map = (Map) Game.get("map");
-            map.removeMonster(this);
         }
     }
 }

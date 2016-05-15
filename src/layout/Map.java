@@ -16,15 +16,11 @@ import java.util.ArrayList;
 public class Map {
 	private JTable table;
 	private static BufferedReader reader;
-	private static int maxX; // chi so cot 1 -> maxX
+	private static int maxX;
 	private static int maxY;
-	private static boolean isTableExist = false;
 	private String[][] words;
 	private String[][] wordsMonster;
 	private int num;
-	public int getNum() {
-		return num;
-	}
 
 	public void setNum(int num) {
 		this.num = num;

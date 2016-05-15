@@ -177,9 +177,5 @@ public class Player extends Character{
 		layout.setPlayerCommand(key);
 		layout.addKeyListener(layout.getPlayerCommand());
 		layout.setFocusable(true);
-
-//		if (isAlive){
-//			updateInterval();
-//		}
 	}
 }
